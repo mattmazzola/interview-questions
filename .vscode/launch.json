@@ -1,0 +1,70 @@
+{
+    // Use IntelliSense to learn about possible Node.js debug attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        // {
+        //     "type": "node",
+        //     "request": "launch",
+        //     "envFile": "${workspaceRoot}/.env",
+        //     "name": "Launch Program",
+        //     "program": "${workspaceRoot}\\dist\\index.js",
+        //     "preLaunchTask": "build",
+        //     "sourceMaps": true,
+        //     "console": "internalConsole",
+        //     "outFiles": [
+        //         "${workspaceRoot}/dist/**/*"
+        //     ]
+        // },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Jest Tests",
+            "program": "${workspaceRoot}\\node_modules\\jest\\bin\\jest.js",
+            "args": [
+                "-i"
+            ],
+            "preLaunchTask": "build",
+            "internalConsoleOptions": "openOnSessionStart",
+            "outFiles": [
+                "${workspaceRoot}/dist/**/*"
+            ],
+            "envFile": "${workspaceRoot}/.env"
+        },
+        // {
+        //     "type": "node",
+        //     "request": "launch",
+        //     "name": "Launch Program",
+        //     "program": "${workspaceRoot}\\dist\\pluralsight\\pimatch.test.js",
+        //     "preLaunchTask": "build",
+        //     "sourceMaps": true,
+        //     "internalConsoleOptions": "openOnFirstSessionStart",
+        //     "outFiles": [
+        //         "${workspaceRoot}/dist/**/*"
+        //     ]
+        // },
+        // {
+        //     "type": "node",
+        //     "request": "launch",
+        //     "name": "Launch via NPM",
+        //     "runtimeExecutable": "npm",
+        //     "windows": {
+        //         "runtimeExecutable": "npm.cmd"
+        //     },
+        //     "runtimeArgs": [
+        //         "run-script",
+        //         "debug"
+        //     ],
+        //     "port": 5858
+        // },
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "Attach to Port",
+            "address": "localhost",
+            "port": 5858,
+            "outFiles": []
+        }
+    ]
+}

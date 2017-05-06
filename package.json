@@ -1,0 +1,43 @@
+{
+  "name": "interview-questions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "tsc": "tsc",
+    "test": "jest",
+    "debug": "node --debug-brk --inspect ./node_modules/jest/bin/jest -i"
+  },
+  "keywords": [
+    "interview",
+    "questions",
+    "algorithms",
+    "design",
+    "patterns"
+  ],
+  "author": "Matt Mazzola",
+  "license": "MIT",
+  "dependencies": {
+    "typescript": "^2.3.2"
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@types/jest": "^19.2.3",
+    "@types/node": "^7.0.18",
+    "jest": "^19.0.2",
+    "ts-jest": "^19.0.14"
+  },
+  "jest": {
+    "testMatch": ["**/dist/**/?(*.)(spec|test).js?(x)"],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json"
+    ]
+  }
+}
