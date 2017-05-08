@@ -14,7 +14,7 @@ export const findCycleNode = <T>(head: INode<T>): INode<T> | undefined => {
     let node = head;
     while (node.next != null) {
         if (previousNodes.indexOf(node.next) !== -1) {
-            return node
+            return node.next
         }
 
         previousNodes.push(node)
@@ -22,4 +22,41 @@ export const findCycleNode = <T>(head: INode<T>): INode<T> | undefined => {
     }
 
     return undefined;
+}
+
+export const findCycleNodeConstantSpace = <T>(head: INode<T>): INode<T> | null => {
+    // If the head, or next two nodes are end of list return null to indicate no cycles
+    if (!(head && head.next && head.next.next)) {
+        return null
+    }
+
+    let slowNode = head.next
+    let fastNode = head && head.next && head.next.next
+
+    // Increment pointers until they meet
+    while (true) {
+        // if either of the pointers will reach end of list, return null to indicate no cycle
+        if (!(slowNode.next && fastNode.next && fastNode.next.next)) {
+            return null
+        }
+
+        if (slowNode === fastNode) {
+            break
+        }
+
+        slowNode = slowNode.next
+        fastNode = fastNode.next.next
+    }
+
+    // Reset slow node to beginning
+    slowNode = head
+    while(slowNode !== fastNode
+        && slowNode.next != null
+        && fastNode.next != null
+    ) {
+        slowNode = slowNode.next
+        fastNode = fastNode.next
+    }
+
+    return slowNode
 }

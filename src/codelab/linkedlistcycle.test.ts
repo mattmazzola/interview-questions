@@ -1,4 +1,4 @@
-import { INode, findCycleNode } from './linkedlistcycle'
+import { INode, findCycleNode, findCycleNodeConstantSpace } from './linkedlistcycle'
 
 const linkedListWithoutCycle: INode<number> = {
     value: 1,
@@ -42,6 +42,12 @@ describe('findCycleNode', () => {
     })
 
     test('given linked list with cycle to return node which starts cycle', () => {
-        expect(findCycleNode(linkedListWithCycle)).toBe(node5)
+        expect(findCycleNode(linkedListWithCycle)).toBe(node3)
+    })
+})
+
+describe('findCycleNodeConstantSpace', () => {
+    test('given linked list with cycle, return node which starts cycle', () => {
+        expect(findCycleNodeConstantSpace(linkedListWithCycle)).toBe(node3)
     })
 })
