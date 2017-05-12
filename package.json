@@ -20,7 +20,6 @@
   "author": "Matt Mazzola",
   "license": "MIT",
   "dependencies": {
-    "typescript": "^2.3.2"
   },
   "files": [
     "dist"
@@ -29,7 +28,8 @@
     "@types/jest": "^19.2.3",
     "@types/node": "^7.0.18",
     "jest": "^19.0.2",
-    "ts-jest": "^19.0.14"
+    "ts-jest": "^19.0.14",
+    "typescript": "^2.3.2"
   },
   "jest": {
     "testMatch": ["**/dist/**/?(*.)(spec|test).js?(x)"],
