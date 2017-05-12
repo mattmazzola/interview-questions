@@ -7,6 +7,7 @@
   "scripts": {
     "build": "tsc",
     "tsc": "tsc",
+    "pretest": "tsc",
     "test": "jest",
     "debug": "node --debug-brk --inspect ./node_modules/jest/bin/jest -i"
   },
