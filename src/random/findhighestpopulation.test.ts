@@ -38,7 +38,7 @@ describe('findYearWithHighestPopulation', () => {
             }
         ]
 
-        const expected = 2004
+        const expected = 2003
 
         // Act
         const actual = findYearWithHighestPopulation(people)
