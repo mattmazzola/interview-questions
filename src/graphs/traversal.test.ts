@@ -1,74 +1,80 @@
-import { INode, depthFirstTraveral, depthFirstTraveralIterative, breadthFirstTraversal } from './traversal'
+import { breadthFirstSearch, depthFirstSearch, dfs, INode } from './traversal'
 
-const root: INode<number> = {
-    value: 1,
-    nodes: [
-        {
-            value: 2,
-            nodes: [
-                {
-                    value: 3,
-                    nodes: []
-                },
-                {
-                    value: 4,
-                    nodes: []
-                }
-            ]
-        },
-        {
-            value: 5,
-            nodes: [
-                {
-                    value: 6,
-                    nodes: [
-                        {
-                            value: 7,
-                            nodes: []
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
-}
+describe('graph traversal', () => {
+    const node33: INode<number> = {
+        value: 33,
+        nodes: []
+    }
 
-const expectedDepthFirstValues = [1,2,3,4,5,6,7]
-const expectedBreadthFirstValues = [1,2,5,3,4,6,7]
+    const node12: INode<number> = {
+        value: 12,
+        nodes: [
+            node33
+        ]
+    }
 
-describe('depthFirstTraveral', () => {
+    const input: INode<number> = {
+        value: 1,
+        nodes: [
+            {
+                value: 4,
+                nodes: [
+                    {
+                        value: 15,
+                        nodes: []
+                    },
+                    {
+                        value: 21,
+                        nodes: []
+                    },
+                    node33
+                ]
+            },
+            {
+                value: 3,
+                nodes: [
+                    node12,
+                    {
+                        value: 7,
+                        nodes: [
+                            node12
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
 
-    test('should return order of nodes using depth first', () => {
+    test('BFS graph', () => {
         // Arrange
+        const expected = [1,4,3,15,21,33,12,7]
 
         // Act
-        const depthFirstValues = depthFirstTraveral(root)
+        const actual = breadthFirstSearch(input, x => x)
 
         // Assert
-        expect(depthFirstValues).toEqual(expectedDepthFirstValues)
+        expect(actual).toEqual(expected)
     })
-})
 
-describe('depthFirstTraveralIterative', () => {
-    test('should return order of nodes using depth first', () => {
+    test('DFS graph', () => {
         // Arrange
+        const expected = [1,4,15,21,33,3,12,7]
 
         // Act
-        const depthFirstValues = depthFirstTraveralIterative(root)
+        const actual = depthFirstSearch(input, x => x)
 
         // Assert
-        expect(depthFirstValues).toEqual(expectedDepthFirstValues)
+        expect(actual).toEqual(expected)
     })
-})
 
-describe('breadthFirstTraversal', () => {
-    test('should return order of node value in breadth first order', () => {
+    test('DFS graph recursive', () => {
         // Arrange
+        const expected = [1,4,15,21,33,3,12,7]
 
         // Act
-        const breadthFirstValues = breadthFirstTraversal(root)
+        const actual = dfs(input, x => x)
 
         // Assert
-        expect(breadthFirstValues).toEqual(expectedBreadthFirstValues)
+        expect(actual).toEqual(expected)
     })
 })

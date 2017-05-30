@@ -3,67 +3,60 @@ export interface INode<T> {
     nodes: INode<T>[]
 }
 
-export interface IVisited<T> {
-    item: T
-    visited: boolean
-}
+export const breadthFirstSearch = <T>(root: INode<T>, getUnique: (n: T) => number): T[] => {
+    const values: T[] = []
+    const visited: { [x: number]: boolean } = {}
+    const queue = [root]
 
-class Visited<T> implements IVisited<T> {
-    item: T
-    parent: T
-    visited = false
+    while(queue.length) {
+        const node = queue.shift()!
 
-    constructor(item: T) {
-        this.item = item
+        if (!visited[getUnique(node.value)]) {
+            values.push(node.value)
+            visited[getUnique(node.value)] = true
+
+            queue.push(...node.nodes.filter(n => !visited[getUnique(n.value)]))
+        }
     }
+
+    return values
 }
 
-export const depthFirstTraveral = <T>(root: INode<T>): T[] => {
+export const depthFirstSearch = <T>(root: INode<T>, id: (n: T) => number): T[] => {
+    const values: T[] = []
+    const visited: { [x: number]: boolean } = {}
+    const stack = [root]
+
+    while (stack.length > 0) {
+        const node = stack.pop()!
+
+        if (!visited[id(node.value)]) {
+            values.push(node.value)
+            visited[id(node.value)] = true
+
+            stack.push(...reverse(node.nodes.filter(n => !visited[id(n.value)])))
+        }
+    }
+
+    return values
+}
+
+export const dfs = <T>(root: INode<T>, id: (n: T) => number, visited: { [x: number]: boolean } = {}): T[] => {
+    visited[id(root.value)] = true
+
     if (root.nodes.length === 0) {
         return [root.value]
     }
 
-    return [root.value, ...root.nodes.map(depthFirstTraveral).reduce((a,b) => a.concat(b))]
-}
-
-export const depthFirstTraveralIterative = <T>(root: INode<T>): T[] => {
-    const nodes: IVisited<INode<T>>[] = []
-    const values: T[] = []
-
-    nodes.push(new Visited(root))
-
-    while (nodes.length > 0) {
-        let n1 = nodes.pop()!
-        
-        if (n1.visited == false) {
-            n1.visited = true
-            values.push(n1.item.value)
-            reverse(n1.item.nodes).forEach(n => nodes.push(new Visited(n)))
-        }
-    }
-
-    return values
+    return [
+        root.value,
+        ...root.nodes
+            .filter(n => !visited[id(n.value)])
+            .map(n => dfs(n, id, visited))
+            .reduce((a,b) => a.concat(b), [])
+    ]
 }
 
 const reverse = <T>(xs: T[]): T[] => {
     return [...xs].reverse()
-}
-
-export const breadthFirstTraversal = <T>(root: INode<T>): T[] => {
-    const nodes: IVisited<INode<T>>[] = []
-    const values: T[] = []
-
-    nodes.unshift(new Visited(root))
-
-    while (nodes.length > 0) {
-        let n1 = nodes.pop()!
-        
-        if (n1.visited == false) {
-            n1.visited = true
-            values.push(n1.item.value)
-            n1.item.nodes.forEach(n => nodes.unshift(new Visited(n)))
-        }
-    }
-
-    return values
 }

@@ -1,4 +1,4 @@
-import { INode, depthFirstSearch, depthFirstSearchRecursion, breadFirstSearch } from './newtraversal'
+import { INode, depthFirstSearch, depthFirstSearchRecursion, breadFirstSearch } from './traversal'
 
 describe('tree traversal', () => {
     const input: INode<number> = {
