@@ -26,6 +26,7 @@
                 "-i"
             ],
             "preLaunchTask": "build",
+            "sourceMaps": true,
             "internalConsoleOptions": "openOnSessionStart",
             "outFiles": [
                 "${workspaceRoot}/dist/**/*"
