@@ -43,5 +43,11 @@ describe('geeksforgeeks', () => {
                 expect(arrays.findRotation([4,5,6,7,8,1,2,3])).toBe(5)
             })
         })
+
+        describe('painting the fend', () => {
+            test('given 3 posts and 2 colors the result should be 6', () => {
+                expect(arrays.getWaysOfPaintingFence(3,2)).toBe(6)
+            })
+        })
     })
 })

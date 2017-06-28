@@ -68,3 +68,39 @@ export const binarySearch = (x: number, numbers: number[], minIndex: number = 0,
         return binarySearch(x, numbers, midIndex + 1, maxIndex)
     }
 }
+
+/**
+ * Painting the Fence
+ * http://practice.geeksforgeeks.org/problems/painting-the-fence/0
+ * 
+ * Given a fence with n posts and k colors, find out the number of ways of painting the fence such that at most 2 adjacent posts have the same color. Since answer can be large return it modulo 10^9 + 7.
+ * 
+ * @param n Number of fence posts
+ * @param k Number of colors
+ */
+export const getWaysOfPaintingFence = (n: number, k: number, firstPost: boolean = true): number => {
+    // console.log(`Arguments: n: ${n}, k: ${k}, first: ${firstPost}`)
+
+    if (n <= 0) {
+        // console.log(`Return 0`)
+        return 0
+    }
+
+    const availableColors = firstPost ? k : k - 1
+    if (n === 1) {
+        // console.log(`Return ${availableColors}`)
+        return availableColors
+    }
+
+    let waysOfPaintingRemainderFence = getWaysOfPaintingFence(n - 1, k, false)
+    if (n >= 2) {
+        waysOfPaintingRemainderFence += getWaysOfPaintingFence(n - 2, k, false)
+    }
+
+    // TODO: Why use 'k' here instead of 'availableColors' ?
+    // Because the previous post color could have been anything so thus we're also allows to use any?
+    const totalWays = k * waysOfPaintingRemainderFence
+    // console.log(`Return: ${totalWays} = availableColors: ${k} * waysOfPaintingRemainderFence: ${waysOfPaintingRemainderFence}`)
+
+    return totalWays
+}
