@@ -86,7 +86,7 @@ export class PriorityQueueArray {
             return false
         })
 
-        if (insertionIndex) {
+        if (insertionIndex !== undefined) {
             this.items.splice(insertionIndex, 0, x)
         }
         else {
