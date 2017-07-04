@@ -147,3 +147,181 @@ export const getMinStack = (): IStackWithMin => {
         }
     }
 }
+
+/**
+ * 3.3 Stack of plates
+ */
+export const setOfStacks = () => {
+    const stacks: IStack[] = []
+
+    return {
+        push(x: number) {
+            if (stacks.length === 0) {
+                stacks.push(createFixedStack(5))
+            }
+
+            const stack = stacks[stacks.length - 1]
+
+            try {
+                stack.push(x)
+            }
+            catch (e) {
+                stacks.push(createFixedStack(5))
+                const newStack = stacks[stacks.length - 1]
+                newStack.push(x)
+            }
+        },
+
+        pop() {
+            if (stacks.length === 0) {
+                throw new Error('You attempted to remove element from empty stack')
+            }
+
+            const stack = stacks[stacks.length - 1]
+
+            try {
+                return stack.pop()
+            }
+            catch (e) {
+                stacks.pop()
+                const stack = stacks[stacks.length - 1]
+                return stack.pop()
+            }
+        }
+    }
+}
+
+const createFixedStack = (size: number) => {
+    const array = Array.apply(null, new Array(size))
+    return getArrayStack(array, 0, array.length - 1)
+}
+
+/**
+ * 3.4 Towers of Hanoi
+ */
+export const towersOfHanoi = (disks: number, source: number[], auxiliary: number[], target: number[], print: (x: number) => void) => {
+    // If there are more than 1 disk on A, we need to move largest disk to C
+    // First move all smaller disks to B
+    if (disks > 1) {
+        towersOfHanoi(disks - 1, source, target, auxiliary, print)
+    }
+
+    // Now that the larget disk is the only one left on A, move it on to C which should be empty
+    target.push(source.pop()!)
+
+    print(disks)
+
+    // Now finish by moving all the smaller disks that were on B to C
+    if (disks > 1) {
+        towersOfHanoi(disks - 1, auxiliary, source, target, print)
+    }
+}
+
+/**
+ * 3.5 Implement MyQueue class which implements queue using two stacks
+ */
+export interface IQueue {
+    push(x: number): void
+    pop(): number | undefined
+}
+
+export class MyQueue implements IQueue {
+    private stack1: number[] = []
+    private stack2: number[] = []
+
+    push(x: number) {
+        this.stack1.push(x)
+    }
+
+    pop() {
+        let value = this.stack1.pop()
+        while (value) {
+            this.stack2.push(value)
+            value = this.stack1.pop()
+        }
+
+        const returnValue = this.stack2.pop()
+
+        let value2 = this.stack2.pop()
+        while (value2) {
+            this.stack1.push(value2)
+            value2 = this.stack2.pop()
+        }
+
+        return returnValue
+    }
+}
+
+/**
+ * 3.6 Sort a stack using another stack (ascending)
+ */
+
+/**
+ * 3.7 Dogs and Cats stacks
+ */
+
+export interface IAnimal {
+    name: string
+    type: string
+}
+
+export class Dog implements IAnimal {
+    static Type = 'Dog'
+    name: string
+    type = Dog.Type
+
+    constructor(name: string) {
+        this.name = name
+    }
+
+    static isDog(animal: IAnimal): animal is Dog {
+        return animal.type === Dog.Type
+    }
+}
+
+export class Cat implements IAnimal {
+    static Type = 'Cat'
+    name: string
+    type = Cat.Type
+
+    constructor(name: string) {
+        this.name = name
+    }
+
+    static isCat(animal: IAnimal): animal is Dog {
+        return animal.type === Cat.Type
+    }
+}
+
+export class DogAndCatStack {
+    dogs: Dog[] = []
+    cats: Cat[] = []
+
+    enqueue(animal: IAnimal) {
+        if (Dog.isDog(animal)) {
+            this.dogs.push(animal as Dog)
+        }
+
+        if (Cat.isCat(animal)) {
+            this.cats.push(animal as Cat)
+        }
+    }
+
+    dequeue(): IAnimal | undefined {
+        const oneOrZero = Math.round(Math.random())
+        const animal = oneOrZero ? this.dequeueDog() : this.dequeueCat()
+        if (animal === undefined) {
+            return oneOrZero ? this.dequeueCat() : this.dequeueDog()
+        }
+
+        return animal
+    }
+
+    dequeueDog() {
+        return this.dogs.shift()
+    }
+
+    dequeueCat() {
+        return this.cats.shift()
+    }
+}
