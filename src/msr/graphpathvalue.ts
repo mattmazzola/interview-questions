@@ -43,21 +43,21 @@ export const findPathsWithTotalValueSlower = (root: INode<number>, value: number
 export const findPaths = (root: INode<number>): number[][] => findPathsWithFilter(root, () => true)
 
 export const findPathsWithFilter = (root: INode<number>, filter: (n: INode<number>) => boolean): number[][] => {
-        const paths: number[][] = []
-
     // If leaf node, return single item as path
     if (!root.left && !root.right) {
         return [[root.value]]
     }
 
+    const nodesToSearch: INode<number>[] = []
     if (root.left && filter(root.left)) {
-        findPaths(root.left)
-            .forEach(path => paths.push([root.value, ...path]))
+        nodesToSearch.push(root.left)
     }
     if (root.right && filter(root.right)) {
-        findPaths(root.right)
-            .forEach(path => paths.push([root.value, ...path]))
+        nodesToSearch.push(root.right)
     }
 
-    return paths
+    return nodesToSearch
+        .map(n => findPaths(n)
+            .map(path => [root.value, ...path]))
+        .reduce((a, b) => a.concat(b), [])
 }

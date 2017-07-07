@@ -41,12 +41,12 @@ export const depthFirstSearch = <T>(root: INode<T>, id: (n: T) => number): T[] =
     return values
 }
 
-export const dfs = <T>(root: INode<T>, id: (n: T) => number, visited: { [x: number]: boolean } = {}): T[] => {
-    visited[id(root.value)] = true
-
-    if (root.nodes.length === 0) {
-        return [root.value]
+export const dfs = <T>(root: INode<T>, id: (node: T) => number, visited: { [x: number]: boolean } = {}): T[] => {
+    if (visited[id(root.value)]) {
+        return []
     }
+    
+    visited[id(root.value)] = true
 
     return [
         root.value,
