@@ -1,5 +1,5 @@
 /**
- * 1.1
+ * 1.1 Given string, return true if it has all unique characters
  */
 export const hasAllUnique = (s: string): boolean => {
     if (s.length === 0) {
@@ -22,9 +22,56 @@ export const hasAllUnique = (s: string): boolean => {
 }
 
 /**
- * 1.3
+ * 1.2 Revere a null terminatd string
  */
-export const isPermutation = (a: string, b: string) => {
+export const reverseString = (s: string): string => {
+    // Simulate null terminated string using array
+    const s2: string[] = s.split('')
+    s2.push(null!)
+
+    const nullIndex = s2.length - 1
+
+    for(let i = 0; i < Math.floor(nullIndex / 2); i++) {
+        // Save current character in null index
+        s2[nullIndex] = s2[i]
+        // Move opposing character in current characters position
+        s2[i] = s2[nullIndex - 1 - i]
+        // Move character in null position to opposint characters location
+        s2[nullIndex - 1 - i] = s2[nullIndex]
+    }
+
+    s2[nullIndex] = null!
+
+    return s2.filter(x => x).join('')
+}
+
+/**
+ * 1.1.2 Alternative solution which sorts characters then goes through comparing neighboring characters
+ */
+export const hasAllUniqueWithSort = (s: string): boolean => {
+    if (s.length <= 1) {
+        return true
+    }
+
+    const sortedCharacters = s.split('').sort((a, b) => a.localeCompare(b))
+
+    return !sortedCharacters.some((char, i, cs) => {
+        if (i === cs.length - 1) {
+            return false
+        }
+
+        return (char === cs[i + 1])
+    })
+}
+
+/**
+ * 1.3 Given two strings return true if one is permutation of the other
+ */
+export const isPermutation = (a: string, b: string): boolean => {
+    if (a.length !== b.length) {
+        return false
+    }
+
     const aCharacterCounts = getCharacterCounts(a)
     const bCharacterCounts = getCharacterCounts(b)
     
@@ -47,18 +94,44 @@ const getCharacterCounts = (s: string): { [x: string]: number } => {
 }
 
 /**
+ * 1.3.2 Same as above but sort string then compare characters
+ */
+export const isPermutationWithSort = (a: string, b: string): boolean => {
+    if (a.length !== b.length) {
+        return false
+    }
+
+    const achars = a.split('').sort((ca, cb) => ca.localeCompare(cb))
+    const bchars = b.split('').sort((ca, cb) => ca.localeCompare(cb))
+
+    return !achars.some((char, i) => char !== bchars[i])
+}
+
+/**
+ * 1.4 Replace all spaces in the string with %20
+ */
+// Question intended to be moving characters around within array, using RegExp here isn't safe anyways
+export const replace1 = (s: string, x: string, y: string) => s.replace(new RegExp(x, 'g'), y)
+
+/**
  * 1.5 String compression
  */
-interface ICharCount {
+export interface ICharCount {
     char: string
     count: number
 }
 
-/**
- * 1.5 Compress string
- */
 export const compressString = (s: string): string => {
-    const getInOrderCharacterCounts = s
+    const inOrderCharacterCounts = getInOrderCharacterCounts(s)
+    const compressedString = inOrderCharacterCounts
+        .map(charCount => `${charCount.char}${charCount.count}`)
+        .join('')
+
+    return (compressedString.length < s.length) ? compressedString : s
+}
+
+export const getInOrderCharacterCounts = (s: string): ICharCount[] => {
+    return s
         .split('')
         .reduce((counts: ICharCount[], char): ICharCount[] => {
             // If first character add it
@@ -79,16 +152,13 @@ export const compressString = (s: string): string => {
 
             return counts
         }, [])
-        .reduce((compressedString: string, charCount: ICharCount) => {
-            compressedString += `${charCount.char}${charCount.count}`
-            return compressedString
-        }, '')
-
-    return (getInOrderCharacterCounts.length < s.length) ? getInOrderCharacterCounts : s
 }
 
+/**
+ * 1.6 Given image, rotate it 90 degrees
+ */
 export const rotateMatrix = (matrix: number[][]): number[][] => {
-    const rotatedMatrix: number[][] = Array.apply(null, Array(matrix.length)).map(() => [])
+    const rotatedMatrix: number[][] = Array.from(Array(matrix.length), () => [])
     const maxIndex = matrix.length  - 1
 
     matrix.forEach((row, i) => {
@@ -103,6 +173,9 @@ export const rotateMatrix = (matrix: number[][]): number[][] => {
     return rotatedMatrix
 }
 
+/**
+ * 1.6.2 same as above, but do it in place
+ */
 export const rotateMatrixInPlace = (matrix: number[][]): number[][] => {
     const matrixCopy = matrix.map(x => x.map(y => y))
     const iterations = Math.floor(matrix.length / 2)
@@ -129,33 +202,44 @@ export const rotateMatrixInPlace = (matrix: number[][]): number[][] => {
  * 1.7 If there is 0 in matrix set entire row or column to 0
  */
 export const zeroOutMatrix = (matrix: number[][]): number[][] => {
-    const locationsWithZero: any = []
+    const rows = new Set<number>()
+    const cols = new Set<number>()
 
     matrix.forEach((row, i) => {
         row.forEach((value, j) => {
             if (value === 0) {
-                locationsWithZero.push({ i, j })
+                rows.add(i)
+                cols.add(j)
             }
         })
     })
 
-    const uniques = locationsWithZero.reduce((uniqueSets: any, location: any) => {
-        uniqueSets.rows[location.i] = 1
-        uniqueSets.cols[location.j] = 1
-        return uniqueSets
-    }, { rows: {}, cols: {} })
-
-    Object.keys(uniques.rows).forEach(row => setRowToZero(matrix, parseInt(row)))
-    Object.keys(uniques.cols).forEach(column => setColumnToZero(matrix, parseInt(column)))
+    rows.forEach(row => setRow(matrix, row, 0))
+    cols.forEach(column => setColumn(matrix, column, 0))
 
     return matrix
 }
 
-const setRowToZero = (matrix: number[][], row: number): void => {
+const setRow = (matrix: number[][], row: number, value: number): void => {
     const rowSize = matrix[0].length
-    matrix[row] = Array.apply(null, new Array(rowSize)).map(() => 0)
+    matrix[row] = Array(rowSize).fill(value)
 }
 
-const setColumnToZero = (matrix: number[][], column: number): void => {
-    matrix.forEach(row => row[column] = 0)
+const setColumn = (matrix: number[][], column: number, value: number): void => {
+    matrix.forEach(row => row[column] = value)
 }
+
+/**
+ * 1.8 Given method isSubstring and 2 strings check if one word is rotation of another with only one call to isSubstring
+ */
+export const isRotation = (s1: string, s2: string) => {
+    if (s1.length !== s2.length) {
+        return false
+    }
+
+    const s = s1 + s1
+
+    return isSubstring(s, s2)
+}
+
+export const isSubstring = (s1: string, s2: string) => s1.match(s2) !== null
