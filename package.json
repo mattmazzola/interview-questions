@@ -4,6 +4,9 @@
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">=6.00 <7"
+  },
   "scripts": {
     "build": "tsc",
     "tsc": "tsc",
