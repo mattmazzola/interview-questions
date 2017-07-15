@@ -4,29 +4,55 @@ export interface INode<T> {
 }
 
 /**
- * 2.1
+ * 2.1 Given unsorted linked list remove duplicates
  */
 export const removeDuplicates = <T>(head: INode<T>): INode<T> => {
     if (head === null) {
         return head
     }
 
-    const seenValues: any = {}
-    seenValues[head.value] = 1
+    const seenValues = new Set<T>()
+    seenValues.add(head.value)
     
     let previous = head
     let node = head.next
     while (node !== null) {
         // If current nodes value is already seen, set previous node to next node to remove it
-        if (seenValues[node.value]) {
+        if (seenValues.has(node.value)) {
             previous.next = node.next
             node = node.next!
         }
         else {
-            seenValues[node.value] = 1
+            seenValues.add(node.value)
             previous = node
             node = node.next!
         }
+    }
+
+    return head
+}
+
+/**
+ * 2.1.2 same as above, but can't use temporary buffer (Set)
+ */
+export const removeDuplicates2 = <T>(head: INode<T>): INode<T> => {
+    if (head === null) {
+        return head
+    }
+
+    let current = head
+    while (current.next != null) {
+        let runner = current.next
+        while (runner.next != null) {
+            if (runner.next.value === current.value) {
+                runner.next = runner.next.next
+            }
+            else {
+                runner = runner.next
+            }
+        }
+        
+        current = current.next
     }
 
     return head
@@ -102,6 +128,29 @@ const isKthLastElement = <T>(head: INode<T>, k: number): boolean => {
     }
 
     return count === k - 1 && node.next === null
+}
+
+/**
+ * 2.2.2 use queue to keep list of k elements
+ */
+export const findKthLastElementQueue = <T>(head: INode<T>, k: number): INode<T> | undefined => {
+    const queue: INode<T>[] = []
+
+    let node = head
+    while (node !== null) {
+        // Add node to queue
+        queue.push(node)
+
+        // If addition of node put queue over max length, remove first item to keep it at length k
+        if (queue.length > k) {
+            queue.shift()
+        }
+
+        node = node.next!
+    }
+
+
+    return (queue.length < k) ? undefined : queue[0]
 }
 
 /**

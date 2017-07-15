@@ -6,14 +6,18 @@ describe('Cracking The Coding Interview', () => {
             test('given linked list with duplicate values, remove the duplicates', () => {
                 // Arrange
                 const head = LinkedList.from([1,1,2,3,4,4,1,5,6,7,10])
+                const head2 = LinkedList.from([1,1,2,3,4,4,1,5,6,7,10])
                 const expectedValues = [1,2,3,4,5,6,7,10]
 
                 // Act
                 const newList = LinkedList.removeDuplicates(head)
+                const newList2 = LinkedList.removeDuplicates(head2)
                 const actualValues = LinkedList.getValues(newList)
+                const actualValues2 = LinkedList.getValues(newList2)
 
                 // Assert
                 expect(actualValues).toEqual(expectedValues)
+                expect(actualValues2).toEqual(expectedValues)
             })
         })
 
@@ -24,9 +28,11 @@ describe('Cracking The Coding Interview', () => {
                 
                 // Act
                 const kthElement = LinkedList.findKthLastElement(list, 3)
+                const kthElement2 = LinkedList.findKthLastElementQueue(list, 3)
 
                 // Assert
                 expect(kthElement!.value).toEqual(12)
+                expect(kthElement2!.value).toEqual(12)
             })
 
             test('given list shorter than k, return undefined', () => {
@@ -35,9 +41,11 @@ describe('Cracking The Coding Interview', () => {
                 
                 // Act
                 const kthElement = LinkedList.findKthLastElement(list, 6)
+                const kthElement2 = LinkedList.findKthLastElementQueue(list, 6)
 
                 // Assert
                 expect(kthElement).toBeUndefined()
+                expect(kthElement2).toBeUndefined()
             })
         })
 
@@ -56,6 +64,22 @@ describe('Cracking The Coding Interview', () => {
 
                 // Assert
                 expect(LinkedList.getValues(list)).toEqual([1,2,3,4,5,7,8,9])
+            })
+
+            test('given last node should return same list since it cant remove it', () => {
+                // Arrange
+                const list = LinkedList.from([1,2,3,4,5,6,7,8,9])
+
+                let node = list
+                while(node.next != null) {
+                    node = node.next!
+                }
+
+                // Act
+                const newList = LinkedList.removeNode(node)
+
+                // Assert
+                expect(LinkedList.getValues(list)).toEqual([1,2,3,4,5,6,7,8,9])
             })
         })
 
@@ -86,7 +110,6 @@ describe('Cracking The Coding Interview', () => {
                 // +617
                 // 4938
                 expect(LinkedList.getValues(list3)).toEqual([8,3,9,4])
-                
             })
 
             test('should convert linked list to number', () => {
