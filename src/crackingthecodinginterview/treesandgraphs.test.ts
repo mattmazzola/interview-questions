@@ -102,23 +102,23 @@ describe('Cracking The Coding Interview', () => {
 
         describe('Rabbit hole into Breadth-First-Traversal again :(', () => {
             test('bfs should return values in correct order', () => {
-                expect(TreesAndGraphs.bft(graph, x => x)).toEqual([1,2,3,4,5,6,7])
+                expect(TreesAndGraphs.bft(graph)).toEqual([1,2,3,4,5,6,7])
             })
         })
 
         describe('4.2 is there path between two nodes in directed graph', () => {
             test('given graph with path between two nodes should return true', () => {
-                expect(TreesAndGraphs.isPath(graph, randomNode, x => x)).toBe(true)
+                expect(TreesAndGraphs.isPath(graph, randomNode)).toBe(true)
             })
 
             test('given graph without path between two nodes return false', () => {
-                expect(TreesAndGraphs.isPath(graph.nodes[1], randomNode, x => x)).toBe(false)
+                expect(TreesAndGraphs.isPath(graph.nodes[1], randomNode)).toBe(false)
             })
         })
 
         describe('Rabbit hole into Depth-First-Traversal again :(', () => {
             test('given graph should return results in correct order', () => {
-                expect(TreesAndGraphs.dft(graph, x => x)).toEqual([1,2,4,5,3,6,7])
+                expect(TreesAndGraphs.dft(graph)).toEqual([1,2,4,5,3,6,7])
             })
         })
 
@@ -240,6 +240,26 @@ describe('Cracking The Coding Interview', () => {
                     value: 4,
                     left: {
                         value: 2,
+                        left: null,
+                        right: null
+                    },
+                    right: {
+                        value: 6,
+                        left: null,
+                        right: null
+                    }
+                }
+
+                // Act/Assert
+                expect(TreesAndGraphs.isBinaryTreeBinarySearchTree(tree)).toBe(true)
+            })
+
+            test('given binary search tree with duplicate values return true', () => {
+                // Arrange
+                const tree: TreesAndGraphs.IBinaryNode<number> = {
+                    value: 4,
+                    left: {
+                        value: 4,
                         left: null,
                         right: null
                     },

@@ -52,9 +52,9 @@ export interface INode<T> {
     nodes: INode<T>[]
 }
 
-export const bft = <T>(root: INode<T>, getUnique: (node: T) => number): T[] => {
+export const bft = <T>(root: INode<T>): T[] => {
     const queue: INode<T>[] = []
-    const visited: { [x: number]: boolean } = {}
+    const visited = new Set<INode<T>>()
     const nodes: INode<T>[] = []
 
     queue.push(root)
@@ -63,56 +63,56 @@ export const bft = <T>(root: INode<T>, getUnique: (node: T) => number): T[] => {
         // Get next node to process from queue
         const node = queue.shift()!
 
-        if (!visited[getUnique(node.value)]) {
+        if (!visited.has(node)) {
             // Add node to list
             nodes.push(node)
 
             // Mark node as visited to prevent processing it in future
-            visited[getUnique(node.value)] = true
+            visited.add(node)
 
             // Get alls nodes that have not been visited and add them to the queue
-            queue.push(...node.nodes.filter(n => !visited[getUnique(n.value)]))
+            queue.push(...node.nodes.filter(n => !visited.has(n)))
         }
     }
 
     return nodes.map(x => x.value)
 }
 
-export const isPath = <T>(root: INode<T>, target: INode<T>, getUnique: (node: T) => number): boolean => {
+export const isPath = <T>(root: INode<T>, target: INode<T>): boolean => {
     const queue: INode<T>[] = []
-    const visited: { [x: number]: boolean } = {}
+    const visited = new Set<INode<T>>()
 
     queue.push(root)
     
     while (queue.length > 0) {
         const node = queue.shift()!
 
-        if (!visited[getUnique(node.value)]) {
+        if (!visited.has(node)) {
             if (node === target) {
                 return true
             }
 
-            visited[getUnique(node.value)] = true
+            visited.add(node)
 
-            queue.push(...node.nodes.filter(n => !visited[getUnique(n.value)]))
+            queue.push(...node.nodes.filter(n => !visited.has(n)))
         }
     }
 
     return false
 }
 
-export const dft = <T>(root: INode<T>, id: (node: T) => number, visited: { [x: number]: boolean } = {}): T[] => {
-    if (visited[id(root.value)]) {
+export const dft = <T>(root: INode<T>, visited: Set<INode<T>> = new Set<INode<T>>()): T[] => {
+    if (visited.has(root)) {
         return []
     }
 
-    visited[id(root.value)] = true
+    visited.add(root)
 
     return [
         root.value,
         ...root.nodes
-            .filter(n => !visited[id(n.value)])
-            .map(n => dft(n, id, visited))
+            .filter(n => !visited.has(n))
+            .map(n => dft(n, visited))
             .reduce((a,b) => a.concat(b), [])
     ]
 }
@@ -229,7 +229,7 @@ export const isBinaryTreeBinarySearchTree = (root: IBinaryNode<number>): boolean
         return false
     }
 
-    let isLeftBST = root.left === null || (root.left.value < root.value) && isBinaryTreeBinarySearchTree(root.left)
+    let isLeftBST = root.left === null || (root.left.value <= root.value) && isBinaryTreeBinarySearchTree(root.left)
     let isRightBST = isLeftBST && (root.right === null || (root.right.value > root.value) && isBinaryTreeBinarySearchTree(root.right))
 
     return isLeftBST && isRightBST
@@ -256,7 +256,7 @@ export const findInorderSuccessor = <T>(root: IBinaryNodeParent<T>): IBinaryNode
         return node
     }
 
-    // If at root retur null since there is no node with greater value
+    // If at root return null since there is no node with greater value
     if (!root.parent) {
         return null
     }
@@ -311,6 +311,28 @@ const getParents = <T>(node: IBinaryNodeParent<T>): IBinaryNodeParent<T>[] => {
     }
 
     return parents
+}
+
+/**
+ * 4.7.2 Same as above, but no parent links, must start from root 
+ */
+export const findCommonAncestorNoParent = <T>(root: IBinaryNode<T>, nodeA: IBinaryNode<T>, nodeB: IBinaryNode<T>): IBinaryNode<T> | null => {
+    if (root === null) {
+        return null
+    }
+    
+    // If both nodes are less than root, they must both be on left
+    if (nodeA.value < root.value && nodeB.value < root.value) {
+        return findCommonAncestorNoParent(root.left!, nodeA, nodeB)
+    }
+
+    // If both nodes are greater than root, they must both be on right
+    if (nodeA.value > root.value && nodeB.value > root.value) {
+        return findCommonAncestorNoParent(root.right!, nodeA, nodeB)
+    }
+
+    // nodes must be on different sides of root, meaning root is common ancestor
+    return root
 }
 
 /**
