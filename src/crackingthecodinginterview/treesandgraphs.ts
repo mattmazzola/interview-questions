@@ -336,6 +336,51 @@ export const findCommonAncestorNoParent = <T>(root: IBinaryNode<T>, nodeA: IBina
 }
 
 /**
+ * 4.8 Given two trees, return true of t2 is subtree of t1
+ */
+export const isSubtree = (t1: IBinaryNode<number>, t2: IBinaryNode<number>): boolean => {
+    const queue: IBinaryNode<number>[] = []
+
+    queue.push(t1)
+
+    while(queue.length > 0) {
+        const node = queue.pop()!
+        
+        if (node.value === t2.value && isTreeMatch(node, t2)) {
+            return true
+        }
+
+        if (node.left) {
+            queue.push(node.left)
+        }
+        if (node.right) {
+            queue.push(node.right)
+        }
+    }
+
+    return false
+}
+
+export const isTreeMatch = (t1: IBinaryNode<number> | null, t2: IBinaryNode<number> | null): boolean => {
+    if (t1 === null && t2 === null) {
+        return true
+    }
+
+    // if either of the nodes is null while the other is not, return false
+    if ((t1 === null && t2 !== null)
+        || (t1 !== null && t2 === null)
+    ){
+        return false
+    }
+
+    if (t1!.value !== t2!.value) {
+        return false
+    }
+
+    return isTreeMatch(t1!.left, t2!.left) && isTreeMatch(t1!.right, t2!.right)
+}
+
+/**
  * 4.9 Find paths of height
  */
 export const getPathsOfHeight = (tree: INode<number>, height: number): number[][] => {

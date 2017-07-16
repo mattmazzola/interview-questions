@@ -433,6 +433,92 @@ describe('Cracking The Coding Interview', () => {
             })
         })
 
+        describe('4.8 given very large tree find smaller tree with hundreds of nodes', () => {
+            const t1: TreesAndGraphs.IBinaryNode<number> = {
+                value: 1,
+                left: {
+                    value: 2,
+                    left: {
+                        value: 3,
+                        left: {
+                            value: 4,
+                            left: null,
+                            right: null
+                        },
+                        right: {
+                            value: 5,
+                            left: null,
+                            right: null
+                        }
+                    },
+                    right: {
+                        value: 6,
+                        left: {
+                            value: 7,
+                            left: null,
+                            right: null
+                        },
+                        right: null
+                    }
+                },
+                right: {
+                    value: 8,
+                    left: null,
+                    right: null
+                }
+            }
+
+            test('given two trees return true if one is subtree of another', () => {
+                // Act / Assert
+                expect(TreesAndGraphs.isSubtree(t1, t1.left!)).toBe(true)
+            })
+
+            test('given tree which is no subtree return false', () => {
+                // Arrange
+                const tree: TreesAndGraphs.IBinaryNode<number> = {
+                    value: 1,
+                    left: {
+                        value: 2,
+                        left: {
+                            value: 3,
+                            left: null,
+                            right: null
+                        },
+                        right: {
+                            value: 4,
+                            left: null,
+                            right: null
+                        }
+                    },
+                    right: {
+                        value: 5,
+                        left: null,
+                        right: null
+                    }
+                }
+
+                const t2: TreesAndGraphs.IBinaryNode<number> = {
+                    value: 2,
+                    left: {
+                        value: 3,
+                        left: {
+                            value: 4,
+                            left: null,
+                            right: null
+                        },
+                        right: null
+                    },
+                    right: {
+                        value: 4,
+                        left: null,
+                        right: null
+                    }
+                }
+
+                expect(TreesAndGraphs.isSubtree(t1, t2)).toBe(false)
+            })
+        })
+
         describe('4.9 Given binary tree return paths which add to sum', () => {
             // Arrange
             const tree: TreesAndGraphs.IBinaryNode<number> = {
