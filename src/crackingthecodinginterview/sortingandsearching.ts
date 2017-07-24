@@ -1,24 +1,23 @@
 /**
- * 11.1 Merge B into A (A has buffer at end but not usd here)
+ * 11.1 Merge B into A
  */
-export const mergeBintoA = (a: number[], b: number[]): number[] => {
-    if (a.length === 0 || b.length === 0) {
-        return a
-    }
-
+export const mergeBintoA = (a: number[], b: number[], lastA: number): number[] => {
     const c: number[] = []
-    let ia = 0
-    let ib = 0
+    let ia = lastA - 1
+    let ib = b.length - 1
+    let imerged = a.length - 1
 
-    while (ia < a.length) {
-        if (a[ia] >= b[ib]) {
-            a.splice(ia, 0, b[ib])
-            ia++
-            ib++
+    while (ib >= 0) {
+        if (ia >= 0 && a[ia] >= b[ib]) {
+            a[imerged] = a[ia]
+            ia--
         }
         else {
-            ia++
+            a[imerged] = b[ib]
+            ib--
         }
+
+        imerged--
     }
 
     return a
@@ -42,13 +41,7 @@ const getCharCount = (s: string): Map<string, number> => {
     return s
         .split('')
         .reduce((map, c) => {
-            if (map.has(c)) {
-                map.set(c, map.get(c)! + 1)
-            }
-            else {
-                map.set(c, 0)
-            }
-
+            map.set(c, (map.get(c) || 0) + 1)
             return map
         }, new Map<string, number>())
 }
@@ -58,46 +51,98 @@ const areMapsEqual = <T1, T2>(a: Map<T1, T2>, b: Map<T1, T2>): boolean => {
 }
 
 /**
- * 11.3 Given array of distinct integers which has been rotated, find index of value
+ * 11.2.2 Same as above but instead of using character counts just sort the strings
  */
-export const findRotated = (numbers: number[], value: number): number | undefined => {
+export const sortAnagrams2 = (anagrams: string[]): string[] => {
+    return anagrams
+        .map(s => ({
+            originalString: s,
+            sortedString: s.split('').sort((a, b) => a.localeCompare(b)).join('')
+        }))
+        .sort((a, b) => a.sortedString.localeCompare(b.sortedString))
+        .map(x => x.originalString)
+}
+
+/**
+ * 11.2.3 Same as above, but use map for all anagrams instead of sorting larger array
+ */
+export const sortAnagrams3 = (anagrams: string[]): string[] => {
+    return Array.from(anagrams
+        .map(s => ({
+            originalString: s,
+            sortedString: s.split('').sort((a, b) => a.localeCompare(b)).join('')
+        }))
+        .reduce((map, x) => {
+            const strings = map.has(x.sortedString)
+                ? [...map.get(x.sortedString)!, x.originalString]
+                : [x.originalString]
+
+            map.set(x.sortedString, strings)
+            return map
+        }, new Map<string, string[]>())
+        .values())
+        .reduce((a, b) => [...a, ...b])
+}
+
+/**
+ * 11.3 Given array of sorted integers which has been rotated, find index of value
+ */
+export const findRotated = (numbers: number[], value: number, min: number = 0, max: number = numbers.length - 1): number | undefined => {
     if (numbers === null || numbers.length === 0) {
         return undefined
     }
 
-    if (numbers.length === 1) {
-        return (numbers[0] === value) ? 0 : undefined
+    if (min > max) {
+        return undefined
     }
 
-    const rotationIndex = findRotationPoint(numbers)
+    const midIndex = Math.floor((min + max) / 2)
+    const midValue = numbers[midIndex]
 
-    if (rotationIndex > 0) {
-        if (numbers[0] <= value && value <= numbers[rotationIndex - 1]) {
-            return binarySearch(numbers, value, 0, rotationIndex - 1)
+    if (midValue === value) {
+        return midIndex
+    }
+
+    const minValue = numbers[min]
+    const maxValue = numbers[max]
+
+    const searchLeft = () => findRotated(numbers, value, min, midIndex)
+    const searchRight = () => findRotated(numbers, value, midIndex + 1, max)
+
+    // If left side is sorted
+    if (minValue < midValue) {
+        // If value is within sorted area
+        if (minValue <= value && value < midValue) {
+            return searchLeft()
         }
-        else if (numbers[rotationIndex] <= value && value <= numbers[numbers.length - 1]) {
-            return binarySearch(numbers, value, rotationIndex, numbers.length - 1)
+        // Right side contains rotation and might contain value
+        else {
+            return searchRight()
+        }
+    }
+    // Right side must be sorted
+    else if (midValue < maxValue) {
+        // If value is within sorted area
+        if (midValue < value && value <= maxValue) {
+            return searchRight()
         }
         else {
-            return undefined
+            return searchLeft()
         }
     }
-    else {
-        return binarySearch(numbers, value, 0, numbers.length)
-    }
-}
-
-const findRotationPoint = (numbers: number[]): number => {
-    let point = 0
-
-    for (let i = 0; i < numbers.length - 1; i++) {
-        if (numbers[i] > numbers[i + 1]) {
-            point = i + 1
-            break
+    else if (minValue === midValue) {
+        if (midValue !== maxValue) {
+            return searchRight()
+        }
+        else {
+            const leftResult = searchLeft()
+            return (leftResult !== -1) 
+                ? leftResult
+                : searchRight()
         }
     }
 
-    return point
+    return undefined
 }
 
 const binarySearch = (numbers: number[], value: number, min: number, max: number): number | undefined => {
@@ -141,8 +186,8 @@ export const findStringBinarySearch = (strings: string[], value: string, min: nu
         return undefined
     }
 
-    if (min >= max) {
-        return (strings[min] === value) ? min : undefined
+    if (min > max) {
+        return undefined
     }
 
     let compareIndex = Math.floor((max + min) / 2)
@@ -152,21 +197,25 @@ export const findStringBinarySearch = (strings: string[], value: string, min: nu
 
     // Expand outwards from midpoint until one of the ends reachs non-empty string and use that as compare value
     while (compareValue === "") {
-        if (strings[imin] !== "") {
+        // If both indexes have moved past end of range, entire thing is empty strings
+        if (imin < min && imax > max) {
+            return undefined
+        }
+
+        if (imin >= min && strings[imin] !== "") {
             compareIndex = imin
-            compareValue = strings[imin]
             break
         }
         imin--
 
-        if (strings[imax] !== "") {
+        if (imax <= max && strings[imax] !== "") {
             compareIndex = imax
-            compareValue = strings[imax]
             break
         }
         imax++
     }
 
+    compareValue = strings[compareIndex]
     const compare = compareValue.localeCompare(value)
 
     if (compare === 0) {

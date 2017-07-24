@@ -4,52 +4,46 @@ describe('Cracking The Coding Interview', () => {
     describe('Sorting and Searching', () => {
         describe('11.1 Given two sorted arrays, merge B in to A', () => {
             test('given empty array return array', () => {
-                expect(SS.mergeBintoA([], [])).toEqual([])
+                expect(SS.mergeBintoA([], [], 0)).toEqual([])
             })
             test('given two sorted arrays, return merged array', () => {
                 // Arrange
-                const b = [1,3,5,6,9,10]
-                const a = [1,2,5,7,8,13,14] //.concat(Array(b.length).fill(null))
-                const expected = [1,1,2,3,5,5,6,7,8,9,10,13,14]
-                
+                const b = [1, 3, 5, 6, 9, 10]
+                const a = [1, 2, 5, 7, 8, 13, 14]
+                const lastA = a.length
+
+                const aWithBuffer = [...a, ...Array(b.length).fill(null)]
+
+                const expected = [1, 1, 2, 3, 5, 5, 6, 7, 8, 9, 10, 13, 14]
+
                 // Act / Assert
-                expect(SS.mergeBintoA(a, b)).toEqual(expected)
+                expect(SS.mergeBintoA(aWithBuffer, b, lastA)).toEqual(expected)
             })
         })
 
         describe('11.2 Sort array of strings, so all anagrams are next to each other', () => {
+            test('given array sorted strings, group by anagram', () => {
                 // Arrange
-                const strings = [
-                    'dog',
-                    'pals',
-                    'cat',
-                    'god',
-                    'bat',
-                    'tac',
-                    'slap'
-                ]
-
-                const expected = [
-                    'bat',
-                    'cat',
-                    'tac',
-                    'pals',
-                    'slap',
-                    'dog',
-                    'god'
-                ]
+                const strings = ['dog', 'pals','cat', 'god', 'bat', 'tac', 'slap' ]
+                const expected = ['bat','cat', 'tac', 'pals', 'slap', 'dog', 'god']
+                const expected2 = ["dog", "god", "pals", "slap", "cat", "tac", "bat"]
 
                 // Act
                 const actual = SS.sortAnagrams(strings)
+                const actual2 = SS.sortAnagrams2(strings)
+                const actual3 = SS.sortAnagrams3(strings)
 
                 // Assert
                 expect(actual).toEqual(expected)
+                expect(actual2).toEqual(expected)
+                expect(actual3).toEqual(expected2)
+            })
         })
 
         describe('11.3 Given array that has been rotated, find a value', () => {
             // Arrange
-            const values = [18,23,26,29,1,2,3,6,8,10,13,15]
-            
+            const values = [18, 23, 26, 29, 1, 2, 3, 6, 8, 10, 13, 15]
+
             // Act / Assert
             expect(SS.findRotated(values, 3)).toBe(6)
         })
@@ -98,23 +92,23 @@ describe('Cracking The Coding Interview', () => {
             xtest('given matrix, return row,column of value', () => {
                 // Arrange
                 const matrix: number[][] = [
-                    [0,4,8,12],
-                    [1,5,9,13],
-                    [2,6,10,14],
-                    [3,7,11,15],
+                    [0, 4, 8, 12],
+                    [1, 5, 9, 13],
+                    [2, 6, 10, 14],
+                    [3, 7, 11, 15],
                 ]
 
                 const matrix2: number[][] = [
-                    [0,1,2,3],
-                    [4,5,6,7],
-                    [8,9,10,11],
-                    [12,13,14,15],
+                    [0, 1, 2, 3],
+                    [4, 5, 6, 7],
+                    [8, 9, 10, 11],
+                    [12, 13, 14, 15],
                 ]
 
                 // Act
                 // const val = SS.findMatrixValue(matrix, 9)
                 // const val2 = SS.findMatrixValue(matrix2, 9)
-                
+
                 // Assert
                 // expect(val).toEqual([1,2])
                 // expect(val2).toEqual([2,1])
