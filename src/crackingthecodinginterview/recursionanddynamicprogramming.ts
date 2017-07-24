@@ -140,13 +140,6 @@ export const getPermutations = (s: string): string[] => {
         .reduce((a,b) => a.concat(b))
 }
 
-const map = new Map<number, string>()
-map.set(1, 'xyz')
-
-if (map.has(1)) {
-    map.get(1)
-}
-
 /**
  * 9.6 Print parentheses pairs
  */
