@@ -4,7 +4,7 @@ export const mergeSort = (xs: number[]): number[] => {
     }
 
     const mid = Math.floor(xs.length / 2)
-    const left = mergeSort(xs.slice(0,mid))
+    const left = mergeSort(xs.slice(0, mid))
     const right = mergeSort(xs.slice(mid))
 
     return merge(left, right)

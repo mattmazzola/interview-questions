@@ -1,5 +1,5 @@
 export const quickSort = (xs: number[], l: number = 0, r: number = xs.length - 1): number[] => {
-    if (xs.length < 1) {
+    if (xs.length <= 1) {
         return xs
     }
 
@@ -28,7 +28,7 @@ const partition = (xs: number[], l: number, r: number) => {
         }
 
         if (l <= r) {
-            swap(xs, l, r)
+            [xs[l], xs[r]] = [xs[r], xs[l]]
             l++
             r--
         }
@@ -38,9 +38,7 @@ const partition = (xs: number[], l: number, r: number) => {
 }
 
 const swap = (xs: number[], i: number, j: number) => {
-    const jValue = xs[j]
-    xs[j] = xs[i]
-    xs[i] = jValue
+    [xs[j], xs[i]] = [xs[i], xs[j]]
 }
 
 export const quickSortNoSwap = (xs: number[]): number[] => {
