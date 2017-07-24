@@ -11,9 +11,9 @@ export interface IExtendedStack extends IStack {
 }
 
 export const getStacks = (maxSize: number, numStacks: number = 3): IStack[] => {
-    const array = Array.apply(null, new Array(maxSize * 3)).map(() => null)
+    const array = Array(maxSize * 3).fill(null)
 
-    return Array.apply(null, new Array(3))
+    return Array(3).fill(null)
         .map((x: any, i: number) => {
             const minIndex = i * maxSize
             return getArrayStack(array, minIndex, minIndex + maxSize - 1)
@@ -192,7 +192,7 @@ export const setOfStacks = () => {
 }
 
 const createFixedStack = (size: number) => {
-    const array = Array.apply(null, new Array(size))
+    const array = Array(size).fill(null)
     return getArrayStack(array, 0, array.length - 1)
 }
 

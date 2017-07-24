@@ -1,7 +1,7 @@
 /**
  * Minimum steps to one, Given number N and 3 possible operations, divide by 2, divide by 3, or subtract 1, give minimum possible 
  */
-export const minimumStepsToOne = (n: number, cache: number[] = Array.apply(null, new Array(n))): number => {
+export const minimumStepsToOne = (n: number, cache: number[] = Array(n).fill(null)): number => {
     if (n === 1) {
         return 0
     }
@@ -27,7 +27,7 @@ export const minimumStepsToOne = (n: number, cache: number[] = Array.apply(null,
 }
 
 export const minimumStepsToOneDp = (n: number): number => {
-    const cache: number[] = Array.apply(null, new Array(n+1))
+    const cache: number[] = Array(n+1).fill(null)
 
     cache[1] = 0
 
@@ -45,7 +45,7 @@ export const minimumStepsToOneDp = (n: number): number => {
 }
 
 export const longestIncreasingSubsequenceDp = (xs: number[]): number => {
-    const cache: number[] = Array.apply(null, new Array(xs.length)).map((x: any) => 1)
+    const cache: number[] = Array(xs.length).fill(1)
 
     let j = 0, i = 1
 

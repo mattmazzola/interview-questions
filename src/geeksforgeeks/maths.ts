@@ -4,7 +4,7 @@ export const recursiveSequence = (n: number): number => {
     }
 
     const maxNumber = getMax(n)
-    const value = Array.apply(null, new Array(n))
+    const value = Array(n).fill(null)
         .map((x: any, i: number) => maxNumber - i)
         .reduce((a: number, b: number) => a * b)
 
@@ -22,7 +22,7 @@ const getMax = (n: number): number => {
 }
 
 export const numberGame = (n: number): number => {
-    const values = (<number[]>Array.apply(null, new Array(n)))
+    const values = (<number[]>Array(n).fill(null))
         .map((x,i) => i + 1)
 
     const commonDemoninator = values.reduce((a,b) => a * b)

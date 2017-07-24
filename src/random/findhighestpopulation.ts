@@ -22,7 +22,7 @@ export const findYearWithHighestPopulation = (people: IPerson[]): number => {
         return minMax
     }, { minBirthYear: people[0].birthYear, maxDeathYear: people[0].deathYear })
 
-    const yearsFromFirstBirthToLastDeath: number[] = Array.apply(null, new Array(minMaxYear.maxDeathYear + 1 - minMaxYear.minBirthYear)).map((x: any) => 0)
+    const yearsFromFirstBirthToLastDeath: number[] = Array(minMaxYear.maxDeathYear + 1 - minMaxYear.minBirthYear).fill(0)
 
     people.forEach(person => {
         yearsFromFirstBirthToLastDeath[person.birthYear - minMaxYear.minBirthYear]++
