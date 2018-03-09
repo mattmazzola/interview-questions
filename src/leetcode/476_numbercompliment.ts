@@ -4,7 +4,7 @@ export const findComplement = (x: number) => {
     // 101 => 010
     const complimented = binary.map(b => b === 0 ? 1 : 0)
     // [0,1,0] => 1 * 2 ^ 1
-    const value = complimented.reduce((a, b, i, xs) => {
+    const value = complimented.reduce<number>((a, b, i, xs) => {
         a += b * Math.pow(2, i)
         return a
     }, 0)
