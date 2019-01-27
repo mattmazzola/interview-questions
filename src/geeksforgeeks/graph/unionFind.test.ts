@@ -6,7 +6,7 @@ interface ITestItem<T> {
     answer: boolean
 }
 
-describe("Union-Find", () => {
+xdescribe("Union-Find", () => {
     test("given a graph return true if it has a cycle false if it doesnt", () => {
 
         // Arrnage

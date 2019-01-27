@@ -1,6 +1,6 @@
 /** https://www.codewars.com/kata/dependency-injection?utm_source=newsletter */
 
-interface IDependencies {
+export interface IDependencies {
     [k: string]: Function
 }
 export class DI {

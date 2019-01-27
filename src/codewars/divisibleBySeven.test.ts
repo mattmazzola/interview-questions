@@ -1,6 +1,6 @@
 import { divisibleBySeven } from './divisibleBySeven'
 
-describe("Code Wars", () => {
+xdescribe("Code Wars", () => {
     describe("Divisible By Seven", () => {
         test("given binary number return true if divisible by 7 false otherwise", () => {
             const numbers = [

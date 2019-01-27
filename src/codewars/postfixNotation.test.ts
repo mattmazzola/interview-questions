@@ -1,6 +1,6 @@
 import { parseTree, toRpn } from './postfixNotation'
 
-describe("Code Wars", () => {
+xdescribe("Code Wars", () => {
     describe("postfix notation", () => {
         test("given string of algebraic input convert to postfix", () => {
             expect(toRpn(parseTree('2+7*5'))).toBe('275*+')
