@@ -1,4 +1,4 @@
-import { INode, depthFirstSearch, depthFirstSearchRecursion, breadFirstSearch } from './traversal'
+import { INode, depthFirstSearch, depthFirstTraversalRecusion, breadFirstSearch, getPaths } from './traversal'
 
 describe('tree traversal', () => {
     const input: INode<number> = {
@@ -31,13 +31,30 @@ describe('tree traversal', () => {
         }
     }
 
+    describe('getPaths', () => {
+        it('should return paths', () => {
+            // Arrange
+            const expected = [
+                [1,2,7],
+                [1,2,9],
+                [1,3,15],
+                [1,3,100]
+            ]
+
+            // Act
+            const actual = getPaths(input)
+
+            // Assert
+            expect(actual).toEqual(expected)
+        })
+    })
+
     test('depthFirstSearchRecursion should return array', () => {
         // Arrange
-
         const expected = [1,2,7,9,3,15,100]
 
         // Act
-        const actual = depthFirstSearchRecursion(input)
+        const actual = depthFirstTraversalRecusion(input)
 
         // Assert
         expect(actual).toEqual(expected)
