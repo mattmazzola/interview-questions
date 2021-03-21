@@ -27,17 +27,6 @@
   "files": [
     "dist"
   ],
-  "jest": {
-    "testMatch": [
-      "**/dist/**/?(*.)(spec|test).js?(x)"
-    ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json"
-    ]
-  },
   "dependencies": {
     "@types/jest": "^26.0.21",
     "@types/node": "^14.14.35",

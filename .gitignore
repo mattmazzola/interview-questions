@@ -1,5 +1,9 @@
-node_modules
-npm-debug.log*
-dist
-coverage
+node_modules/
+build/
+dist/
+
+coverage/
+
 .env
+
+npm-debug.log*
