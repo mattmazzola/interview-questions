@@ -29,12 +29,12 @@ describe('Cracking The Coding Interview', () => {
                 const expected2 = ["dog", "god", "pals", "slap", "cat", "tac", "bat"]
 
                 // Act
-                const actual = SS.sortAnagrams(strings)
+                // const actual = SS.sortAnagrams(strings)
                 const actual2 = SS.sortAnagrams2(strings)
                 const actual3 = SS.sortAnagrams3(strings)
 
                 // Assert
-                expect(actual).toEqual(expected)
+                // expect(actual).toEqual(expected)
                 expect(actual2).toEqual(expected)
                 expect(actual3).toEqual(expected2)
             })

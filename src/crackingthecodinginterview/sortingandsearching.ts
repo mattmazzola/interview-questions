@@ -27,27 +27,38 @@ export const mergeBintoA = (a: number[], b: number[], lastA: number): number[] =
  * 11.2 Given strings, sort them so all anagrams are adjacent
  */
 export const sortAnagrams = (strings: string[]): string[] => {
-    const sorted = strings
+    const maps = strings
         .map(s => ({
             s,
-            count: getCharCount(s)
+            charCountMap: getCharCounts(s)
         }))
-        .sort((a, b) => areMapsEqual(a.count, b.count) ? -1 : 1)
+
+    const sorted = maps
+        .sort((a, b) => {
+            const eq = areMapsEqual(a.charCountMap, b.charCountMap)
+            // console.log({ a, b })
+            return eq
+                ? -1
+                : 1
+        })
 
     return sorted.map(x => x.s)
 }
 
-const getCharCount = (s: string): Map<string, number> => {
+const getCharCounts = (s: string): Record<string, number> => {
     return s
         .split('')
-        .reduce((map, c) => {
-            map.set(c, (map.get(c) || 0) + 1)
-            return map
-        }, new Map<string, number>())
+        .reduce<Record<string, number>>((charCounts, c) => {
+            charCounts[c] = (charCounts[c] ?? 0) + 1
+            return charCounts
+        }, {})
 }
 
-const areMapsEqual = <T1, T2>(a: Map<T1, T2>, b: Map<T1, T2>): boolean => {
-    return Array.from(a).every(([key, value]) => b.has(key) && b.get(key) === value)
+const areMapsEqual = <T2>(a: Record<string, T2>, b: Record<string, T2>): boolean => {
+    return Object.entries(a)
+        .every(([key, value]) => {
+            return b[key] === value
+        })
 }
 
 /**
