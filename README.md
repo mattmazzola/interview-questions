@@ -13,3 +13,9 @@ Test
 ```
 npm test
 ```
+
+# Debugging
+
+- https://jestjs.io/docs/getting-started#using-typescript
+- https://github.com/kulshekhar/ts-jest
+
