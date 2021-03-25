@@ -1,4 +1,4 @@
-import { expandString } from './tokenReplacement'
+import { expandStringFn } from './tokenReplacement'
 
 describe('Token Expansion', () => {
     describe('expandString', () => {
@@ -9,7 +9,8 @@ describe('Token Expansion', () => {
             const expected = '${greeting}'
 
             // Act
-            const actual = expandString(input, substitutions)
+            const expandString = expandStringFn(substitutions)
+            const actual = expandString(input)
 
             // Assert
             expect(actual).toEqual(expected)
@@ -25,7 +26,8 @@ describe('Token Expansion', () => {
             const expected = 'Token Token ${second}'
 
             // Act
-            const actual = expandString(input, substitutions)
+            const expandString = expandStringFn(substitutions)
+            const actual = expandString(input)
 
             // Assert
             expect(actual).toEqual(expected)
@@ -43,7 +45,8 @@ describe('Token Expansion', () => {
             const expected = 'First Third Second Third'
 
             // Act
-            const actual = expandString(input, substitutions)
+            const expandString = expandStringFn(substitutions)
+            const actual = expandString(input)
 
             // Assert
             expect(actual).toEqual(expected)
@@ -62,7 +65,8 @@ describe('Token Expansion', () => {
             const expected = 'Hi Miss Alvarez'
 
             // Act
-            const actual = expandString(input, substitutions)
+            const expandString = expandStringFn(substitutions)
+            const actual = expandString(input)
 
             // Assert
             expect(actual).toEqual(expected)

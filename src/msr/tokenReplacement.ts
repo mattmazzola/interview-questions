@@ -22,47 +22,56 @@
  * // Replaces all instances of “token” in “s” with “value” and returns the result. 
  * string ReplaceToken(string s, string token, string value); 
  */
-export function expandString(input: string, substitutions: [string, string][]): string {
 
-    let output = input
+export function expandStringFn(substitutions: [string, string][]) {
+    const findTokens = findTokensFn(substitutions)
+    const getTokenValue = getTokenValueFn(substitutions)
 
-    let tokens = findTokens(output, substitutions)
-    while (tokens.length > 0) {
-        for(const token of tokens) {
-            const tokenValue = getTokenValue(token, substitutions)
-            output = replaceToken(output, token, tokenValue)
+    return (input: string,): string => {
+        let output = input
+        let tokens = findTokens(output)
+
+        while (tokens.length > 0) {
+            for (const token of tokens) {
+                const tokenValue = getTokenValue(token)
+                output = replaceToken(output, token, tokenValue)
+            }
+
+            tokens = findTokens(output)
         }
 
-        tokens = findTokens(output, substitutions)
+        return output
     }
-
-    return output
 }
 
-function findTokens(input: string, substitutions: [string, string][]): string[] {
-    const tokens = substitutions.map(([token]) => token)
-    const foundTokens = tokens.filter(t => input.includes(t))
-    
-    return foundTokens
-}
+function findTokensFn(substitutions: [string, string][]) {
+    return (input: string,): string[] => {
+        const tokens = substitutions.map(([token]) => token)
+        const foundTokens = tokens.filter(t => input.includes(t))
 
-function getTokenValue(token: string, substitutions: [string, string][]): string {
-    const substitution = substitutions.find(([sToken]) => sToken === token)
-    if (!substitution) {
-        throw new Error(`Substitution for token ${token} was not found`)
+        return foundTokens
     }
-
-    const [_, value] = substitution
-
-    return value
 }
 
-function escapeRegex(s: string) {
-    return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+function getTokenValueFn(substitutions: [string, string][]) {
+    return (token: string,): string => {
+        const substitution = substitutions.find(([sToken]) => sToken === token)
+        if (!substitution) {
+            throw new Error(`Substitution for token ${token} was not found`)
+        }
+
+        const [_, value] = substitution
+
+        return value
+    }
 }
 
 function replaceToken(input: string, token: string, value: string): string {
     const escapedToken = escapeRegex(token)
     const newString = input.replace(new RegExp(escapedToken, 'g'), value)
     return newString
+}
+
+function escapeRegex(s: string) {
+    return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
 }
