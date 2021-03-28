@@ -23,11 +23,13 @@
  * string ReplaceToken(string s, string token, string value); 
  */
 
-export function expandStringFn(substitutions: [string, string][]) {
+type Substitution = [string, string]
+
+export function expandStringFn(substitutions: Substitution[]) {
     const findTokens = findTokensFn(substitutions)
     const getTokenValue = getTokenValueFn(substitutions)
 
-    return (input: string,): string => {
+    return (input: string): string => {
         let output = input
         let tokens = findTokens(output)
 
@@ -44,7 +46,7 @@ export function expandStringFn(substitutions: [string, string][]) {
     }
 }
 
-function findTokensFn(substitutions: [string, string][]) {
+function findTokensFn(substitutions: Substitution[]) {
     return (input: string,): string[] => {
         const tokens = substitutions.map(([token]) => token)
         const foundTokens = tokens.filter(t => input.includes(t))
@@ -53,7 +55,7 @@ function findTokensFn(substitutions: [string, string][]) {
     }
 }
 
-function getTokenValueFn(substitutions: [string, string][]) {
+function getTokenValueFn(substitutions: Substitution[]) {
     return (token: string,): string => {
         const substitution = substitutions.find(([sToken]) => sToken === token)
         if (!substitution) {

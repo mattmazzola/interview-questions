@@ -52,17 +52,17 @@ describe('Token Expansion', () => {
             expect(actual).toEqual(expected)
         })
 
-        test('"Hi Miss Alvarez" example', () => {
+        test('"Hello Miss Alvarez" example', () => {
             // Arrange
             const input = '${greeting}'
             const substitutions: [string, string][] = [
-                ['${greeting}', 'Hi ${name}'],
+                ['${greeting}', 'Hello ${name}'],
                 ['${name}', '${title} ${family_name}'],
                 ['${title}', 'Miss'],
                 ['${family_name}', 'Alvarez'],
             ]
 
-            const expected = 'Hi Miss Alvarez'
+            const expected = 'Hello Miss Alvarez'
 
             // Act
             const expandString = expandStringFn(substitutions)
