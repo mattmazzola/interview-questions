@@ -1,7 +1,7 @@
 import { totalIncDec } from './totalNumbers'
 
 describe("totalNumbers", () => {
-    test("given power should return number of increasing or dcreasing numbers", () => {
+    test("given power should return number of increasing or decreasing numbers", () => {
         const powers = [
             [0, 1],
             [1, 10],

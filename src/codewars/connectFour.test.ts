@@ -2,7 +2,7 @@ import {connectFour, Players} from './connectFour'
 
 describe("Code Wars", () => {
     describe("Connect Four", () => {
-        test("given sequence of mvoes that do not contain winner return None", () => {
+        test("given sequence of moves that do not contain winner return None", () => {
             const noWinner: string[] = [
                 "A_Red",
                 "B_Yellow",
@@ -40,7 +40,7 @@ describe("Code Wars", () => {
             expect(winner.winner).toBe(Players.Red)
         })
 
-        test("given sequrence of moves that contain vertical winner return winner", () => {
+        test("given sequence of moves that contain vertical winner return winner", () => {
             const verticalWinner: string[] = [
                 "A_Red",
                 "B_Yellow",
@@ -55,7 +55,7 @@ describe("Code Wars", () => {
             expect(connectFour(verticalWinner).winner).toBe(Players.Red)
         })
 
-        test("given sequrence of moves that contain diagonal up right winner return winner", () => {
+        test("given sequence of moves that contain diagonal up right winner return winner", () => {
             const diagonalDownRightWinner: string[] = [
                 "A_Red",
                 "B_Yellow",
