@@ -36,18 +36,20 @@ node5.next = node3
 
 const linkedListWithCycle: INode<number> = head
 
-describe('findCycleNode', () => {
-    test('given linked list with no cycle returns undefined', () => {
-        expect(findCycleNode(linkedListWithoutCycle)).toBeUndefined()
+describe('Code Lab', () => {
+    describe('findCycleNode', () => {
+        test('given linked list with no cycle returns undefined', () => {
+            expect(findCycleNode(linkedListWithoutCycle)).toBeUndefined()
+        })
+        
+        test('given linked list with cycle to return node which starts cycle', () => {
+            expect(findCycleNode(linkedListWithCycle)).toBe(node3)
+        })
     })
-
-    test('given linked list with cycle to return node which starts cycle', () => {
-        expect(findCycleNode(linkedListWithCycle)).toBe(node3)
-    })
-})
-
-describe('findCycleNodeConstantSpace', () => {
-    test('given linked list with cycle, return node which starts cycle', () => {
-        expect(findCycleNodeConstantSpace(linkedListWithCycle)).toBe(node3)
+    
+    describe('findCycleNodeConstantSpace', () => {
+        test('given linked list with cycle, return node which starts cycle', () => {
+            expect(findCycleNodeConstantSpace(linkedListWithCycle)).toBe(node3)
+        })
     })
 })
