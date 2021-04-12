@@ -28,7 +28,7 @@ function getInversionCount(puzzle: Puzzle, goalPuzzle: Puzzle, maxRowIndex: numb
     let inversionCount = 0
 
     for (let i = 0; i <= maxRowIndex; i++) {
-        for (let j = 0; j < maxColIndex; j++) {
+        for (let j = 0; j <= maxColIndex; j++) {
             const puzzleNumber = puzzle[i][j]
             const goalNumber = goalPuzzle[i][j]
 
@@ -72,6 +72,7 @@ export function getMovesToSolve(puzzle: Puzzle, goalPuzzle: Puzzle): Puzzle[] | 
 
 
 class PuzzleNode {
+    static emptySymbol = 0
     private puzzle: Puzzle
     private goalPuzzle: Puzzle
     private maxRowIndex: number
@@ -90,11 +91,29 @@ class PuzzleNode {
     }
 
     expandNode(): PuzzleNode[] {
-        // move empty space up, down, left, right
-        // add each new PuzzleNode to children
         const expandedPuzzles: PuzzleNode[] = []
 
+        const [i0, j0] = this.getEmptyLocation()
+
+        // move empty space up, down, left, right
+        // add each new PuzzleNode to children
+
         return expandedPuzzles
+    }
+
+    getEmptyLocation(): [number, number] {
+        for(let i = 0; i <= this.maxRowIndex, i++;)
+        {
+            for(let j = 0; j <= this.maxColIndex, j++;)
+            {
+                const value = this.puzzle[i][j]
+                if (value === PuzzleNode.emptySymbol) {
+                    return [i,j]
+                }
+            }
+        }
+
+        throw new Error(`Could not find empty space within puzzle. Looking for symbol ${PuzzleNode.emptySymbol}`)
     }
 
     findSolution(): PuzzleNode | undefined {
