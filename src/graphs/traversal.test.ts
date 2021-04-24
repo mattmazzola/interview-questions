@@ -1,4 +1,4 @@
-import { breadthFirstSearch, depthFirstSearch, dfs, INode } from './traversal'
+import { breadthFirstTraversal, depthFirstTraversal, depthFirstTraversalRecursive, INode } from './traversal'
 
 describe('graph traversal', () => {
     const node33: INode<number> = {
@@ -45,36 +45,41 @@ describe('graph traversal', () => {
         ]
     }
 
-    test('BFS graph', () => {
-        // Arrange
-        const expected = [1,4,3,15,21,33,12,7]
+    describe('iterative', () => {
 
-        // Act
-        const actual = breadthFirstSearch(input, x => x)
+        test('BFS graph', () => {
+            // Arrange
+            const expected = [1, 4, 3, 15, 21, 33, 12, 7]
 
-        // Assert
-        expect(actual).toEqual(expected)
+            // Act
+            const actual = breadthFirstTraversal(input, x => x)
+
+            // Assert
+            expect(actual).toEqual(expected)
+        })
+
+        test('DFS graph', () => {
+            // Arrange
+            const expected = [1, 4, 15, 21, 33, 3, 12, 7]
+
+            // Act
+            const actual = depthFirstTraversal(input, x => x)
+
+            // Assert
+            expect(actual).toEqual(expected)
+        })
     })
 
-    test('DFS graph', () => {
-        // Arrange
-        const expected = [1,4,15,21,33,3,12,7]
+    describe('recursive', () => {
+        test('DFS graph recursive', () => {
+            // Arrange
+            const expected = [1, 4, 15, 21, 33, 3, 12, 7]
 
-        // Act
-        const actual = depthFirstSearch(input, x => x)
+            // Act
+            const actual = depthFirstTraversalRecursive(input, x => x)
 
-        // Assert
-        expect(actual).toEqual(expected)
-    })
-
-    test('DFS graph recursive', () => {
-        // Arrange
-        const expected = [1,4,15,21,33,3,12,7]
-
-        // Act
-        const actual = dfs(input, x => x)
-
-        // Assert
-        expect(actual).toEqual(expected)
+            // Assert
+            expect(actual).toEqual(expected)
+        })
     })
 })
