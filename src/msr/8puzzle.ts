@@ -1,3 +1,6 @@
+import { getPathToRoot } from "../graphs/search"
+import { INode } from "../graphs/traversal"
+
 type Puzzle = number[][]
 
 /**
@@ -47,11 +50,14 @@ function isMatchingGoal(puzzle: Puzzle, goalPuzzle: Puzzle, maxRowIndex: number,
     return count == 0
 }
 
+type Node<T> = {
+    value: T
+    children?: T[]
+}
+
 /**
  * Given a 3x3 matrix above, return the moves to solve the puzzle
  */
-
-
 export function getMovesToSolve(puzzle: Puzzle, goalPuzzle: Puzzle): Puzzle[] | undefined {
     // Return false if puzzle or goal isn't valid or they don't match
     // Get maxRowIndex and maxColIndex
@@ -65,11 +71,104 @@ export function getMovesToSolve(puzzle: Puzzle, goalPuzzle: Puzzle): Puzzle[] | 
         return undefined
     }
 
-    const puzzleInstance = new PuzzleNode(puzzle, goalPuzzle)
+    const root: INode<Puzzle> = {
+        value: puzzle,
+        nodes: []
+    }
+
+    const queue = [root]
+
+    while(queue.length > 0) {
+        const node = queue.shift()!
+        const isMatching = isMatchingGoal(puzzle, goalPuzzle, maxRowIndex, maxColIndex)
+        if (isMatching) {
+            const path = getPathToRoot(node)
+            return path
+        }
+
+        // Compute children and add children to node
+        const children = expandPuzzle(node.value)
+        node.nodes = children.map(p => {
+            return {
+                value: p,
+                nodes: []
+            }
+        })
+
+        queue.push(...node.nodes)
+    }
 
     return []
 }
 
+export function expandPuzzle(puzzle: Puzzle): Puzzle[] {
+    const maxRowIndex = puzzle.length - 1
+    if (maxRowIndex < 1) {
+        return []
+    }
+
+    const maxColIndex = puzzle[0].length - 1
+    if (maxColIndex < 1) {
+        return []
+    }
+
+    const emptyPosition = getEmptyLocation(puzzle, maxRowIndex, maxColIndex)
+    if (!Array.isArray(emptyPosition)) {
+        return []
+    }
+
+    const [i, j] = emptyPosition
+    const expansions = getExpansions(puzzle, maxRowIndex, maxColIndex, i, j)
+    if (!Array.isArray(expansions)) {
+        return []
+    }
+
+    return expansions
+}
+
+export function getEmptyLocation(puzzle: Puzzle, maxRowIndex: number, maxColIndex: number, empty = 0): [number, number] | undefined {
+    for (let i = 0; i <= maxRowIndex; i++) {
+        for (let j = 0; j <= maxColIndex; j++) {
+            const value = puzzle[i][j]
+            if (value === empty) {
+                return [i, j]
+            }
+        }
+    }
+}
+
+export function getExpansions(puzzle: Puzzle, maxRowIndex: number, maxColIndex: number, emptyRow: number, emptyCol: number): Puzzle[] {
+    const expansions: Puzzle[] = []
+
+    const positions = [
+        [emptyRow - 1, emptyCol],
+        [emptyRow, emptyCol + 1],
+        [emptyRow, emptyCol - 1],
+        [emptyRow + 1, emptyCol],
+    ]
+
+    for (const [newEmptyRow, newEmptyCol] of positions) {
+        // Is position in bounds?
+        if ((0 <= newEmptyRow && newEmptyRow <= maxRowIndex)
+            && (0 <= newEmptyCol && newEmptyCol <= maxColIndex)
+        ) {
+            // set new empty position to old empty position
+            const puzzleCopy = deepClone(puzzle)
+            const emptyValue = puzzleCopy[emptyRow][emptyCol]
+            const value = puzzleCopy[newEmptyRow][newEmptyCol]
+            puzzleCopy[newEmptyRow][newEmptyCol] = emptyValue
+            puzzleCopy[emptyRow][emptyCol] = value
+
+            expansions.push(puzzleCopy)
+        }
+    }
+
+    return expansions
+}
+
+export function deepClone<T>(x: T): T {
+    return JSON.parse(JSON.stringify(x))
+}
 
 class PuzzleNode {
     static emptySymbol = 0
@@ -78,10 +177,10 @@ class PuzzleNode {
     private maxRowIndex: number
     private maxColIndex: number
     private children: PuzzleNode[] = []
-    
-    constructor (puzzle: Puzzle, goalPuzzle: Puzzle) {
-        this.puzzle = puzzle;
-        this.goalPuzzle = goalPuzzle;
+
+    constructor(puzzle: Puzzle, goalPuzzle: Puzzle) {
+        this.puzzle = puzzle
+        this.goalPuzzle = goalPuzzle
         this.maxRowIndex = puzzle.length - 1
         this.maxColIndex = puzzle[0].length - 1
     }
@@ -102,13 +201,11 @@ class PuzzleNode {
     }
 
     getEmptyLocation(): [number, number] {
-        for(let i = 0; i <= this.maxRowIndex, i++;)
-        {
-            for(let j = 0; j <= this.maxColIndex, j++;)
-            {
+        for (let i = 0; i <= this.maxRowIndex, i++;) {
+            for (let j = 0; j <= this.maxColIndex, j++;) {
                 const value = this.puzzle[i][j]
                 if (value === PuzzleNode.emptySymbol) {
-                    return [i,j]
+                    return [i, j]
                 }
             }
         }
@@ -124,7 +221,7 @@ class PuzzleNode {
         const children = this.expandNode()
         this.children.push(...children)
 
-        for(const child of this.children) {
+        for (const child of this.children) {
             // findSolution()
         }
 

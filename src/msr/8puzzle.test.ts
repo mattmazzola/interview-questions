@@ -72,8 +72,8 @@ describe('MSR', () => {
                 // Arrange
                 const puzzle = [
                     [1,2,3],
-                    [4,5,6],
-                    [8,7,0]
+                    [4,5,0],
+                    [7,8,6]
                 ]
                 const goalPuzzle = [
                     [1,2,3],
@@ -81,6 +81,11 @@ describe('MSR', () => {
                     [7,8,0]
                 ]
                 const expectedMoves = [
+                    [
+                        [1,2,3],
+                        [4,5,0],
+                        [7,8,6]
+                    ],
                     [
                         [1,2,3],
                         [4,5,6],
