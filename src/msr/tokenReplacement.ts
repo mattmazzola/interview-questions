@@ -46,6 +46,29 @@ export function expandStringFn(substitutions: Substitution[]) {
     }
 }
 
+export function expandStringFn2(substitutions: Substitution[]) {
+    const findTokens = findTokensFn(substitutions)
+    const getTokenValue = getTokenValueFn(substitutions)
+
+    function expandStringInner(input: string): string {
+        let output = input
+        let tokens = findTokens(output)
+
+        if (tokens.length === 0) {
+            return output
+        }
+
+        for (const token of tokens) {
+            const tokenValue = getTokenValue(token)
+            output = replaceToken(output, token, tokenValue)
+        }
+
+        return expandStringInner(output)
+    }
+
+    return expandStringInner
+}
+
 function findTokensFn(substitutions: Substitution[]) {
     return (input: string,): string[] => {
         const tokens = substitutions.map(([token]) => token)
