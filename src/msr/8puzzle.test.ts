@@ -89,7 +89,59 @@ describe('MSR', () => {
                     [
                         [1,2,3],
                         [4,5,6],
-                        [8,7,0],
+                        [7,8,0],
+                    ],
+                ]
+                
+                // Act
+                const moves = getMovesToSolve(puzzle, goalPuzzle)
+                
+                // Assert
+                expect(moves).toEqual(expectedMoves)
+            })
+
+            test('given puzzle return the moves to solve it', () => {
+                // Arrange
+                const puzzle = [
+                    [4,1,2],
+                    [0,5,3],
+                    [7,8,6],
+                ]
+                const goalPuzzle = [
+                    [1,2,3],
+                    [4,5,6],
+                    [7,8,0],
+                ]
+                const expectedMoves = [
+                    [
+                        [4,1,2],
+                        [0,5,3],
+                        [7,8,6],
+                    ],
+                    [
+                        [0,1,2],
+                        [4,5,3],
+                        [7,8,6],
+                    ],
+                    [
+                        [1,0,2],
+                        [4,5,3],
+                        [7,8,6],
+                    ],
+                    [
+                        [1,2,0],
+                        [4,5,3],
+                        [7,8,6],
+                    ],
+                    [
+                        [1,2,3],
+                        [4,5,0],
+                        [7,8,6],
+                    ],
+                    [
+                        [1,2,3],
+                        [4,5,6],
+                        [7,8,0],
                     ],
                 ]
                 

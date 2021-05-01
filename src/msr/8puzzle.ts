@@ -50,11 +50,6 @@ function isMatchingGoal(puzzle: Puzzle, goalPuzzle: Puzzle, maxRowIndex: number,
     return count == 0
 }
 
-type Node<T> = {
-    value: T
-    children?: T[]
-}
-
 /**
  * Given a 3x3 matrix above, return the moves to solve the puzzle
  */
@@ -80,7 +75,7 @@ export function getMovesToSolve(puzzle: Puzzle, goalPuzzle: Puzzle): Puzzle[] | 
 
     while(queue.length > 0) {
         const node = queue.shift()!
-        const isMatching = isMatchingGoal(puzzle, goalPuzzle, maxRowIndex, maxColIndex)
+        const isMatching = isMatchingGoal(node.value, goalPuzzle, maxRowIndex, maxColIndex)
         if (isMatching) {
             const path = getPathToRoot(node)
             return path
@@ -91,7 +86,8 @@ export function getMovesToSolve(puzzle: Puzzle, goalPuzzle: Puzzle): Puzzle[] | 
         node.nodes = children.map(p => {
             return {
                 value: p,
-                nodes: []
+                nodes: [],
+                parent: node
             }
         })
 
@@ -168,65 +164,4 @@ export function getExpansions(puzzle: Puzzle, maxRowIndex: number, maxColIndex: 
 
 export function deepClone<T>(x: T): T {
     return JSON.parse(JSON.stringify(x))
-}
-
-class PuzzleNode {
-    static emptySymbol = 0
-    private puzzle: Puzzle
-    private goalPuzzle: Puzzle
-    private maxRowIndex: number
-    private maxColIndex: number
-    private children: PuzzleNode[] = []
-
-    constructor(puzzle: Puzzle, goalPuzzle: Puzzle) {
-        this.puzzle = puzzle
-        this.goalPuzzle = goalPuzzle
-        this.maxRowIndex = puzzle.length - 1
-        this.maxColIndex = puzzle[0].length - 1
-    }
-
-    isSolved(): boolean {
-        return isMatchingGoal(this.puzzle, this.goalPuzzle, this.maxRowIndex, this.maxColIndex)
-    }
-
-    expandNode(): PuzzleNode[] {
-        const expandedPuzzles: PuzzleNode[] = []
-
-        const [i0, j0] = this.getEmptyLocation()
-
-        // move empty space up, down, left, right
-        // add each new PuzzleNode to children
-
-        return expandedPuzzles
-    }
-
-    getEmptyLocation(): [number, number] {
-        for (let i = 0; i <= this.maxRowIndex, i++;) {
-            for (let j = 0; j <= this.maxColIndex, j++;) {
-                const value = this.puzzle[i][j]
-                if (value === PuzzleNode.emptySymbol) {
-                    return [i, j]
-                }
-            }
-        }
-
-        throw new Error(`Could not find empty space within puzzle. Looking for symbol ${PuzzleNode.emptySymbol}`)
-    }
-
-    findSolution(): PuzzleNode | undefined {
-        if (this.isSolved()) {
-            return this
-        }
-
-        const children = this.expandNode()
-        this.children.push(...children)
-
-        for (const child of this.children) {
-            // findSolution()
-        }
-
-        // const a = new PuzzleNode()
-        // return a
-    }
-
 }
