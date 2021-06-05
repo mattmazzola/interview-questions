@@ -1,4 +1,4 @@
-import { INode, depthFirstSearch, depthFirstTraversalRecusion, breadFirstSearch, getPaths } from './traversal'
+import { INode, depthFirstTraversal, depthFirstTraversalRecursive, breadFirstTraversal, getPathsRecursive, depthFirstPaths } from './traversal'
 
 describe('tree traversal', () => {
     const input: INode<number> = {
@@ -31,53 +31,77 @@ describe('tree traversal', () => {
         }
     }
 
-    describe('getPaths', () => {
+    describe('getPathsRecursive', () => {
         it('should return paths', () => {
             // Arrange
             const expected = [
-                [1,2,7],
-                [1,2,9],
-                [1,3,15],
-                [1,3,100]
+                [1, 2, 7],
+                [1, 2, 9],
+                [1, 3, 15],
+                [1, 3, 100]
             ]
 
             // Act
-            const actual = getPaths(input)
+            const actual = getPathsRecursive(input)
 
             // Assert
             expect(actual).toEqual(expected)
         })
     })
 
-    test('depthFirstSearchRecursion should return array', () => {
-        // Arrange
-        const expected = [1,2,7,9,3,15,100]
+    describe('depthFirstTraversalRecursion', () => {
+        test('should return array of values of inorder traversal', () => {
+            // Arrange
+            const expected = [1, 2, 7, 9, 3, 15, 100]
 
-        // Act
-        const actual = depthFirstTraversalRecusion(input)
+            // Act
+            const actual = depthFirstTraversalRecursive(input)
 
-        // Assert
-        expect(actual).toEqual(expected)
+            // Assert
+            expect(actual).toEqual(expected)
+        })
     })
 
-    test('depthFirstSerach should return array', () => {
-        const expected = [1,2,7,9,3,15,100]
+    describe('depthFirstTraversal', () => {
+        test('should return array', () => {
+            const expected = [1, 2, 7, 9, 3, 15, 100]
 
-        // Act
-        const actual = depthFirstSearch(input)
+            // Act
+            const actual = depthFirstTraversal(input)
 
-        // Assert
-        expect(actual).toEqual(expected)
+            // Assert
+            expect(actual).toEqual(expected)
+        })
     })
 
-    test('bfs should return array', () => {
-        // Arrange
-        const expected = [1,2,3,7,9,15,100]
+    describe('breadFirstTraversalRecursion', () => {
+        test('should return array', () => {
+            // Arrange
+            const expected = [1, 2, 3, 7, 9, 15, 100]
 
-        // Act
-        const actual = breadFirstSearch(input)
+            // Act
+            const actual = breadFirstTraversal(input)
 
-        // Assert
-        expect(actual).toEqual(expected)
+            // Assert
+            expect(actual).toEqual(expected)
+        })
+    })
+
+    describe('depthFirstPaths', () => {
+        test('should return paths', () => {
+            // Arrange
+            const expected = [
+                [1, 3, 100],
+                [1, 3, 15],
+                [1, 2, 9],
+                [1, 2, 7],
+            ]
+
+            // Act
+            const actual = depthFirstPaths(input)
+
+            // Assert
+            expect(actual).toEqual(expected)
+        })
     })
 })

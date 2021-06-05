@@ -4,48 +4,39 @@ export interface INode<T> {
     value: T
 }
 
-export const depthFirstTraversalRecusion = <T>(root: INode<T>): T[] => {
+export const depthFirstTraversalRecursive = <T>(root: INode<T>): T[] => {
     const values = [root.value]
 
     if (root.left) {
-        values.push(...depthFirstTraversalRecusion(root.left))
+        values.push(...depthFirstTraversalRecursive(root.left))
     }
     if (root.right) {
-        values.push(...depthFirstTraversalRecusion(root.right))
+        values.push(...depthFirstTraversalRecursive(root.right))
     }
 
     return values
 }
 
-export const getPaths = <T>(root: INode<T>): T[][] => {
-    const current = [[root.value]]
-    let paths: T[][] = []
-    
+export const getPathsRecursive = <T>(root: INode<T>): T[][] => {
+    const nodesToSearch: INode<T>[] = []
     if (root.left) {
-        const leftPaths = getPaths(root.left)
-        const combinedLeftPaths: T[][] = []
-        for (const leftPath of leftPaths) {
-            combinedLeftPaths.push([root.value, ...leftPath])
-        }
-        
-        paths.push(...combinedLeftPaths)
+        nodesToSearch.push(root.left)
     }
     
     if (root.right) {
-        const rightPaths = getPaths(root.right)
-        const combinedRightPaths: T[][] = []
-        for (const rightPath of rightPaths) {
-            combinedRightPaths.push([root.value, ...rightPath])
-        }
-        paths.push(...combinedRightPaths)
+        nodesToSearch.push(root.right)
     }
+
+    const paths = nodesToSearch
+        .flatMap(node => getPathsRecursive(node))
+        .map(path => [root.value, ...path])
 
     return paths.length > 0
         ? paths
-        : current
+        : [[root.value]]
 }
 
-export const depthFirstSearch = <T>(root: INode<T>): T[] => {
+export const depthFirstTraversal = <T>(root: INode<T>): T[] => {
     const stack = [root]
     const values: T[] = []
 
@@ -66,7 +57,48 @@ export const depthFirstSearch = <T>(root: INode<T>): T[] => {
     return values
 }
 
-export const breadFirstSearch = <T>(root: INode<T>): T[] => {
+function getPath<T>(leaf: INode<T>, nodeParents: Map<INode<T>, INode<T>>) {
+    let current: INode<T> | undefined = leaf
+    const path: T[] = []
+
+    while (current) {
+        path.unshift(current.value)
+        current = nodeParents.get(current)
+    }
+
+    return path
+}
+
+export function depthFirstPaths<T>(root: INode<T>): T[][] {
+    const stack = [root]
+    const nodeParents = new Map<INode<T>, INode<T>>()
+    const paths: T[][] = []
+
+    while (stack.length !== 0) {
+        const node = stack.pop()!
+
+        if (node.left == undefined && node.right == undefined) {
+            const pathToLeaf = getPath(node, nodeParents)
+            paths.push(pathToLeaf)
+        }
+        
+        if (node.left) {
+            nodeParents.set(node.left, node)
+            stack.push(node.left)
+        }
+
+        if (node.right) {
+            nodeParents.set(node.right, node)
+            stack.push(node.right)
+        }
+    }
+
+    return paths.length > 0
+        ? paths
+        : [[root.value]]
+}
+
+export function breadFirstTraversal<T>(root: INode<T>): T[] {
     const queue = [root]
     const values: T[] = []
 
