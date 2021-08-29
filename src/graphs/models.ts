@@ -3,6 +3,8 @@ export type Graph<T = unknown> = {
     nodes: Node<T>[]
 }
 
+export type Grid = Array<Array<string>>
+
 export type Node<T = unknown> = {
     parent?: string
     id: string
