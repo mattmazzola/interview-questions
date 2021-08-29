@@ -4,6 +4,7 @@ const searchGraph = (addNodeIds: (traversalIds: string[], newIds: string[]) => v
     return (graph: Graph, isTarget: (n: Node) => boolean): string[] => {
         const visited: { [x: string]: boolean } = {}
         const queue = [graph.rootNodeId]
+        const nodeParents: { [key: string]: string } = {}
 
         while (queue.length > 0) {
             const nodeId = queue.shift()!
@@ -12,7 +13,7 @@ const searchGraph = (addNodeIds: (traversalIds: string[], newIds: string[]) => v
             // if node hasn't been visited
             if (!visited[node.id]) {
                 if (isTarget(node)) {
-                    const path = getPathToRoot(graph, node.id)
+                    const path = getPathFromStart(nodeParents, graph.rootNodeId, node.id)
                     return path
                 }
 
@@ -20,6 +21,10 @@ const searchGraph = (addNodeIds: (traversalIds: string[], newIds: string[]) => v
                 visited[node.id] = true
 
                 const nonVisitedNodeIds = (node.routes ?? []).filter(r => !visited[r])
+                for (const nonVisitedNodeId of nonVisitedNodeIds) {
+                    nodeParents[nonVisitedNodeId] = node.id
+                }
+
                 addNodeIds(queue, nonVisitedNodeIds)
             }
         }
@@ -36,7 +41,11 @@ const depthFirstAdd = (stack: string[], newIds: string[]) => stack.unshift(...ne
 
 export const depthFirstSearch = searchGraph(depthFirstAdd)
 
-export const getPathToRoot = (graph: Graph, nodeId: string): string[] => {
+/**
+ * Assuming each node has a parent property (which may not be the case)
+ * Start at given node and continue up parents until you get to one with no parent
+ */
+export const getPathFromRoot = (graph: Graph, nodeId: string): string[] => {
     let currentNode = graph.nodes.find(n => n.id === nodeId)!
     const path = [currentNode.id]
 
@@ -47,6 +56,30 @@ export const getPathToRoot = (graph: Graph, nodeId: string): string[] => {
     }
 
     return path
+}
+
+/**
+ * Given mapping of nodeIds to their parent node Ids reconstruct path from root to start
+ * @param nodeParents 
+ */
+export const getPathFromStart = (
+    nodeParents: { [nodeId: string]: string },
+    startNodeId: string,
+    endNodeId: string
+): string[] => {
+    const path = [endNodeId]
+    let currentNodeId = endNodeId
+    let currentParentId = nodeParents[currentNodeId]
+
+    while (currentParentId) {
+        path.unshift(currentParentId)
+        currentNodeId = currentParentId
+        currentParentId = nodeParents[currentNodeId]
+    }
+
+    return path[0] === startNodeId
+        ? path
+        : []
 }
 
 /**

@@ -1,5 +1,7 @@
 import { Graph, Node } from './models'
 
+// https://youtu.be/09_LlHjoEiY?t=1956
+
 export function getGraphComponents(graph: Graph): { count: number, nodeColors: [string, number][] } {
     let count = 0
     let nodeColors: [string, number][] = []
