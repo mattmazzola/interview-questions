@@ -1,4 +1,5 @@
-import { breadthFirstSearch, depthFirstSearch, Node, assignParents, Graph } from './search'
+import { breadthFirstSearch, depthFirstSearch, assignParents } from './search'
+import { Graph } from './models'
 
 describe('graph search', () => {
 

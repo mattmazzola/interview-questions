@@ -1,4 +1,5 @@
-import { breadthFirstTraversal, depthFirstTraversal, depthFirstTraversalRecursive, Graph } from './traversal'
+import { breadthFirstTraversal, depthFirstTraversal, depthFirstTraversalRecursive } from './traversal'
+import { Graph } from './models'
 
 describe('graph traversal', () => {
     const input: Graph<number> = {

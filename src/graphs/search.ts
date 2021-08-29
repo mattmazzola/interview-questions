@@ -1,14 +1,4 @@
-export type Graph<T = unknown> = {
-    rootNodeId: string
-    nodes: Node<T>[]
-}
-
-export type Node<T = unknown> = {
-    parent?: string
-    id: string
-    value: T
-    routes?: string[]
-}
+import { Graph, Node } from './models'
 
 const searchGraph = (addNodeIds: (traversalIds: string[], newIds: string[]) => void) => {
     return (graph: Graph, isTarget: (n: Node) => boolean): string[] => {
