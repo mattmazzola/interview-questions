@@ -8,12 +8,12 @@ describe('graph search', () => {
             {
                 id: '1',
                 value: 1,
-                routes: ['2','3','4']
+                routes: ['2', '3', '4']
             },
             {
                 id: '2',
                 value: 2,
-                routes: [ '5', '6']
+                routes: ['5', '6']
             },
             {
                 id: '3',

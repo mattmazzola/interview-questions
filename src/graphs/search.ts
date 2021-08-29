@@ -67,7 +67,7 @@ export const depthFirstSearch = (graph: Graph, nodeId: string, isTarget: (n: Nod
             // mark node as visited
             visited[node.id] = true
 
-            const nonVisitedNodeIds = (node.routes ?? []).filter(r => !visited[r])
+            const nonVisitedNodeIds = (node.routes ?? []).filter(nodeId => !visited[nodeId])
             stack.unshift(...nonVisitedNodeIds)
         }
     }
@@ -81,7 +81,7 @@ export const depthFirstSearch = (graph: Graph, nodeId: string, isTarget: (n: Nod
 export function assignParents(graph: Graph): void {
     const queue = [graph.rootNodeId]
 
-    while(queue.length > 0) {
+    while (queue.length > 0) {
         const nId = queue.shift()!
         const node = graph.nodes.find(n => n.id === nId)!
 

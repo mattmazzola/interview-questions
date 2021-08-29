@@ -1,65 +1,66 @@
-export interface INode<T> {
+export type Graph<T = unknown> = {
+    rootNodeId: string
+    nodes: Node<T>[]
+}
+
+export type Node<T = unknown> = {
+    parent?: string
+    id: string
     value: T
-    nodes: INode<T>[]
+    routes?: string[]
 }
 
-export const breadthFirstTraversal = <T>(root: INode<T>, id: (n: T) => number): T[] => {
-    const values: T[] = []
-    const visited: { [x: number]: boolean } = {}
-    const queue = [root]
+export const traversGraph = (addNodeIds: (traversalIds: string[], newIds: string[]) => void) => {
+    return <T>(graph: Graph<T>): T[] => {
+        const values: T[] = []
+        const visited: { [x: string]: boolean } = {}
+        const queue = [graph.rootNodeId]
 
-    while(queue.length > 0) {
-        const node = queue.shift()!
+        while (queue.length > 0) {
+            const nodeId = queue.shift()!
+            const node = graph.nodes.find(n => n.id === nodeId)!
 
-        // if node hasn't been visited
-        if (!visited[id(node.value)]) {
-            // add value
-            values.push(node.value)
-            // mark node as visited
-            visited[id(node.value)] = true
+            // if node hasn't been visited
+            if (!visited[node.id]) {
+                // add value
+                values.push(node.value)
+                // mark node as visited
+                visited[node.id] = true
 
-            const nonVisitedNodes = node.nodes.filter(n => !visited[id(n.value)])
-            queue.push(...nonVisitedNodes)
+                const nonVisitedNodeIds = (node.routes ?? []).filter(r => !visited[r])
+                addNodeIds(queue, nonVisitedNodeIds)
+            }
         }
-    }
 
-    return values
+        return values
+    }
 }
 
-export const depthFirstTraversal = <T>(root: INode<T>, id: (n: T) => number): T[] => {
-    const values: T[] = []
-    const visited: { [x: number]: boolean } = {}
-    const stack = [root]
+const breadFirstAdd = (queue: string[], newIds: string[]) => queue.push(...newIds)
 
-    while (stack.length > 0) {
-        const node = stack.shift()!
+export const breadthFirstTraversal = traversGraph(breadFirstAdd)
 
-        // if node hasn't been visited
-        if (!visited[id(node.value)]) {
-            // add value
-            values.push(node.value)
-            // mark node as visited
-            visited[id(node.value)] = true
+const depthFirstAdd = (stack: string[], newIds: string[]) => stack.unshift(...newIds)
 
-            const nonVisitedNodes = node.nodes.filter(n => !visited[id(n.value)])
-            stack.unshift(...nonVisitedNodes)
-        }
-    }
+export const depthFirstTraversal = traversGraph(depthFirstAdd)
 
-    return values
-}
-
-export const depthFirstTraversalRecursive = <T>(root: INode<T>, id: (node: T) => number, visited: { [x: number]: boolean } = {}): T[] => {
-    if (visited[id(root.value)]) {
+export const depthFirstTraversalRecursive = <T>(
+    graph: Graph<T>,
+    nodeId: string,
+    visited: { [x: string]: boolean } = {}
+): T[] => {
+    if (visited[nodeId]) {
         return []
     }
-    
-    visited[id(root.value)] = true
+
+    visited[nodeId] = true
+
+    const node = graph.nodes.find(n => n.id === nodeId)!
 
     return [
-        root.value,
-        ...root.nodes
-            .filter(n => !visited[id(n.value)])
-            .flatMap(n => depthFirstTraversalRecursive(n, id, visited))
+        node.value,
+        ...(node.routes ?? [])
+            .filter(nodeId => !visited[nodeId])
+            .flatMap(nodeId => depthFirstTraversalRecursive(graph, nodeId, visited))
     ]
 }
