@@ -10,7 +10,7 @@ export type Node<T = unknown> = {
     routes?: string[]
 }
 
-export const traversGraph = (addNodeIds: (traversalIds: string[], newIds: string[]) => void) => {
+const traversGraph = (addNodeIds: (traversalIds: string[], newIds: string[]) => void) => {
     return <T>(graph: Graph<T>): T[] => {
         const values: T[] = []
         const visited: { [x: string]: boolean } = {}
@@ -56,11 +56,12 @@ export const depthFirstTraversalRecursive = <T>(
     visited[nodeId] = true
 
     const node = graph.nodes.find(n => n.id === nodeId)!
+    const otherValues = (node.routes ?? [])
+        .filter(nodeId => !visited[nodeId])
+        .flatMap(nodeId => depthFirstTraversalRecursive(graph, nodeId, visited))
 
     return [
         node.value,
-        ...(node.routes ?? [])
-            .filter(nodeId => !visited[nodeId])
-            .flatMap(nodeId => depthFirstTraversalRecursive(graph, nodeId, visited))
+        ...otherValues
     ]
 }

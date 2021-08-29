@@ -10,31 +10,41 @@ export type Node<T = unknown> = {
     routes?: string[]
 }
 
-export const breadthFirstSearch = (graph: Graph, isTarget: (n: Node) => boolean): string[] => {
-    const visited: { [x: string]: boolean } = {}
-    const queue = [graph.rootNodeId]
+const searchGraph = (addNodeIds: (traversalIds: string[], newIds: string[]) => void) => {
+    return (graph: Graph, isTarget: (n: Node) => boolean): string[] => {
+        const visited: { [x: string]: boolean } = {}
+        const queue = [graph.rootNodeId]
 
-    while (queue.length > 0) {
-        const nodeId = queue.shift()!
-        const node = graph.nodes.find(n => n.id === nodeId)!
+        while (queue.length > 0) {
+            const nodeId = queue.shift()!
+            const node = graph.nodes.find(n => n.id === nodeId)!
 
-        // if node hasn't been visited
-        if (!visited[node.id]) {
-            if (isTarget(node)) {
-                const path = getPathToRoot(graph, node.id)
-                return path
+            // if node hasn't been visited
+            if (!visited[node.id]) {
+                if (isTarget(node)) {
+                    const path = getPathToRoot(graph, node.id)
+                    return path
+                }
+
+                // mark node as visited
+                visited[node.id] = true
+
+                const nonVisitedNodeIds = (node.routes ?? []).filter(r => !visited[r])
+                addNodeIds(queue, nonVisitedNodeIds)
             }
-
-            // mark node as visited
-            visited[node.id] = true
-
-            const nonVisitedNodeIds = (node.routes ?? []).filter(r => !visited[r])
-            queue.push(...nonVisitedNodeIds)
         }
-    }
 
-    return []
+        return []
+    }
 }
+
+const breadFirstAdd = (queue: string[], newIds: string[]) => queue.push(...newIds)
+
+export const breadthFirstSearch = searchGraph(breadFirstAdd)
+
+const depthFirstAdd = (stack: string[], newIds: string[]) => stack.unshift(...newIds)
+
+export const depthFirstSearch = searchGraph(depthFirstAdd)
 
 export const getPathToRoot = (graph: Graph, nodeId: string): string[] => {
     let currentNode = graph.nodes.find(n => n.id === nodeId)!
@@ -47,32 +57,6 @@ export const getPathToRoot = (graph: Graph, nodeId: string): string[] => {
     }
 
     return path
-}
-
-export const depthFirstSearch = (graph: Graph, nodeId: string, isTarget: (n: Node) => boolean): string[] => {
-    const visited: { [x: string]: boolean } = {}
-    const stack = [nodeId]
-
-    while (stack.length > 0) {
-        const nodeId = stack.shift()!
-        const node = graph.nodes.find(n => n.id === nodeId)!
-
-        // if node hasn't been visited
-        if (!visited[node.id]) {
-            if (isTarget(node)) {
-                const path = getPathToRoot(graph, node.id)
-                return path
-            }
-
-            // mark node as visited
-            visited[node.id] = true
-
-            const nonVisitedNodeIds = (node.routes ?? []).filter(nodeId => !visited[nodeId])
-            stack.unshift(...nonVisitedNodeIds)
-        }
-    }
-
-    return []
 }
 
 /**

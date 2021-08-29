@@ -66,7 +66,7 @@ describe('graph search', () => {
 
         test('given graph return the nodes to the value in the graph', () => {
             const target = '5'
-            const path = depthFirstSearch(graph, graph.rootNodeId, n => n.id === target)
+            const path = depthFirstSearch(graph, n => n.id === target)
             const expectedPath = ['1', '2', '5']
 
             expect(path).toEqual(expectedPath)
