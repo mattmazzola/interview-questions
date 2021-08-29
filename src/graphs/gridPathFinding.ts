@@ -1,4 +1,5 @@
 import { Graph, Node, Grid } from './models'
+import { breadthFirstSearch } from './search'
 
 export function getGridFromString(gridString: string): Grid {
     const trimmedGrid = gridString.trimStart()
@@ -48,15 +49,14 @@ export function getStartEndLocations(grid: Grid, startChar = 'S', endChar = 'E')
     return { start, end }
 }
 
-
-export function getGraph(grid: Grid, pathBlockChar = '#'): Graph {
+export function getGraph(grid: Grid, starChar = 'S', pathBlockChar = '#'): Graph {
     const graph: Graph = {
-        rootNodeId: '',
+        rootNodeId: ``,
         nodes: []
     }
 
     const directions: [number, number][] = [
-        [1,0], [-1, 0], [0, 1], [0, -1]
+        [1, 0], [-1, 0], [0, 1], [0, -1]
     ]
 
     const maxI = grid.length - 1
@@ -66,9 +66,12 @@ export function getGraph(grid: Grid, pathBlockChar = '#'): Graph {
         for (const [j, char] of row.entries()) {
 
             const routes: string[] = []
-            const isPositionOpen = char !== pathBlockChar
 
-            if (isPositionOpen) {
+            if (char === starChar) {
+                graph.rootNodeId = `${i}-${j}`
+            }
+
+            if (char !== pathBlockChar) {
                 for (const [movI, movJ] of directions) {
                     const [newI, newJ] = [i + movI, j + movJ]
                     const isRowInBounds = newI >= 0 && newI <= maxI
@@ -97,3 +100,12 @@ export function getGraph(grid: Grid, pathBlockChar = '#'): Graph {
 
     return graph
 }
+
+export function findPath(gridString: string): string[] {
+    const grid = getGridFromString(gridString)
+    const graph = getGraph(grid)
+    const path = breadthFirstSearch(graph, n => n.value === 'E')
+
+    return path
+}
+

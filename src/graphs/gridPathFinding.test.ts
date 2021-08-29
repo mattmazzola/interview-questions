@@ -1,15 +1,15 @@
-import { Graph, Grid } from './models'
-import { getGridFromString, getStartEndLocations, getGraph } from './gridPathFinding'
+import { Graph } from './models'
+import { getGridFromString, getStartEndLocations, getGraph, findPath } from './gridPathFinding'
 
 describe('Grid path finding', () => {
-    describe('getGridFromString', () => {
-        test('given grid string compute expected grid', () => {
-            const gridString = `
+    const gridString = `
 S# E
  # #
     
  ## `
 
+    describe('getGridFromString', () => {
+        test('given grid string compute expected grid', () => {
             const expected = [
                 ['S', '#', ' ', 'E'],
                 [' ', '#', ' ', '#'],
@@ -25,12 +25,6 @@ S# E
 
     describe('getStartEndLocations', () => {
         test('given grid, return location of start and end', () => {
-
-          const gridString = `
-S# E
- # #
-    
- ## `
             const expected = {
                 start: [0,0],
                 end: [0,3]
@@ -43,16 +37,10 @@ S# E
         })
     })
 
-    describe.only('getGraph', () => {
+    describe('getGraph', () => {
         test('given grid, return the graph of the grid', () => {
-            const gridString = `
-S# E
- # #
-    
- ## `
-
             const expected: Graph = {
-                rootNodeId: '',
+                rootNodeId: '0-0',
                 nodes: [
                     {
                         id: `0-0`,
@@ -139,6 +127,52 @@ S# E
 
             const grid = getGridFromString(gridString)
             const actual = getGraph(grid)
+
+            expect(actual).toEqual(expected)
+        })
+    })
+
+    // https://youtu.be/09_LlHjoEiY?t=2833
+    describe('findPath', () => {
+        test('given graph return path from start to end', () => {
+            const expected = [
+                '0-0',
+                '1-0',
+                '2-0',
+                '2-1',
+                '2-2',
+                '1-2',
+                '0-2',
+                '0-3',
+            ]
+
+            const actual = findPath(gridString)
+
+            expect(actual).toEqual(expected)
+        })
+
+        test('given graph return path from start to end 2', () => {
+            const gridString = `
+S  #   
+ #   # 
+ #     
+  ##   
+# #E # `
+
+            const expected = [
+                '0-0',
+                '0-1',
+                '0-2',
+                '1-2',
+                '1-3',
+                '1-4',
+                '2-4',
+                '3-4',
+                '4-4',
+                '4-3',
+            ]
+
+            const actual = findPath(gridString)
 
             expect(actual).toEqual(expected)
         })
