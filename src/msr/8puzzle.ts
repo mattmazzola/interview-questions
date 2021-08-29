@@ -1,5 +1,9 @@
-import { getPathToRoot } from "../graphs/search"
-import { INode } from "../graphs/traversal"
+
+interface INode<T> {
+    parent?: INode<T>
+    value: T
+    nodes?: INode<T>[]
+}
 
 type Puzzle = number[][]
 
@@ -164,4 +168,16 @@ export function getExpansions(puzzle: Puzzle, maxRowIndex: number, maxColIndex: 
 
 export function deepClone<T>(x: T): T {
     return JSON.parse(JSON.stringify(x))
+}
+
+export const getPathToRoot = <T>(node: INode<T>): T[] => {
+    let currentNode = node
+    const path: T[] = [node.value]
+
+    while (currentNode.parent) {
+        path.unshift(currentNode.parent.value)
+        currentNode = currentNode.parent
+    }
+
+    return path
 }
