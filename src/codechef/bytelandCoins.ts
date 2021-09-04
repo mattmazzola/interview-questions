@@ -1,6 +1,6 @@
 /** https://www.codechef.com/problems/COINS */
 
-export function cointsToDollars (n: number): number {
+export function coinsToDollars (n: number): number {
     const n2 = Math.floor(n/2)
     const n3 = Math.floor(n/3)
     const n4 = Math.floor(n/4)

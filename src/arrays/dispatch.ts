@@ -1,5 +1,5 @@
 /**
- * Given N arrays return M arrys wher each array is concatenations of slices of the two
+ * Given N arrays return M arrays where each array is concatenations of slices of the two
  * 
  * Input:
  * [A,B,C]

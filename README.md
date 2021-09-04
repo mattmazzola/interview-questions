@@ -14,6 +14,10 @@ Test
 npm test
 ```
 
+# Logging
+
+https://github.com/visionmedia/debug#powershell-vs-code-default
+
 # Debugging
 
 - https://jestjs.io/docs/getting-started#using-typescript

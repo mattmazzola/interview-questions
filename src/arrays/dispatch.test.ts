@@ -1,6 +1,6 @@
 import { dispatch } from './dispatch'
 
-describe('Dispatch', () => {
+describe('dispatch', () => {
     it('should output N * length arrays', () => {
         // Arrange
         const input = [
