@@ -3,7 +3,7 @@ import { union, find } from './unionFind'
 
 export function krushalsMst (graph: models.IWeightedGraph): models.IWeightedGraph {
     // Put each vertex in it's own set
-    let subsets = graph.verticies.map(v => new Set([v]))
+    let subsets = graph.vertices.map(v => new Set([v]))
 
     // Sort edges by least distance
     const sortedEdges = graph.edges.sort((a, b) => a.distance < b.distance ? -1 : 1)
@@ -13,13 +13,13 @@ export function krushalsMst (graph: models.IWeightedGraph): models.IWeightedGrap
     // })
 
     const mst: models.IWeightedGraph = {
-        verticies: [],
+        vertices: [],
         edges: []
     }
 
     sortedEdges.forEach(e => {
         const { start, end } = e
-        if (mst.edges.length === graph.verticies.length - 1) {
+        if (mst.edges.length === graph.vertices.length - 1) {
             return
         }
 
@@ -42,9 +42,9 @@ export function krushalsMst (graph: models.IWeightedGraph): models.IWeightedGrap
         subsets = subsets.filter(s => s !== subsetEnd)
         // console.log("Subsets: ", subsets)
 
-        mst.verticies = []
+        mst.vertices = []
         union1.forEach(s => {
-            mst.verticies.push(s)
+            mst.vertices.push(s)
         })
         mst.edges.push(e)
     })

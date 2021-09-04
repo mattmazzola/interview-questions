@@ -17,44 +17,44 @@ import * as models from './models'
  */
 export function primsMst (graph: models.IWeightedGraph): models.IWeightedGraph {
     const mstSet: models.IWeightedGraph = {
-        verticies: [],
+        vertices: [],
         edges: []
     }
-    const otherSet = graph.verticies
+    const otherSet = graph.vertices
     console.log(`otherSet: `, otherSet)
 
-    while (mstSet.verticies.length < otherSet.length) {
-        const minVertex = findMinimum(otherSet, mstSet.verticies)
-        console.log(`found v: ${minVertex.id} total: ${minVertex.total}`)
-        if (mstSet.verticies.length >= 1) {
+    while (mstSet.vertices.length < otherSet.length) {
+        const minVertex = findMinimum(otherSet, mstSet.vertices)
+        console.log(`found v: ${minVertex.id} total: ${minVertex.minDistance}`)
+        if (mstSet.vertices.length >= 1) {
             const edgesToAdd = graph.edges
                 .filter(e => !mstSet.edges.find(ed => ed === e))
                 .filter(e => {
-                    return (mstSet.verticies.find(v => v === e.start) && e.end === minVertex)
-                        || (e.start === minVertex && mstSet.verticies.find(v => v === e.end))
+                    return (mstSet.vertices.find(v => v === e.start) && e.end === minVertex)
+                        || (e.start === minVertex && mstSet.vertices.find(v => v === e.end))
                 })
 
             console.log(`edge to add: `, edgesToAdd.map(e => ([e.start.id, e.end.id])))
             edgesToAdd.forEach(e => mstSet.edges.push(e))
         }
-        mstSet.verticies.push(minVertex)
+        mstSet.vertices.push(minVertex)
 
 
-        console.log(`verticies: `, mstSet.verticies.map(v => v.id))
+        console.log(`verticies: `, mstSet.vertices.map(v => v.id))
         graph.edges
             .filter(e => e.end === minVertex)
-            .filter(e => !mstSet.verticies.find(v => v === e.start))
+            .filter(e => !mstSet.vertices.find(v => v === e.start))
             .forEach(e => {
                 const v = otherSet.find(v => v === e.start)!
-                v.total = Math.min(v.total, e.distance)
+                v.minDistance = Math.min(v.minDistance, e.distance)
             })
 
         graph.edges
             .filter(e => e.start === minVertex)
-            .filter(e => !mstSet.verticies.find(v => v === e.end))
+            .filter(e => !mstSet.vertices.find(v => v === e.end))
             .forEach(e => {
                 const v = otherSet.find(v => v === e.end)!
-                v.total = Math.min(v.total, e.distance)
+                v.minDistance = Math.min(v.minDistance, e.distance)
             })
         console.log(`edges: `, mstSet.edges.map(e => ([e.start.id, e.end.id])))
         console.log(`others: `, otherSet)
@@ -63,7 +63,7 @@ export function primsMst (graph: models.IWeightedGraph): models.IWeightedGraph {
     return mstSet
 }
 
-export function findMinimum (verticies: models.IVertexTotal[], mstVerticies: models.IVertexTotal[]): models.IVertexTotal {
+export function findMinimum (verticies: models.IVertexMinDistance[], mstVerticies: models.IVertexMinDistance[]): models.IVertexMinDistance {
     // console.log(`verticies: `, verticies, `mstVerticies: `, mstVerticies)
     const filteredV = verticies
         .filter(v => !mstVerticies.find(mv => mv === v))
@@ -71,5 +71,5 @@ export function findMinimum (verticies: models.IVertexTotal[], mstVerticies: mod
     // console.log(`filtered v: `, filteredV)
 
     return filteredV
-        .reduce((min, v) => v.total < min.total ? v : min, { total: Number.POSITIVE_INFINITY, id: -1 })
+        .reduce((min, v) => v.minDistance < min.minDistance ? v : min, { minDistance: Number.POSITIVE_INFINITY, id: -1 })
 }

@@ -17,7 +17,7 @@ xdescribe("Union-Find", () => {
         const testItems: ITestItem<ISimpleGraph>[] = [
             {
                 item: {
-                    verticies: verticies.slice(0, 3),
+                    vertices: verticies.slice(0, 3),
                     edges: [
                         { start: verticies[0], end: verticies[1] },
                         { start: verticies[1], end: verticies[2] },
@@ -28,7 +28,7 @@ xdescribe("Union-Find", () => {
             },
             {
                 item: {
-                    verticies: verticies.slice(0, 5),
+                    vertices: verticies.slice(0, 5),
                     edges: [
                         { start: verticies[0], end: verticies[2] },
                         { start: verticies[0], end: verticies[1] },
@@ -41,7 +41,7 @@ xdescribe("Union-Find", () => {
             },
             {
                 item: {
-                    verticies: verticies.slice(0, 5),
+                    vertices: verticies.slice(0, 5),
                     edges: [
                         { start: verticies[0], end: verticies[1] },
                         { start: verticies[1], end: verticies[2] },

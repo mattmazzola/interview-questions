@@ -5,9 +5,9 @@ import * as models from './models'
 
 export function dijkstraShortestPath (graphInput: models.IWeightedGraph) {
     // Make a copy of input graph
-    const vs = graphInput.verticies.map(v => ({ ...v }))
+    const vs = graphInput.vertices.map(v => ({ ...v }))
     const graph: models.IWeightedGraph = {
-        verticies: vs,
+        vertices: vs,
         edges: graphInput.edges.map(e => ({
             start: vs.find(v => v.id === e.start.id)!,
             end: vs.find(v => v.id === e.end.id)!,
@@ -15,48 +15,41 @@ export function dijkstraShortestPath (graphInput: models.IWeightedGraph) {
         }))
     }
 
-    const sptSet: Set<models.IVertexTotal> = new Set()
+    const shortestPathFromMin: { [key: string]: number } = {}
 
-    while (sptSet.size != graph.verticies.length) {
-        // Find vertex with mimum total distance
-        const vertex = findMinimum(sptSet, graph.verticies)
-        sptSet.add(vertex)
+    while (Object.keys(shortestPathFromMin).length < graph.vertices.length) {
+        // Find vertex with minimum total distance
+        const vertex = findMinimum(shortestPathFromMin, graph.vertices)
+        shortestPathFromMin[vertex.id]
         // console.log(`found: vertex${vertex.id}`)
 
         // For each adjacent vertex updates it's total value to the 
         // Minimum current total and Adjacent vertex total + edge distance 
         graph.edges
             .filter(e => e.start === vertex)
-            .filter(e => !sptSet.has(e.end))
+            .filter(e => typeof shortestPathFromMin[e.end.id] === 'undefined')
             .forEach(e => {
-                const total = Math.min(vertex.total + e.distance, e.end.total)
-                e.end.total = total
+                const minDistance = Math.min(vertex.minDistance + e.distance, e.end.minDistance)
+                e.end.minDistance = minDistance
                 // console.log(`vertex${e.end.id}.total = ${total}`)
             })
 
         graph.edges
             .filter(e => e.end === vertex)
-            .filter(e => !sptSet.has(e.start))
+            .filter(e => typeof shortestPathFromMin[e.start.id] === 'undefined')
             .forEach(e => {
-                const total = Math.min(vertex.total + e.distance, e.start.total)
-                e.start.total = total
+                const minDistance = Math.min(vertex.minDistance + e.distance, e.start.minDistance)
+                e.start.minDistance = minDistance
                 // console.log(`vertex${e.start.id}.total = ${total}`)
             })
     }
 
-    // console.log("Report Shortest distance to each vertix:")
-    const result: [number, number][] = []
-    sptSet.forEach((v) => {
-        result.push([v.id, v.total])
-        // console.log(`vertex${v.id}.total: ${v.total}`)
-    })
-
-    return result
+    return shortestPathFromMin
 }
 
-export function findMinimum (set: Set<models.IVertexTotal>, verticies: models.IVertexTotal[]) {
-    const min = verticies.reduce<models.IVertexTotal | null>((minV, v) => {
-        if (!set.has(v) && (minV === null || v.total <= minV.total)) {
+export function findMinimum (set: { [key: string]: number }, vertices: models.IVertexMinDistance[]) {
+    const min = vertices.reduce<models.IVertexMinDistance | null>((minV, v) => {
+        if (!set[v.id] && (minV === null || v.minDistance <= minV.minDistance)) {
             minV = v
         }
         return minV

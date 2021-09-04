@@ -1,10 +1,10 @@
 export interface IGraph<V, E> {
-    verticies: V[]
+    vertices: V[]
     edges: E[]
 }
 
 export type ISimpleGraph = IGraph<IVertex, IEdge>
-export type IWeightedGraph = IGraph<IVertexTotal, IWeightedEdge>
+export type IWeightedGraph = IGraph<IVertexMinDistance, IWeightedEdge>
 
 export interface IVertex {
     id: number
@@ -15,12 +15,12 @@ export interface IEdge {
     end: IVertex
 }
 
-export interface IVertexTotal extends IVertex {
-    total: number
+export interface IVertexMinDistance extends IVertex {
+    minDistance: number
 }
 
 export interface IWeightedEdge {
-    start: IVertexTotal
-    end: IVertexTotal
+    start: IVertexMinDistance
+    end: IVertexMinDistance
     distance: number
 }

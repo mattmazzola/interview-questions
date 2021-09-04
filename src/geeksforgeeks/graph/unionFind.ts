@@ -9,7 +9,7 @@ import { ISimpleGraph } from './models'
  * If they are different subsets union the sets since they are connected by the edge and cotinue to next edge
  */
 export function unionFind (graph: ISimpleGraph): boolean {
-    let subsets = graph.verticies.map(v => new Set([v]))
+    let subsets = graph.vertices.map(v => new Set([v]))
 
     const isCycle = graph.edges.some(({ start, end }) => {
         const subsetStart = find(subsets, start)
