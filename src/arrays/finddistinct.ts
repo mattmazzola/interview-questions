@@ -13,9 +13,8 @@ export const findDistinct = (as: number[], bs: number[]): number[] => {
     logger(as)
     logger(bs)
 
-    while(i < as.length
-        || j < bs.length)
-    {
+    while (i < as.length
+        || j < bs.length) {
         let iValue = as[i]
         let jValue = bs[j]
 
@@ -41,7 +40,7 @@ export const findDistinct = (as: number[], bs: number[]): number[] => {
 }
 
 const tryPush = (xs: number[], n: number): void => {
-    let last:number | null = null
+    let last: number | null = null
 
     if (xs.length > 0) {
         last = xs[xs.length - 1]

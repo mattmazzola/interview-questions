@@ -26,7 +26,7 @@ export class DI {
 
             return f
         })
-        
+
         return fn.apply(null, fns)
     }
 }

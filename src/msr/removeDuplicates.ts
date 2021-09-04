@@ -10,9 +10,9 @@ export function removeDuplicates(sortedNumbers: number[]): number[] {
     const duplicateMarker = -1
 
     // Get duplicates
-    for(const [i,n] of sortedNumbers.entries()) {
+    for (const [i, n] of sortedNumbers.entries()) {
         if (previousValue && n === previousValue) {
-            duplicates.push([i,n])
+            duplicates.push([i, n])
             // Mark duplicates
             sortedNumbers[i] = duplicateMarker
         }
@@ -23,7 +23,7 @@ export function removeDuplicates(sortedNumbers: number[]): number[] {
     sortedNumbers = sortedNumbers.filter(n => n != duplicateMarker)
 
     // Add duplicates to end
-    sortedNumbers.push(...duplicates.map(([_,v]) => v))
+    sortedNumbers.push(...duplicates.map(([_, v]) => v))
 
     return sortedNumbers
 }

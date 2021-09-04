@@ -35,7 +35,7 @@ describe('hackerearth', () => {
 
             describe('minMax', () => {
                 test('given array of integers return smallest and largest sum', () => {
-                    expect(search.minMax([1,2,3,4,5])).toEqual([10,14])
+                    expect(search.minMax([1, 2, 3, 4, 5])).toEqual([10, 14])
                 })
             })
 
@@ -49,9 +49,9 @@ describe('hackerearth', () => {
         describe('binary', () => {
             describe('getKillCountAndSum', () => {
                 test('given N soliders and power of M should kill solidiers with powe less than or equal to M', () => {
-                    expect(search.getKillCountAndSum([1,2,3,4,5,6,7], 3)).toEqual([3,6])
-                    expect(search.getKillCountAndSum([1,2,3,4,5,6,7], 10)).toEqual([7, 28])
-                    expect(search.getKillCountAndSum([1,2,3,4,5,6,7], 2)).toEqual([2, 3])
+                    expect(search.getKillCountAndSum([1, 2, 3, 4, 5, 6, 7], 3)).toEqual([3, 6])
+                    expect(search.getKillCountAndSum([1, 2, 3, 4, 5, 6, 7], 10)).toEqual([7, 28])
+                    expect(search.getKillCountAndSum([1, 2, 3, 4, 5, 6, 7], 2)).toEqual([2, 3])
                 })
             })
 
@@ -59,11 +59,11 @@ describe('hackerearth', () => {
                 test('given list of triangle sides return the number of unique traingles', () => {
                     // Arrange
                     const triangles = [
-                        [7,6,5],
-                        [5,7,6],
-                        [8,2,9],
-                        [2,3,4],
-                        [2,4,3]
+                        [7, 6, 5],
+                        [5, 7, 6],
+                        [8, 2, 9],
+                        [2, 3, 4],
+                        [2, 4, 3]
                     ]
 
                     expect(search.getUniqueTriangles(triangles)).toBe(1)
@@ -96,25 +96,25 @@ describe('hackerearth', () => {
             describe('getCountOfSmaller', () => {
                 test('given array of numbers and value, return the count of numbers smaller than the value', () => {
                     expect(search.getCountOfSmaller([], 20)).toBe(0)
-                    expect(search.getCountOfSmaller([3,4,5,7,8,9,123], 2)).toBe(0)
-                    expect(search.getCountOfSmaller([3,4,5,7,8,9,123], 500)).toBe(7)
-                    expect(search.getCountOfSmaller([1,3,4,5,7,8,9,123], 6)).toBe(4)
-                    expect(search.getCountOfSmaller([1,3,4,5,7,8,9,123], 7)).toBe(4)
+                    expect(search.getCountOfSmaller([3, 4, 5, 7, 8, 9, 123], 2)).toBe(0)
+                    expect(search.getCountOfSmaller([3, 4, 5, 7, 8, 9, 123], 500)).toBe(7)
+                    expect(search.getCountOfSmaller([1, 3, 4, 5, 7, 8, 9, 123], 6)).toBe(4)
+                    expect(search.getCountOfSmaller([1, 3, 4, 5, 7, 8, 9, 123], 7)).toBe(4)
                 })
             })
 
             describe('getCountOfLarger', () => {
                 test('given array of number and value, return the count of numbers greater than the given value', () => {
                     expect(search.getCountOfLarger([], 10)).toBe(0)
-                    expect(search.getCountOfLarger([5,6,7,8,9,12,15,16], 10)).toBe(3)
-                    expect(search.getCountOfLarger([5,6,7,8,9,12,13,14,15,16], 9)).toBe(5)
-                    expect(search.getCountOfLarger([5,6,7,8,9,12,13,14,15,16], 10)).toBe(5)
+                    expect(search.getCountOfLarger([5, 6, 7, 8, 9, 12, 15, 16], 10)).toBe(3)
+                    expect(search.getCountOfLarger([5, 6, 7, 8, 9, 12, 13, 14, 15, 16], 9)).toBe(5)
+                    expect(search.getCountOfLarger([5, 6, 7, 8, 9, 12, 13, 14, 15, 16], 10)).toBe(5)
                 })
             })
 
             xdescribe('simpleGame', () => {
                 test('given different numbers foreach monk return the winning monk and the score or tie', () => {
-                    expect(search.simpleGame([1,3], [0,5])).toEqual(`Monk 2`)
+                    expect(search.simpleGame([1, 3], [0, 5])).toEqual(`Monk 2`)
                 })
             })
         })

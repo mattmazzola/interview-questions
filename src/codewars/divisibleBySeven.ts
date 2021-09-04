@@ -16,7 +16,7 @@
  * 13   91  01011011
  * 14   98  01100010
  */
-export function divisibleBySeven (s: string): boolean {
+export function divisibleBySeven(s: string): boolean {
     if (s === '') {
         return false
     }
@@ -32,7 +32,7 @@ export function divisibleBySeven (s: string): boolean {
     s = s.trim()
 
     const n = parseInt(s, 2)
-    const divs = n % 7 === 0 
+    const divs = n % 7 === 0
 
     return divs
 }

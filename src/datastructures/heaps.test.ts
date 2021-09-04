@@ -3,8 +3,8 @@ import * as heap from './heaps'
 describe('heap', () => {
     test('sort items by using max heap', () => {
         // Arrange
-        const input = [4,7,5,8,9,0,2,1,52,3,40]
-        const expected = [52,40,9,8,7,5,4,3,2,1,0]
+        const input = [4, 7, 5, 8, 9, 0, 2, 1, 52, 3, 40]
+        const expected = [52, 40, 9, 8, 7, 5, 4, 3, 2, 1, 0]
 
         // Act
         const h1 = new heap.Heap()

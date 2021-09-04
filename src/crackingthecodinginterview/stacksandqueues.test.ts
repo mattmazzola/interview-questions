@@ -14,7 +14,7 @@ describe('Cracking The Coding Interview', () => {
                 stack2.push(12)
                 stack3.push(101)
                 stack3.push(102)
-                
+
                 // Assert
                 expect(stack1.pop()).toBe(2)
                 expect(stack2.pop()).toBe(12)
@@ -65,7 +65,7 @@ describe('Cracking The Coding Interview', () => {
         describe('3.4 towers of hanoi', () => {
             test('given three stacks and set of disks in ascending order on stack A, move them to stack C', () => {
                 // Arrange
-                const a: number[] = [5,4,3,2,1]
+                const a: number[] = [5, 4, 3, 2, 1]
                 const originalA = [...a]
                 const b: number[] = []
                 const c: number[] = []
@@ -79,7 +79,7 @@ C: [${c.join(', ')}]
                     console.log(msg)
                 }
 
-                const noop = () => {}
+                const noop = () => { }
 
                 // Act
                 StacksAndQueues.towersOfHanoi(a.length, a, b, c, noop)
@@ -142,7 +142,7 @@ C: [${c.join(', ')}]
 
                 // Act
                 const animal = queue.dequeue()!
-                
+
                 if (StacksAndQueues.Dog.isDog(animal)) {
                     expect(animal).toEqual(dog1)
                 }

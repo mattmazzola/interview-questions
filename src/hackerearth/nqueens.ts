@@ -32,7 +32,7 @@ export interface IPosition {
     j: number
 }
 
-export const nqueens =  (n: number, debug = false): ICell[][] => {
+export const nqueens = (n: number, debug = false): ICell[][] => {
     const board = createBoard(n)
 
     if (debug) {
@@ -46,7 +46,7 @@ const nqueensinternal = (board: ICell[][], remainingQueensToPlace: number, debug
     if (debug) {
         console.log(`nqueensinternal: ${remainingQueensToPlace} \n${getBoardVisual(board)}`)
     }
-    
+
     if (remainingQueensToPlace == 0) {
         return board
     }
@@ -78,7 +78,7 @@ const nqueensinternal = (board: ICell[][], remainingQueensToPlace: number, debug
             isSuccess = true
         }
         catch (e) {
-            const error: Error = e
+            const error = e as Error
 
             if (debug) {
                 console.log(`Error at level: ${remainingQueensToPlace} position: ${position.i}, ${position.j}, \n ${error.message}`)
@@ -101,9 +101,9 @@ const nqueensinternal = (board: ICell[][], remainingQueensToPlace: number, debug
 export const createBoard = (n: number): ICell[][] => {
     const board = []
 
-    for(let i = 0; i < n; i++) {
+    for (let i = 0; i < n; i++) {
         const row = []
-        for(let j = 0; j < n; j++) {
+        for (let j = 0; j < n; j++) {
             row.push({
                 i,
                 j,
@@ -161,7 +161,7 @@ export const generateNewBoardWithQueenAtPosition = (board: ICell[][], position: 
     let bottomRightEdgeHit = false
     let offset = 1
 
-    while(!topLeftEdgeHit
+    while (!topLeftEdgeHit
         || !topRightEdgeHit
         || !bottomRightEdgeHit
         || !bottomLeftEdgeHit

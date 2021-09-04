@@ -10,7 +10,7 @@ describe('MSR', () => {
                 ['G', 'H', 'I'],
             ]
 
-            const expected = ['A','B','C','F','I','H','G','D','E']
+            const expected = ['A', 'B', 'C', 'F', 'I', 'H', 'G', 'D', 'E']
 
             // Act / Assert
             expect(clockwiseTraversal(matrix)).toEqual(expected)
@@ -25,7 +25,7 @@ describe('MSR', () => {
         })
 
         test('given single row return row', () => {
-            expect(clockwiseTraversal([['A','B','C','D']])).toEqual(['A','B','C','D'])
+            expect(clockwiseTraversal([['A', 'B', 'C', 'D']])).toEqual(['A', 'B', 'C', 'D'])
         })
 
         test('given column print alternating values', () => {
@@ -39,7 +39,7 @@ describe('MSR', () => {
             ]
 
             const expected = ['A', 'B', 'C', 'D', 'E']
-            
+
             // Act / Assert
             expect(clockwiseTraversal(column)).toEqual(expected)
         })

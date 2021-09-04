@@ -31,7 +31,7 @@ export const reverseString = (s: string): string => {
 
     const nullIndex = s2.length - 1
 
-    for(let i = 0; i < Math.floor(nullIndex / 2); i++) {
+    for (let i = 0; i < Math.floor(nullIndex / 2); i++) {
         // Save current character in null index
         s2[nullIndex] = s2[i]
         // Move opposing character in current characters position
@@ -74,7 +74,7 @@ export const isPermutation = (a: string, b: string): boolean => {
 
     const aCharacterCounts = getCharacterCounts(a)
     const bCharacterCounts = getCharacterCounts(b)
-    
+
     return Object.keys(aCharacterCounts).every(key => aCharacterCounts[key] === bCharacterCounts[key])
 }
 
@@ -159,7 +159,7 @@ export const getInOrderCharacterCounts = (s: string): ICharCount[] => {
  */
 export const rotateMatrix = (matrix: number[][]): number[][] => {
     const rotatedMatrix: number[][] = Array.from(Array(matrix.length), () => [])
-    const maxIndex = matrix.length  - 1
+    const maxIndex = matrix.length - 1
 
     matrix.forEach((row, i) => {
         row.forEach((value, j) => {

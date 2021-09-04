@@ -8,7 +8,7 @@ export const mininumArrowsToBurstBallonsGreedy = (balloons: number[][]): number 
     if (!balloons || balloons.length === 0) {
         return 0
     }
-    
+
     let minEnd = Number.MAX_VALUE
 
     balloons.sort(([baMin, baMax], [bbMin, bbMax]) => baMin - bbMin)
@@ -45,7 +45,7 @@ export const mininumArrowsToBurstBallons = (balloons: number[][]): number => {
         })
 
         delete balloonFrequencyMap[position]
-        
+
         sortedBalloonFrequencies = sortedBalloonFrequencyMap(balloonFrequencyMap)
         arrows++
     }
@@ -58,7 +58,7 @@ export const getBalloonFrequencyMap = (balloons: number[][]): { [x: number]: num
     return balloons.reduce((map: { [x: number]: number[][] }, balloon) => {
         const [min, max] = balloon
 
-        for(let i = min; i <= max; i++) {
+        for (let i = min; i <= max; i++) {
             if (!map[i]) {
                 map[i] = [balloon]
             }
@@ -73,7 +73,7 @@ export const getBalloonFrequencyMap = (balloons: number[][]): { [x: number]: num
 export const reduceFrequencies = (balloonFrequency: { [x: number]: number[][] }, balloon: number[]): void => {
     const [min, max] = balloon
 
-    for(let i = min; i <= max; i++) {
+    for (let i = min; i <= max; i++) {
         const existingBalloons = balloonFrequency[i]
         const balloonIndex = existingBalloons.indexOf(balloon)
 

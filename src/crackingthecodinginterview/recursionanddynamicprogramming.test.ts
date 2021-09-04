@@ -10,52 +10,52 @@ describe('Cracking The Coding Interview', () => {
             test('given n stairs return permutations to walk stairs', () => {
                 expect(RDP.getStairPermutations(2)).toEqual([
                     [2],
-                    [1,1]
+                    [1, 1]
                 ])
                 expect(RDP.getStairPermutations(3)).toEqual([
                     [3],
-                    [2,1],
-                    [1,2],
-                    [1,1,1]
+                    [2, 1],
+                    [1, 2],
+                    [1, 1, 1]
                 ])
                 expect(RDP.getStairPermutations(4)).toEqual([
-                    [3,1],
-                    [2,2],
-                    [2,1,1],
-                    [1,3],
-                    [1,2,1],
-                    [1,1,2],
-                    [1,1,1,1]
+                    [3, 1],
+                    [2, 2],
+                    [2, 1, 1],
+                    [1, 3],
+                    [1, 2, 1],
+                    [1, 1, 2],
+                    [1, 1, 1, 1]
                 ])
             })
         })
 
         describe('9.2 Given x, y grid, get all paths robot can take to get to x,y', () => {
             test('given empty grid, return no paths', () => {
-                expect(RDP.getRobotPaths(0,0)).toEqual([])
+                expect(RDP.getRobotPaths(0, 0)).toEqual([])
             })
 
             test('given grid, return paths robot can take to get to end', () => {
-                expect(RDP.getRobotPaths(2,1)).toEqual([
-                    [[0,0],[1,0]]
+                expect(RDP.getRobotPaths(2, 1)).toEqual([
+                    [[0, 0], [1, 0]]
                 ])
 
-                expect(RDP.getRobotPaths(2,2)).toEqual([
-                    [[0,0],[1,0],[1,1]],
-                    [[0,0],[0,1],[1,1]]
+                expect(RDP.getRobotPaths(2, 2)).toEqual([
+                    [[0, 0], [1, 0], [1, 1]],
+                    [[0, 0], [0, 1], [1, 1]]
                 ])
 
-                expect(RDP.getRobotPaths(3,2)).toEqual([
-                    [[0,0],[1,0],[2,0],[2,1]],
-                    [[0,0],[1,0],[1,1],[2,1]],
-                    [[0,0],[0,1],[1,1],[2,1]]
+                expect(RDP.getRobotPaths(3, 2)).toEqual([
+                    [[0, 0], [1, 0], [2, 0], [2, 1]],
+                    [[0, 0], [1, 0], [1, 1], [2, 1]],
+                    [[0, 0], [0, 1], [1, 1], [2, 1]]
                 ])
             })
         })
 
         describe('9.3 Find magic index (i === x)', () => {
             test('given array without magic index return undefined', () => {
-                expect(RDP.findMagicIndex([1,2,3])).toBe(undefined)
+                expect(RDP.findMagicIndex([1, 2, 3])).toBe(undefined)
             })
 
             test('given empty array return undefined', () => {
@@ -63,7 +63,7 @@ describe('Cracking The Coding Interview', () => {
             })
 
             test('given array with magic index return magic index', () => {
-                expect(RDP.findMagicIndex([-2,-1,0,1,4,6,7])).toBe(4)
+                expect(RDP.findMagicIndex([-2, -1, 0, 1, 4, 6, 7])).toBe(4)
             })
         })
 
@@ -74,10 +74,10 @@ describe('Cracking The Coding Interview', () => {
 
             test('given set return subsets', () => {
                 expect(RDP.getSubsets([1])).toEqual([])
-                expect(RDP.getSubsets([1,2])).toEqual([[1],[2]])
-                expect(RDP.getSubsets([1,2,3])).toEqual([
-                    [1,2],
-                    [2,3],
+                expect(RDP.getSubsets([1, 2])).toEqual([[1], [2]])
+                expect(RDP.getSubsets([1, 2, 3])).toEqual([
+                    [1, 2],
+                    [2, 3],
                     [1],
                     [2],
                     [2],
@@ -118,25 +118,25 @@ describe('Cracking The Coding Interview', () => {
 
         describe('9.7 Fill screen with color', () => {
             test('given screen of 0 width or height return the screen since no points will be valid', () => {
-                expect(RDP.fillColor([], [1,1], 1)).toEqual([])
+                expect(RDP.fillColor([], [1, 1], 1)).toEqual([])
             })
 
             test('given screen and point surrounded by other colors return screen with only the point updated', () => {
                 // Arrange
                 const screen: number[][] = [
-                    [1,1,1],
-                    [1,0,1],
-                    [1,1,1]
+                    [1, 1, 1],
+                    [1, 0, 1],
+                    [1, 1, 1]
                 ]
 
                 const expected: number[][] = [
-                    [1,1,1],
-                    [1,2,1],
-                    [1,1,1]
+                    [1, 1, 1],
+                    [1, 2, 1],
+                    [1, 1, 1]
                 ]
 
                 // Act
-                RDP.fillColor(screen, [1,1], 2)
+                RDP.fillColor(screen, [1, 1], 2)
 
                 // Assert
                 expect(screen).toEqual(expected)
@@ -145,19 +145,19 @@ describe('Cracking The Coding Interview', () => {
             test('given screen and point fill all adjacent points that are same color with new color', () => {
                 // Arrange
                 const screen: number[][] = [
-                    [1,1,0,1],
-                    [1,0,0,0],
-                    [1,1,1,1],
+                    [1, 1, 0, 1],
+                    [1, 0, 0, 0],
+                    [1, 1, 1, 1],
                 ]
 
                 const expected: number[][] = [
-                    [1,1,2,1],
-                    [1,2,2,2],
-                    [1,1,1,1],
+                    [1, 1, 2, 1],
+                    [1, 2, 2, 2],
+                    [1, 1, 1, 1],
                 ]
 
                 // Act
-                RDP.fillColor(screen, [1,1], 2)
+                RDP.fillColor(screen, [1, 1], 2)
 
                 // Assert
                 expect(screen).toEqual(expected)
@@ -166,29 +166,29 @@ describe('Cracking The Coding Interview', () => {
             test('given screen and point fill all adjacent points that are same color with new color', () => {
                 // Arrange
                 const screen: number[][] = [
-                    [1,1,1,1,1,1,1,1],
-                    [1,0,1,1,1,1,0,1],
-                    [1,0,0,1,1,1,0,1],
-                    [1,0,0,0,0,1,0,1],
-                    [1,1,1,1,0,0,0,1],
-                    [1,1,0,1,1,0,0,1],
-                    [1,1,1,1,1,0,1,1],
-                    [1,1,0,0,0,0,1,1],
+                    [1, 1, 1, 1, 1, 1, 1, 1],
+                    [1, 0, 1, 1, 1, 1, 0, 1],
+                    [1, 0, 0, 1, 1, 1, 0, 1],
+                    [1, 0, 0, 0, 0, 1, 0, 1],
+                    [1, 1, 1, 1, 0, 0, 0, 1],
+                    [1, 1, 0, 1, 1, 0, 0, 1],
+                    [1, 1, 1, 1, 1, 0, 1, 1],
+                    [1, 1, 0, 0, 0, 0, 1, 1],
                 ]
 
                 const expected: number[][] = [
-                    [1,1,1,1,1,1,1,1],
-                    [1,2,1,1,1,1,2,1],
-                    [1,2,2,1,1,1,2,1],
-                    [1,2,2,2,2,1,2,1],
-                    [1,1,1,1,2,2,2,1],
-                    [1,1,0,1,1,2,2,1],
-                    [1,1,1,1,1,2,1,1],
-                    [1,1,2,2,2,2,1,1],
+                    [1, 1, 1, 1, 1, 1, 1, 1],
+                    [1, 2, 1, 1, 1, 1, 2, 1],
+                    [1, 2, 2, 1, 1, 1, 2, 1],
+                    [1, 2, 2, 2, 2, 1, 2, 1],
+                    [1, 1, 1, 1, 2, 2, 2, 1],
+                    [1, 1, 0, 1, 1, 2, 2, 1],
+                    [1, 1, 1, 1, 1, 2, 1, 1],
+                    [1, 1, 2, 2, 2, 2, 1, 1],
                 ]
 
                 // Act
-                RDP.fillColor(screen, [1,1], 2)
+                RDP.fillColor(screen, [1, 1], 2)
 
                 // Assert
                 expect(screen).toEqual(expected)

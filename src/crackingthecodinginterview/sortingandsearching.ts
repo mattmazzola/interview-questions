@@ -147,7 +147,7 @@ export const findRotated = (numbers: number[], value: number, min: number = 0, m
         }
         else {
             const leftResult = searchLeft()
-            return (leftResult !== -1) 
+            return (leftResult !== -1)
                 ? leftResult
                 : searchRight()
         }

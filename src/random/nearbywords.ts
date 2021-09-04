@@ -2,7 +2,7 @@
  * Given string get all words that may be intended if you include permutations of nearby letters
  */
 
-const nearByCharacterMap: { [x:string]: string[] } = {
+const nearByCharacterMap: { [x: string]: string[] } = {
     'g': ['f', 'g', 'h'],
     'i': ['u', 'i', 'o']
 }
@@ -36,7 +36,7 @@ const words: string[] = [
 ]
 
 const isWord = (s: string): boolean => {
-    return (words.indexOf(s) !== -1);
+    return (words.indexOf(s) !== -1)
 }
 
 export const nearByWords = (s: string): string[] => {

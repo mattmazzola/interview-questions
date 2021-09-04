@@ -8,10 +8,10 @@ describe('Code Chef', () => {
             expect(minimumStepsToOne(7)).toBe(3)
         })
     })
-    
+
     describe('longestIncreasingSubsequenceDp', () => {
         test('should return longest subsequence within the array', () => {
-            expect(longestIncreasingSubsequenceDp([1,2,1,2,3,4,5,4,9])).toBe(6)
+            expect(longestIncreasingSubsequenceDp([1, 2, 1, 2, 3, 4, 5, 4, 9])).toBe(6)
         })
     })
 })

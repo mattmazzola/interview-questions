@@ -11,7 +11,7 @@ describe('Code Wars', () => {
                 [4, 1675],
                 [5, 4954]
             ]
-            
+
             powers.map(([power, answer]) => {
                 expect(totalIncDec(power)).toBe(answer)
             })

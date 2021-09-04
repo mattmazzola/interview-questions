@@ -81,7 +81,7 @@ describe('Code Wars', () => {
                 t: {
                     te: {
                         tes: {
-                            test: { 
+                            test: {
                                 '<S>': {},
                                 teste: {
                                     tester: { '<S>': {} }

@@ -5,7 +5,7 @@ export interface ITrie {
     [s: string]: ITrie | null
 }
 
-export function trie (...strings: string[]): ITrie {
+export function trie(...strings: string[]): ITrie {
     if (strings.length === 0) {
         return {}
     }
@@ -26,9 +26,9 @@ const createTrie = (trie: ITrie, word: string, splitIndex: number): ITrie | null
         trie[word] = { '<S>': {} }
         return trie
     }
-    
-    const prefix = word.slice(0,splitIndex)
-    if(trie[prefix]) {
+
+    const prefix = word.slice(0, splitIndex)
+    if (trie[prefix]) {
         trie[prefix] = createTrie(trie[prefix]!, word, splitIndex + 1)
     }
     else {
@@ -45,13 +45,13 @@ type TrieData = {
 export class Trie {
     private static terminalString = '<S>'
     data: TrieData = {}
-    
+
     insert(s: string) {
         let currentTrie = this.data
 
         const chars = s.split('')
 
-        for(const [index, char] of chars.entries()) {
+        for (const [index, char] of chars.entries()) {
             const isLastChar = index === (chars.length - 1)
 
             // if char does not exist, add char with reference to empty trie

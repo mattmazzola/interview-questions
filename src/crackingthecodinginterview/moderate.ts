@@ -17,8 +17,8 @@ export const hasWonTicTacToe = (board: number[][]): boolean => {
     const completeColumn = () => columnPlaceholder.some((column, i) => board.every(row => row[i] === board[0][i]))
 
     // Test diagonals
-    const topleft = board[0][0]
-    const diagonal1 = () => columnPlaceholder.every((_, i) => board[i][i] === board[0][0])
+    const topLeft = board[0][0]
+    const diagonal1 = () => columnPlaceholder.every((_, i) => board[i][i] === topLeft)
 
     const maxIndex = columnPlaceholder.length - 1
     const topRight = board[0][maxIndex]

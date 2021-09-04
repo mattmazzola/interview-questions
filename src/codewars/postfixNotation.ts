@@ -35,23 +35,23 @@ export enum IAssociativity {
 
 export type IPrecedence = number
 
-export const associativity: { [x: string]: string} = {
-    "^" : "right",
-    "*" : "left",
-    "/" : "left",
-    "+" : "left",
-    "-" : "left"
+export const associativity: { [x: string]: string } = {
+    "^": "right",
+    "*": "left",
+    "/": "left",
+    "+": "left",
+    "-": "left"
 }
 
 export const precendence: { [x: string]: number } = {
-    "^" : 4,
-    "*" : 3,
-    "/" : 3,
-    "+" : 2,
-    "-" : 2
+    "^": 4,
+    "*": 3,
+    "/": 3,
+    "+": 2,
+    "-": 2
 }
 
-export function tokenizer (s: string): IToken[] {
+export function tokenizer(s: string): IToken[] {
     return s.split('')
         .map(c => {
             if (c === '(') {
@@ -80,11 +80,11 @@ export function tokenizer (s: string): IToken[] {
         })
 }
 
-export function peek <T>(xs: T[]): T {
+export function peek<T>(xs: T[]): T {
     return xs.slice(-1)[0]
 }
 
-export function addNode (xs: INode[], value: string): void {
+export function addNode(xs: INode[], value: string): void {
     const right = xs.pop()
     const left = xs.pop()
 
@@ -94,7 +94,7 @@ export function addNode (xs: INode[], value: string): void {
         right
     })
 }
-export function parseTree (s: string): INode {
+export function parseTree(s: string): INode {
     console.log('s: ', s)
     const outputTree: INode[] = []
     const operatorStack: string[] = []
@@ -121,7 +121,7 @@ export function parseTree (s: string): INode {
                 if ((associativity[t] === 'left'
                     && precendence[t] <= precendence[topOperator])
                     || (associativity[t] === 'right'
-                    && precendence[t] < precendence[topOperator])) {
+                        && precendence[t] < precendence[topOperator])) {
                     addNode(outputTree, operatorStack.pop()!)
                 }
             }
@@ -147,7 +147,7 @@ export function parseTree (s: string): INode {
     return outputTree[0]
 }
 
-export function toRpn (node: INode): string {
+export function toRpn(node: INode): string {
     if (node.left == null && node.right == null) {
         return node.value
     }
@@ -155,7 +155,7 @@ export function toRpn (node: INode): string {
     return `${toRpn(node.left!)}${toRpn(node.right!)}${node.value}`
 }
 
-export function parse (s: string): string {
+export function parse(s: string): string {
     // console.log('s: ', s)
     const outputQueue: string[] = []
     const operatorStack: string[] = []
@@ -182,7 +182,7 @@ export function parse (s: string): string {
                 if ((associativity[t] === 'left'
                     && precendence[t] <= precendence[topOperator])
                     || (associativity[t] === 'right'
-                    && precendence[t] < precendence[topOperator])) {
+                        && precendence[t] < precendence[topOperator])) {
                     outputQueue.push(operatorStack.pop()!)
                 }
             }

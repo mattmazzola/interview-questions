@@ -3,7 +3,7 @@
 const aCode = 'a'.charCodeAt(0)
 const zCode = 'z'.charCodeAt(0)
 
-export function decodeLetter (start: string, offset: number): string {
+export function decodeLetter(start: string, offset: number): string {
     if (start.length !== 1) {
         throw new Error(`start letter must be a single character. You passed: ${start}`)
     }
@@ -23,7 +23,7 @@ export function decodeLetter (start: string, offset: number): string {
 
 export type IEncoding = (string | number)[]
 
-export function decode (encoding: IEncoding): string {
+export function decode(encoding: IEncoding): string {
     return encoding.reduce((a, next) => {
         if (typeof next === 'string') {
             a.s += next
@@ -37,12 +37,12 @@ export function decode (encoding: IEncoding): string {
     }, { s: '', prevChar: 'a' }).s
 }
 
-export function encodeLetter (letter: string, previousLetter: string = 'a'): number {
+export function encodeLetter(letter: string, previousLetter: string = 'a'): number {
     if (letter.length !== 1) {
         throw new Error(`Letter must be single character. You provided: ${letter}`)
     }
     if (previousLetter.length !== 1) {
-        throw new Error(`Prevous letter must be single character. You provided: ${previousLetter}`)
+        throw new Error(`Previous letter must be single character. You provided: ${previousLetter}`)
     }
 
     const prevCode = previousLetter.toLowerCase().charCodeAt(0)
@@ -56,7 +56,7 @@ export function encodeLetter (letter: string, previousLetter: string = 'a'): num
     return number
 }
 
-export function encode (phrase: string): IEncoding {
+export function encode(phrase: string): IEncoding {
     let previousLetter: string = 'a'
     return phrase.split('')
         .map(c => {
@@ -71,7 +71,7 @@ export function encode (phrase: string): IEncoding {
         })
 }
 
-export function wordWrap (xs: (string | number)[]): string{
+export function wordWrap(xs: (string | number)[]): string {
     return xs.reduce((result, c) => {
         let s = typeof c === 'number' && result.rowLength !== 0 && result.last !== ' '
             ? `${result.s},${c}`

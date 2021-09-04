@@ -1,4 +1,4 @@
-import { INode, serialize } from "./optionTreeNodes";
+import { INode, serialize } from "./optionTreeNodes"
 
 describe('optionalTreeNodes', () => {
     test('serializer with simply contatenates text nodes', () => {

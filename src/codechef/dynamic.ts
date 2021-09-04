@@ -13,10 +13,10 @@ export const minimumStepsToOne = (n: number, cache: number[] = Array(n).fill(nul
     const possibleSolutions: number[] = []
 
     if (n % 2 === 0) {
-        possibleSolutions.push(minimumStepsToOne(n/2, cache))
+        possibleSolutions.push(minimumStepsToOne(n / 2, cache))
     }
     if (n % 3 === 0) {
-        possibleSolutions.push(minimumStepsToOne(n/3, cache))
+        possibleSolutions.push(minimumStepsToOne(n / 3, cache))
     }
 
     possibleSolutions.push(minimumStepsToOne(n - 1, cache))
@@ -27,17 +27,17 @@ export const minimumStepsToOne = (n: number, cache: number[] = Array(n).fill(nul
 }
 
 export const minimumStepsToOneDp = (n: number): number => {
-    const cache: number[] = Array(n+1).fill(null)
+    const cache: number[] = Array(n + 1).fill(null)
 
     cache[1] = 0
 
-    for(let i = 2; i <= n; i++) {
+    for (let i = 2; i <= n; i++) {
         cache[i] = 1 + cache[i - 1]
         if (n % 2 === 0) {
-            cache[i] = Math.min(cache[i], 1 + minimumStepsToOne(n/2))
+            cache[i] = Math.min(cache[i], 1 + minimumStepsToOne(n / 2))
         }
         if (n % 3 === 0) {
-            cache[i] = Math.min(cache[i], 1 + minimumStepsToOne(n/3))
+            cache[i] = Math.min(cache[i], 1 + minimumStepsToOne(n / 3))
         }
     }
 

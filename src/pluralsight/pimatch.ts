@@ -26,9 +26,9 @@ export const piMatch = (n: number): number => {
 const getNumbers = (n: number): number[] => {
     const numbers: number[] = []
     const nString = n.toString()
-    
-    for(let i = 0; i <= nString.length - 3; i++) {
-        const number = parseInt(nString.substring(i, i+3))
+
+    for (let i = 0; i <= nString.length - 3; i++) {
+        const number = parseInt(nString.substring(i, i + 3))
         numbers.push(number)
     }
 

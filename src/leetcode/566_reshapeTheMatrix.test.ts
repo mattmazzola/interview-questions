@@ -3,11 +3,11 @@ import { reshape } from './566_reshapeTheMatrix'
 test('reshape should return new matrix', () => {
     // Arrange
     const input = [
-        [1,2],
-        [3,4]
+        [1, 2],
+        [3, 4]
     ]
     const expected = [
-        [1,2,3,4]
+        [1, 2, 3, 4]
     ]
 
     // Act
@@ -20,11 +20,11 @@ test('reshape should return new matrix', () => {
 test('reshape should handle inputs with single row', () => {
     // Arrange
     const input = [
-        [1],[2],[3],[4]
+        [1], [2], [3], [4]
     ]
     const expected = [
-        [1,2],
-        [3,4]
+        [1, 2],
+        [3, 4]
     ]
 
     // Act

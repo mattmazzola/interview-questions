@@ -6,9 +6,9 @@ describe('Cracking The Coding Interview', () => {
             test('given board which does not have winner return false', () => {
                 // Arrange
                 const board: number[][] = [
-                    [0,1,1],
-                    [1,1,0],
-                    [0,0,1]
+                    [0, 1, 1],
+                    [1, 1, 0],
+                    [0, 0, 1]
                 ]
 
                 // Act/Assert
@@ -18,9 +18,9 @@ describe('Cracking The Coding Interview', () => {
             test('given board which has winner should return true', () => {
                 // Arrange
                 const board: number[][] = [
-                    [0,1,1],
-                    [0,0,1],
-                    [1,1,0]
+                    [0, 1, 1],
+                    [0, 0, 1],
+                    [1, 1, 0]
                 ]
 
                 // Act / Assert
@@ -57,9 +57,9 @@ describe('Cracking The Coding Interview', () => {
 
         describe('MasterMind', () => {
             test('given guess and solution return hits and pseudohits', () => {
-                expect(Moderate.mastermind('RGBY', 'GGRR')).toEqual({ hits: 1, pseudohits: 1})
-                expect(Moderate.mastermind('RRRR', 'GGRR')).toEqual({ hits: 2, pseudohits: 0})
-                expect(Moderate.mastermind('GRRY', 'GYRR')).toEqual({ hits: 2, pseudohits: 2})
+                expect(Moderate.mastermind('RGBY', 'GGRR')).toEqual({ hits: 1, pseudohits: 1 })
+                expect(Moderate.mastermind('RRRR', 'GGRR')).toEqual({ hits: 2, pseudohits: 0 })
+                expect(Moderate.mastermind('GRRY', 'GYRR')).toEqual({ hits: 2, pseudohits: 2 })
             })
         })
     })

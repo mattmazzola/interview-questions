@@ -6,8 +6,8 @@
 declare type IYearHash = { [x: string]: number }
 
 export interface IPerson {
-    birthYear: number;
-    deathYear: number;
+    birthYear: number
+    deathYear: number
 }
 
 export interface IYear {

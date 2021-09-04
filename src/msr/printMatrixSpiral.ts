@@ -1,4 +1,4 @@
-export function printMatrixSpiral (matrix: number[][]): number[] {
+export function printMatrixSpiral(matrix: number[][]): number[] {
     const maxSize = matrix.length
     if (maxSize === 0) {
         return []
@@ -14,12 +14,12 @@ export function printMatrixSpiral (matrix: number[][]): number[] {
     for (let j = 0; j < maxIterations; j++) {
         // Top
         let top = []
-        for(let i = j; i < maxSize - 1 - j; i++) {
+        for (let i = j; i < maxSize - 1 - j; i++) {
             top.push(matrix[j][i])
         }
         numbers.push(...top)
         // console.log("top: ", top)
-        
+
         // Right
         let right = []
         for (let i = j; i < maxSize - 1 - j; i++) {
@@ -27,7 +27,7 @@ export function printMatrixSpiral (matrix: number[][]): number[] {
         }
         numbers.push(...right)
         // console.log("right: ", right)
-        
+
         // Bottom
         let bottom = []
         for (let i = maxSize - 1 - j; i > j; i--) {
@@ -35,7 +35,7 @@ export function printMatrixSpiral (matrix: number[][]): number[] {
         }
         numbers.push(...bottom)
         // console.log("bottom: ", bottom)
-        
+
         // Left
         let left = []
         for (let i = maxSize - 1 - j; i > j; i--) {

@@ -36,9 +36,9 @@ describe('findPaths', () => {
         const paths = findPaths(tree)
 
         expect(paths).toEqual([
-            [6,3,7],
-            [6,3,1],
-            [6,2,1,1]
+            [6, 3, 7],
+            [6, 3, 1],
+            [6, 2, 1, 1]
         ])
     })
 })
@@ -48,8 +48,8 @@ describe('findPathsWithTotalValueSlower', () => {
         const paths = findPathsWithTotalValueSlower(tree, 10)
 
         expect(paths).toEqual([
-            [6,3,1],
-            [6,2,1,1]
+            [6, 3, 1],
+            [6, 2, 1, 1]
         ])
     })
 })
@@ -59,7 +59,7 @@ describe('findPathsWithFilter', () => {
         const paths = findPathsWithFilter(tree, node => node.value < 3)
 
         expect(paths).toEqual([
-            [6,2,1,1]
+            [6, 2, 1, 1]
         ])
     })
 })

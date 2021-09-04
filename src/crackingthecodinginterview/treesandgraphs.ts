@@ -8,11 +8,11 @@ export interface IBinaryNode<T> {
 }
 
 export const binaryNode = (value: number, left: IBinaryNode<number> | null = null, right: IBinaryNode<number> | null = null) =>
-    ({
-        value,
-        left,
-        right
-    })
+({
+    value,
+    left,
+    right
+})
 
 export interface IBalancedResult {
     balanced: boolean
@@ -28,7 +28,7 @@ export const getHeight = <T>(root: IBinaryNode<T> | null): number => {
     if (root === null) {
         return 0
     }
-    
+
     let sizeOfLeft = getHeight(root.left)
     if (sizeOfLeft === -1) {
         return -1
@@ -83,7 +83,7 @@ export const isPath = <T>(root: INode<T>, target: INode<T>): boolean => {
     const visited = new Set<INode<T>>()
 
     queue.push(root)
-    
+
     while (queue.length > 0) {
         const node = queue.shift()!
 
@@ -113,7 +113,7 @@ export const dft = <T>(root: INode<T>, visited: Set<INode<T>> = new Set<INode<T>
         ...root.nodes
             .filter(n => !visited.has(n))
             .map(n => dft(n, visited))
-            .reduce((a,b) => a.concat(b), [])
+            .reduce((a, b) => a.concat(b), [])
     ]
 }
 
@@ -129,10 +129,10 @@ export const getPaths = <T>(root: INode<T>, visited: Set<INode<T>> = new Set<INo
     }
 
     return root.nodes
-            .filter(n => !visited.has(n))
-            .map(n => getPaths(n, visited)
-                .map(path => [root.value, ...path]))
-            .reduce((a, b) => a.concat(b), [])
+        .filter(n => !visited.has(n))
+        .map(n => getPaths(n, visited)
+            .map(path => [root.value, ...path]))
+        .reduce((a, b) => a.concat(b), [])
 }
 
 export const convertBinaryTreeToTree = <T>(root: IBinaryNode<T> | null): INode<T> | null => {
@@ -320,7 +320,7 @@ export const findCommonAncestorNoParent = <T>(root: IBinaryNode<T>, nodeA: IBina
     if (root === null) {
         return null
     }
-    
+
     // If both nodes are less than root, they must both be on left
     if (nodeA.value < root.value && nodeB.value < root.value) {
         return findCommonAncestorNoParent(root.left!, nodeA, nodeB)
@@ -343,9 +343,9 @@ export const isSubtree = (t1: IBinaryNode<number>, t2: IBinaryNode<number>): boo
 
     queue.push(t1)
 
-    while(queue.length > 0) {
+    while (queue.length > 0) {
         const node = queue.pop()!
-        
+
         if (node.value === t2.value && isTreeMatch(node, t2)) {
             return true
         }
@@ -369,7 +369,7 @@ export const isTreeMatch = (t1: IBinaryNode<number> | null, t2: IBinaryNode<numb
     // if either of the nodes is null while the other is not, return false
     if ((t1 === null && t2 !== null)
         || (t1 !== null && t2 === null)
-    ){
+    ) {
         return false
     }
 

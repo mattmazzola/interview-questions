@@ -61,29 +61,29 @@ describe('Cracking The Coding Interview', () => {
             test('given matrix rotate matrix by 90 degrees', () => {
                 // Arrange
                 const matrix = [
-                    [1,2,3],
-                    [4,5,6],
-                    [7,8,9]
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9]
                 ]
 
                 const matrix2 = [
-                    [1,2,3,4],
-                    [5,6,7,8],
-                    [9,10,11,12],
-                    [13,14,15,16]
+                    [1, 2, 3, 4],
+                    [5, 6, 7, 8],
+                    [9, 10, 11, 12],
+                    [13, 14, 15, 16]
                 ]
 
                 const expectedMatrix = [
-                    [7,4,1],
-                    [8,5,2],
-                    [9,6,3]
+                    [7, 4, 1],
+                    [8, 5, 2],
+                    [9, 6, 3]
                 ]
 
                 const expectedMatrix2 = [
-                    [13,9,5,1],
-                    [14,10,6,2],
-                    [15,11,7,3],
-                    [16,12,8,4]
+                    [13, 9, 5, 1],
+                    [14, 10, 6, 2],
+                    [15, 11, 7, 3],
+                    [16, 12, 8, 4]
                 ]
 
                 expect(AS.rotateMatrix(matrix)).toEqual(expectedMatrix)
@@ -96,29 +96,29 @@ describe('Cracking The Coding Interview', () => {
             test('given matrix zero out rows or columns of matrix', () => {
                 // Arrange
                 const matrix = [
-                    [1,2,3],
-                    [4,0,6],
-                    [7,8,9]
+                    [1, 2, 3],
+                    [4, 0, 6],
+                    [7, 8, 9]
                 ]
 
                 const matrix2 = [
-                    [1,0,3,4],
-                    [5,6,7,8],
-                    [9,0,0,12],
-                    [0,14,15,16]
+                    [1, 0, 3, 4],
+                    [5, 6, 7, 8],
+                    [9, 0, 0, 12],
+                    [0, 14, 15, 16]
                 ]
 
                 const expectedMatrix = [
-                    [1,0,3],
-                    [0,0,0],
-                    [7,0,9]
+                    [1, 0, 3],
+                    [0, 0, 0],
+                    [7, 0, 9]
                 ]
 
                 const expectedMatrix2 = [
-                    [0,0,0,0],
-                    [0,0,0,8],
-                    [0,0,0,0],
-                    [0,0,0,0]
+                    [0, 0, 0, 0],
+                    [0, 0, 0, 8],
+                    [0, 0, 0, 0],
+                    [0, 0, 0, 0]
                 ]
 
                 expect(AS.zeroOutMatrix(matrix)).toEqual(expectedMatrix)
@@ -132,7 +132,7 @@ describe('Cracking The Coding Interview', () => {
             })
 
             test('given s2 which is rotation of s1 return true', () => {
-                expect(AS.isRotation('abcdefg','efgabcd')).toBe(true)
+                expect(AS.isRotation('abcdefg', 'efgabcd')).toBe(true)
             })
 
             test('given s2 which is not rotation of s1 return false', () => {

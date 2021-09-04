@@ -1,7 +1,7 @@
 export const fizzBuzz = (max: number = 100): (number | string)[] => {
     const numbers: (number | string)[] = []
 
-    for(let i = 1; i <= max; i++) {
+    for (let i = 1; i <= max; i++) {
         if (i % 15 === 0) {
             numbers.push('fizzbuzz')
         }

@@ -12,7 +12,7 @@ export const mergeSort = (xs: number[]): number[] => {
 
 export const merge = (xs: number[], ys: number[]): number[] => {
     const merged: number[] = []
-    
+
     let ix = 0
     let iy = 0
     while (ix < xs.length && iy < ys.length) {

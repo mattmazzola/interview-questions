@@ -16,7 +16,7 @@ const convertTo = (x: number, base: number = 2): number[] => {
     let values: number[] = []
     let quotient = x
 
-    while(quotient > 0) {
+    while (quotient > 0) {
         const remainder = quotient % base
         quotient = Math.floor(quotient / base)
         values.push(remainder)

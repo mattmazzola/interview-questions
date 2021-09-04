@@ -60,7 +60,7 @@ describe('Run Length Encoding', () => {
         test('given RLE sequence array return expanded sequence', () => {
             // Arrange
             const input: (string | number)[] = ['A', 8]
-            const expected: (string | number)[] = ['A','A','A','A','A','A','A','A',]
+            const expected: (string | number)[] = ['A', 'A', 'A', 'A', 'A', 'A', 'A', 'A',]
 
             // Act
             const rleGenerator = createRunLengthEncodingStream(input)
@@ -74,7 +74,7 @@ describe('Run Length Encoding', () => {
         test('given complex RLE sequence array return expanded sequence', () => {
             // Arrange
             const input: (string | number)[] = ['A', 8, 'B', 0, 'C', 2, 'D', 4]
-            const expected: (string | number)[] = ['A','A','A','A','A','A','A','A','C','C','D','D','D','D',]
+            const expected: (string | number)[] = ['A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'C', 'C', 'D', 'D', 'D', 'D',]
 
             // Act
             const rleGenerator = createRunLengthEncodingStream(input)
@@ -88,7 +88,7 @@ describe('Run Length Encoding', () => {
         test('given ODD RLE (incomplete pair) sequence expand should throw error', () => {
             // Arrange
             const input: (string | number)[] = ['A', 8, 'B']
-            const expected: (string | number)[] = ['A','A','A','A','A','A','A','A',]
+            const expected: (string | number)[] = ['A', 'A', 'A', 'A', 'A', 'A', 'A', 'A',]
 
             // Act
             const rleGenerator = createRunLengthEncodingStream(input)

@@ -4,8 +4,7 @@ export const hammingDistance = (x: number, y: number) => {
     let yRemainder = y
     let numDifferences = 0
 
-    while(xRemainder > 0 || yRemainder > 0)
-    {
+    while (xRemainder > 0 || yRemainder > 0) {
         const xR = xRemainder % base
         const yR = yRemainder % base
 

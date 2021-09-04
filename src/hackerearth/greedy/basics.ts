@@ -10,18 +10,18 @@ export const travelingMonk = (c: number[], l: number[]): number => {
 
 export const cj17 = (s: string): string => {
     let chars = s.split('')
-    for(let i = 0; i < chars.length; i++) {
+    for (let i = 0; i < chars.length; i++) {
         const char = chars[i]
         if (char === '?') {
             let isAdjacentA = false
 
             // if previous character is 'a'
-            if (i > 0 && chars[i-1] === 'a') {
+            if (i > 0 && chars[i - 1] === 'a') {
                 isAdjacentA = true
             }
 
             // if next charater is 'a'
-            if (i < chars.length - 1 && chars[i+1] === 'a') {
+            if (i < chars.length - 1 && chars[i + 1] === 'a') {
                 isAdjacentA = true
             }
 

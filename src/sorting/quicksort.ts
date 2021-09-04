@@ -3,7 +3,7 @@ export const quickSort = (xs: number[], l: number = 0, r: number = xs.length - 1
         return xs
     }
 
-    const [i,j] = partition(xs, l, r)
+    const [i, j] = partition(xs, l, r)
 
     if (l < j) {
         quickSort(xs, l, j)
@@ -12,13 +12,13 @@ export const quickSort = (xs: number[], l: number = 0, r: number = xs.length - 1
     if (i < r) {
         quickSort(xs, i, r)
     }
-    
+
     return xs
 }
 
 const partition = (xs: number[], l: number, r: number) => {
     const pivot = xs[Math.floor((r + l) / 2)]
-    
+
     while (l <= r) {
         while (xs[l] < pivot) {
             l++
@@ -34,7 +34,7 @@ const partition = (xs: number[], l: number, r: number) => {
         }
     }
 
-    return [l,r]
+    return [l, r]
 }
 
 const swap = (xs: number[], i: number, j: number) => {

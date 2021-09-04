@@ -44,10 +44,10 @@ describe('Boggle (Matrix String Detection)', () => {
         test('Given medium matrix with string, return String found with coordinates', () => {
             // Arrange
             const matrix: string[][] = [
-                ['a','b','c','d'],
-                ['e','f','g','h'],
-                ['i','j','k','l'],
-                ['o','m','n','p'],
+                ['a', 'b', 'c', 'd'],
+                ['e', 'f', 'g', 'h'],
+                ['i', 'j', 'k', 'l'],
+                ['o', 'm', 'n', 'p'],
             ]
             const targetString = 'lpnmjf'
 

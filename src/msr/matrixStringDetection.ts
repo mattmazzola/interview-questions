@@ -92,9 +92,9 @@ function findWord(matrix: string[][], rowIndex: number, colIndex: number, word: 
     matrix[rowIndex][colIndex] = '*'
 
     const nextPositions = findWord(matrix, rowIndex - 1, colIndex, word, charIndex + 1)
-                        || findWord(matrix, rowIndex, colIndex + 1, word, charIndex + 1)
-                        || findWord(matrix, rowIndex + 1, colIndex, word, charIndex + 1)
-                        || findWord(matrix, rowIndex, colIndex - 1, word, charIndex + 1)
+        || findWord(matrix, rowIndex, colIndex + 1, word, charIndex + 1)
+        || findWord(matrix, rowIndex + 1, colIndex, word, charIndex + 1)
+        || findWord(matrix, rowIndex, colIndex - 1, word, charIndex + 1)
 
     // Undo change to matrix
     matrix[rowIndex][colIndex] = desiredChar

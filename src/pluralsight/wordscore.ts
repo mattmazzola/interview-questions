@@ -1,4 +1,4 @@
-const letterValues: { [key:string]: number } = {
+const letterValues: { [key: string]: number } = {
     'F': 3,
     'J': 6,
     'X': 12,
@@ -23,7 +23,7 @@ export const wordScore = (w: string): number => {
         let letterValue = letterValues[letter] || defaultLetterValue
         score += letterValue
         return score
-    }, 0);
+    }, 0)
 }
 
 

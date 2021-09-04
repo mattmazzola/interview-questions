@@ -8,10 +8,10 @@
 import { INode } from './linkedlistcycle'
 
 export const removeDuplicateNodes = <T>(head: INode<T>): void => {
-    let node = head;
+    let node = head
 
-    while(node.next != null) {
-        if(node.next.value === node.value) {
+    while (node.next != null) {
+        if (node.next.value === node.value) {
             node.next = node.next.next
         }
         else {

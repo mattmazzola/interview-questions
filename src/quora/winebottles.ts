@@ -2,7 +2,7 @@
  * https://www.quora.com/Are-there-any-good-resources-or-tutorials-for-dynamic-programming-besides-the-TopCoder-tutorial
  */
 
-export const profit = (bottles: number[], year: number = 1, start: number = 0, end: number = bottles.length-1): number => {
+export const profit = (bottles: number[], year: number = 1, start: number = 0, end: number = bottles.length - 1): number => {
     if (start > end) {
         return 0
     }
@@ -13,7 +13,7 @@ export const profit = (bottles: number[], year: number = 1, start: number = 0, e
     return Math.max(profitIfLeftSold, profitIfRightSold)
 }
 
-export const profit2 = (bottles: number[], start: number = 0, end: number = bottles.length-1, cache: number[][]): number => {
+export const profit2 = (bottles: number[], start: number = 0, end: number = bottles.length - 1, cache: number[][]): number => {
     if (start > end) {
         return 0
     }

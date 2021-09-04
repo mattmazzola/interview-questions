@@ -111,7 +111,7 @@ export const getMinStack = (): IStackWithMin => {
                     value,
                     next: null
                 }
-                
+
                 min.push(value)
             }
             else {

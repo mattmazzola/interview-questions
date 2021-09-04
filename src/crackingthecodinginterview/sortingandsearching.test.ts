@@ -24,8 +24,8 @@ describe('Cracking The Coding Interview', () => {
         describe('11.2 Sort array of strings, so all anagrams are next to each other', () => {
             test('given array sorted strings, group by anagram', () => {
                 // Arrange
-                const strings = ['dog', 'pals','cat', 'god', 'bat', 'tac', 'slap' ]
-                const expected = ['bat','cat', 'tac', 'pals', 'slap', 'dog', 'god']
+                const strings = ['dog', 'pals', 'cat', 'god', 'bat', 'tac', 'slap']
+                const expected = ['bat', 'cat', 'tac', 'pals', 'slap', 'dog', 'god']
                 const expected2 = ["dog", "god", "pals", "slap", "cat", "tac", "bat"]
 
                 // Act

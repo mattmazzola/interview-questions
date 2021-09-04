@@ -8,7 +8,7 @@ export class Heap {
         let newItemIndex = this.items.push(x) - 1
 
         // Move item up tree until it is not greater than its parent or reaches the top
-        let parentIndex = Math.floor(newItemIndex/2)
+        let parentIndex = Math.floor(newItemIndex / 2)
         while (parentIndex > 0) {
             if (this.items[newItemIndex] <= this.items[parentIndex]) {
                 break
@@ -18,7 +18,7 @@ export class Heap {
             this.items[parentIndex] = this.items[newItemIndex]
             this.items[newItemIndex] = temp
             newItemIndex = parentIndex
-            parentIndex = Math.floor(parentIndex/2)
+            parentIndex = Math.floor(parentIndex / 2)
         }
     }
 
@@ -33,7 +33,7 @@ export class Heap {
 
         // Save current max to return
         const root = this.items[1]
-        
+
         // Set last item as root and move it down tree until it is not less then a child or reachs leaf
         this.items[1] = this.items.pop()!
         let itemIndex = 1

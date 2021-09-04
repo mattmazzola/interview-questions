@@ -2,7 +2,7 @@
  * Monk Takes a Walk
  * https://www.hackerearth.com/practice/algorithms/searching/linear-search/practice-problems/algorithm/monk-takes-a-walk/
  */
-const defaultVowels = ['a','e','i','o','u']
+const defaultVowels = ['a', 'e', 'i', 'o', 'u']
 
 export const getVowelCount = (letters: string, vowels: string[] = defaultVowels): number => {
     return letters
@@ -55,7 +55,7 @@ export const getDate = (messages: string[], weights: IUserWeights = defaultWeigh
                 return innerWeights
             }, weights)
         }, {})
-    
+
     return Object.keys(allWeights)
         .reduce((max: number, key: string) => {
             if (max === null || allWeights[parseInt(key)] > max) {
@@ -105,7 +105,7 @@ export const repeatedKTimes = (numbers: number[], requiredRepetitions: number): 
         .filter(key => numFrequency[key] === requiredRepetitions)
         .map(x => parseInt(x))
         .sort((a, b) => a - b)
-        
+
     return (sortedNumbers.length > 0) ? sortedNumbers[0] : undefined
 }
 
@@ -236,10 +236,10 @@ interface IFrequencyElement {
 const convertFrequenceyToArray = (frequencySet: IFrequencySet): IFrequencyElement[] => {
     return Object.keys(frequencySet)
         .map(key =>
-            ({
-                value: key,
-                frequency: frequencySet[key]
-            }))
+        ({
+            value: key,
+            frequency: frequencySet[key]
+        }))
 }
 
 /**

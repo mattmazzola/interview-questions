@@ -1,6 +1,6 @@
 /** https://www.codewars.com/kata/prime-streaming-pg-13?utm_source=newsletter */
 
-export function *generatePrimes (limit: number = 100): IterableIterator<number> {
+export function* generatePrimes(limit: number = 100): IterableIterator<number> {
     yield 2
     yield 3
 
@@ -17,7 +17,7 @@ export function *generatePrimes (limit: number = 100): IterableIterator<number> 
     return number
 }
 
-export function getPrimes (limit: number = 100): number[] {
+export function getPrimes(limit: number = 100): number[] {
     return [...generatePrimes(limit)]
 }
 
@@ -25,11 +25,11 @@ export function getPrimes (limit: number = 100): number[] {
  * Return true if number is prime false otherwise
  * @param n Number
  */
-export function getPrime (n: number): boolean {
+export function getPrime(n: number): boolean {
     if (n % 2 === 0) {
         return false
     }
-    
+
     const possibleDivisors = Array.from(Array(n), (_, i) => i + 1).slice(1, -1)
     // console.log(`possibleDivisors: `, possibleDivisors)
     return possibleDivisors

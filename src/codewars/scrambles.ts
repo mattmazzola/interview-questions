@@ -1,5 +1,5 @@
 /** https://www.codewars.com/kata/scramblies?utm_source=newsletter */
-export function scrambles (s1: string, s2: string): boolean {
+export function scrambles(s1: string, s2: string): boolean {
     const characterCountsS1 = getCharacterCounts(s1)
     const characterCountsS2 = getCharacterCounts(s2)
 
@@ -8,7 +8,7 @@ export function scrambles (s1: string, s2: string): boolean {
     })
 }
 
-export function getCharacterCounts (s: string): { [s: string]: number } {
+export function getCharacterCounts(s: string): { [s: string]: number } {
     return s
         .split('')
         .reduce((characters, c) => {

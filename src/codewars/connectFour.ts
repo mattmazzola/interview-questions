@@ -6,7 +6,7 @@ export enum Players {
     None = 'N'
 }
 
-export interface IPlay{
+export interface IPlay {
     player: Players
     column: number
 }
@@ -19,9 +19,9 @@ export type IPlace = [Players, number]
 
 export type IField = Players[][]
 
-export const columnLetters: string[] = ['A','B','C','D','E','F','G']
+export const columnLetters: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 
-export function addToField (field: IField, play: IPlay): IField {
+export function addToField(field: IField, play: IPlay): IField {
     if (play.column > field[0].length - 1) {
         throw new Error(`Cannot place token out of bounds. You passed: ${play.column} and the max is: ${field[0].length - 1}`)
     }
@@ -38,7 +38,7 @@ export function addToField (field: IField, play: IPlay): IField {
 
 const maxConsequetiveNeeded = 4
 
-export function connectFour (plays: string[]): IWinner {
+export function connectFour(plays: string[]): IWinner {
     const field: IField = Array.from(Array(6), _ => Array.from(Array(7), _ => Players.None))
     const playsNormalized: IPlay[] = plays.map(p => {
         const [columnLetter, playerColor] = p.split('_')
@@ -49,7 +49,7 @@ export function connectFour (plays: string[]): IWinner {
         }
     })
 
-    
+
     let winner = Players.None
     playsNormalized.some((p, i) => {
         addToField(field, p)
@@ -64,14 +64,14 @@ export function connectFour (plays: string[]): IWinner {
 
         return false
     })
-    
+
     // console.log(`field: \n`, field)
     // console.log(`playersNornalized: \n`, playsNormalized)
 
     return { winner, field }
 }
 
-export function getWinner (field: IField): Players {
+export function getWinner(field: IField): Players {
 
     // Test rows
     const noToken: IPlace = [Players.None, 0]
@@ -92,7 +92,7 @@ export function getWinner (field: IField): Players {
                 else {
                     lastPlace = [fieldPlayer, 1]
                 }
-                
+
                 [lastPlayer, count] = lastPlace
                 if (count >= maxConsequetiveNeeded) {
                     return lastPlayer
@@ -119,7 +119,7 @@ export function getWinner (field: IField): Players {
                 else {
                     lastPlace = [fieldPlayer, 1]
                 }
-                
+
                 [lastPlayer, count] = lastPlace
                 if (count >= maxConsequetiveNeeded) {
                     return lastPlayer
@@ -134,7 +134,7 @@ export function getWinner (field: IField): Players {
     // Test diagonal down-right
     const rowMax = field.length - (maxConsequetiveNeeded - 1)
     for (let i = 0; i < rowMax; i++) {
-        for(let k = i; k < field.length; k++) {
+        for (let k = i; k < field.length; k++) {
             const j = k - i
             // console.log(`diagonal down-right: ${i} - ${k},${j}`, lastPlace)
             const fieldPlayer = field[k][j]
@@ -149,7 +149,7 @@ export function getWinner (field: IField): Players {
                 else {
                     lastPlace = [fieldPlayer, 0]
                 }
-                
+
                 [lastPlayer, count] = lastPlace
                 if (count >= maxConsequetiveNeeded) {
                     return lastPlayer
@@ -157,10 +157,10 @@ export function getWinner (field: IField): Players {
             }
         }
     }
-    
+
     const columnMax = field[0].length - (maxConsequetiveNeeded - 1)
     for (let j = 1; j < columnMax; j++) {
-        for(let k = j; k < field[0].length; k++) {
+        for (let k = j; k < field[0].length; k++) {
             const i = k - j
             const fieldPlayer = field[i][k]
             // console.log(`diagonal2 down-right: ${j} - ${i},${k}`, lastPlace)
@@ -176,7 +176,7 @@ export function getWinner (field: IField): Players {
                 else {
                     lastPlace = [fieldPlayer, 0]
                 }
-                
+
                 [lastPlayer, count] = lastPlace
                 if (count >= maxConsequetiveNeeded) {
                     return lastPlayer
@@ -203,7 +203,7 @@ export function getWinner (field: IField): Players {
                 else {
                     lastPlace = [fieldPlayer, 0]
                 }
-                
+
                 [lastPlayer, count] = lastPlace
                 if (count >= maxConsequetiveNeeded) {
                     return lastPlayer
@@ -230,7 +230,7 @@ export function getWinner (field: IField): Players {
                 else {
                     lastPlace = [fieldPlayer, 0]
                 }
-                
+
                 [lastPlayer, count] = lastPlace
                 if (count >= maxConsequetiveNeeded) {
                     return lastPlayer
@@ -238,6 +238,6 @@ export function getWinner (field: IField): Players {
             }
         }
     }
-    
+
     return Players.None
 }

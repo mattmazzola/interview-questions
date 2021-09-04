@@ -1,6 +1,6 @@
 /** https://www.codewars.com/kata/parseint-reloaded?utm_source=newsletter  */
 
-export type IStringNumber = { [s: string]: number } 
+export type IStringNumber = { [s: string]: number }
 export const numbers: IStringNumber = {
     'zero': 0,
     'one': 1,
@@ -36,12 +36,12 @@ export const tens: IStringNumber = {
 }
 
 export const powers: IStringNumber = {
-    'hundred': Math.pow(10,2),
-    'thousand': Math.pow(10,3),
+    'hundred': Math.pow(10, 2),
+    'thousand': Math.pow(10, 3),
     'million': Math.pow(10, 6)
 }
 
-export function parseStringInts (s: string): number {
+export function parseStringInts(s: string): number {
     let stringNumbers: string[] = s.includes(' ')
         ? s.split(' ')
             .filter(word => word !== 'and')

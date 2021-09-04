@@ -21,5 +21,5 @@ export const permutations = (s: string): string[] => {
 
         return ps
     })
-        .reduce((a,b) => a.concat(b))
+        .reduce((a, b) => a.concat(b))
 }

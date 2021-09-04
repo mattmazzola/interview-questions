@@ -1,13 +1,13 @@
 /** http://blog.refdash.com/dynamic-programming-tutorial-example/ */
 
-export function hopping (runway: boolean[], speed: number, position: number = 0): boolean {
+export function hopping(runway: boolean[], speed: number, position: number = 0): boolean {
     // console.log("speed: ", speed, "runway: ", runway.map((r, i) => {
     //     const value = `${r ? 'T' : 'F'}`
     //     const here = position === i ?  `(x)`: `( )`
     //     return `${value} ${here}`
     //     }).join(' '))
 
-    if (runway.length === 0 
+    if (runway.length === 0
         || position >= runway.length
         || speed < 0
         || position < 0
@@ -24,8 +24,8 @@ export function hopping (runway: boolean[], speed: number, position: number = 0)
         .reduce((a, b) => a || b, false)
 }
 
-export function hoppingIterative (runway: boolean[], speed: number, position: number = 0): boolean {
-    if (runway.length === 0 
+export function hoppingIterative(runway: boolean[], speed: number, position: number = 0): boolean {
+    if (runway.length === 0
         || position >= runway.length
         || speed < 0
         || position < 0
@@ -35,16 +35,16 @@ export function hoppingIterative (runway: boolean[], speed: number, position: nu
     }
 
     const memo: { [x: number]: boolean } = {}
-    
+
     runway.forEach((r, position) => {
         if (r === false) {
             memo[position] = false
         }
     })
 
-    for(let i = runway.length; i = 0; i--) {
+    for (let i = runway.length; i = 0; i--) {
         if (!runway[i]) {
-            continue;
+            continue
         }
 
         // const speeds = [speed - 1, speed, speed + 1]

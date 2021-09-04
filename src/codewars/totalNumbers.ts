@@ -10,7 +10,7 @@ export function totalIncDec(x: number): number {
     const max = Math.pow(10, x)
     let total = 0
 
-    for(let i = 0; i < max; i++) {
+    for (let i = 0; i < max; i++) {
         const result = isChanging(i, NumberType.Increasing) || isChanging(i, NumberType.Decreasing)
         if (result) {
             total += 1
@@ -24,7 +24,7 @@ export enum NumberType {
     Decreasing
 }
 
-export function isChanging (x: number, type: NumberType = NumberType.Increasing) {
+export function isChanging(x: number, type: NumberType = NumberType.Increasing) {
     const numbers = x
         .toString().split('').map(x => parseInt(x, 10))
 
@@ -33,7 +33,7 @@ export function isChanging (x: number, type: NumberType = NumberType.Increasing)
             return true
         }
 
-        const previous = xs[i - 1] 
+        const previous = xs[i - 1]
         return type === NumberType.Increasing
             ? n >= previous
             : n <= previous

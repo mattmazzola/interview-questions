@@ -77,7 +77,7 @@ export function getMovesToSolve(puzzle: Puzzle, goalPuzzle: Puzzle): Puzzle[] | 
 
     const queue = [root]
 
-    while(queue.length > 0) {
+    while (queue.length > 0) {
         const node = queue.shift()!
         const isMatching = isMatchingGoal(node.value, goalPuzzle, maxRowIndex, maxColIndex)
         if (isMatching) {

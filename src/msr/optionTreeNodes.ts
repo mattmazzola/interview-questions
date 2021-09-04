@@ -85,7 +85,7 @@ export function serializeNode(node: any, valuesMap: Map<string, string>) {
     if (node.type === "inline") {
         return valuesMap.get(node.data)
     }
-    
+
     const s = node.nodes.map((n: any) => serializeNode(n, valuesMap)).join('')
 
     return node.type === "optional"

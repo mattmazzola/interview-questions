@@ -1,7 +1,7 @@
 export const insertionSortInplace = (numbers: number[]): number[] => {
     numbers = [...numbers]
 
-    for(let i = 1; i < numbers.length; i++) {
+    for (let i = 1; i < numbers.length; i++) {
         let number = numbers[i]
         let j = i - 1
 
@@ -9,7 +9,7 @@ export const insertionSortInplace = (numbers: number[]): number[] => {
             numbers[j + 1] = numbers[j]
             j--
         }
-        
+
         numbers[j + 1] = number
     }
 

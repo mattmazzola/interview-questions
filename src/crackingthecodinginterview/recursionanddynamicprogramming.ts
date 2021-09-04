@@ -136,8 +136,8 @@ export const getPermutations = (s: string): string[] => {
     const tail = s.slice(1)
 
     return getPermutations(tail)
-        .map(string => [...string.split('').map((x, i) => `${string.slice(0,i)}${head}${string.slice(i, string.length)}`), `${string}${head}`])
-        .reduce((a,b) => a.concat(b))
+        .map(string => [...string.split('').map((x, i) => `${string.slice(0, i)}${head}${string.slice(i, string.length)}`), `${string}${head}`])
+        .reduce((a, b) => a.concat(b))
 }
 
 /**
@@ -233,7 +233,7 @@ const getUnvisitedNearbyPoints = (screen: number[][], point: IPoint, visited: bo
 
     const xMin = 0
     const xMax = screen[0].length
-    
+
     if (xMax === 0) {
         return []
     }
@@ -294,7 +294,7 @@ export const createStackR = (boxes: IBox[], bottom: IBox = null!): IBox[] => {
     if (bottom !== null) {
         maxStack.unshift(bottom)
     }
-    
+
     return maxStack
 }
 
@@ -334,6 +334,6 @@ export const createStack = (boxes: IBox[], bottom: IBox = null!, cache: Map<IBox
         maxStack = [bottom, ...maxStack]
         cache.set(bottom, maxStack)
     }
-    
+
     return maxStack
 }

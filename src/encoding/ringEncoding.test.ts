@@ -11,9 +11,9 @@ describe("TIRR", () => {
             })
 
             test("given array of encoded values decoded them", () => {
-                expect(decode([1,1])).toEqual('bc')
-                expect(decode([25,25,25])).toEqual('zyx')
-                expect(decode([1,2,3])).toEqual('bdg')
+                expect(decode([1, 1])).toEqual('bc')
+                expect(decode([25, 25, 25])).toEqual('zyx')
+                expect(decode([1, 2, 3])).toEqual('bdg')
             })
         })
 
@@ -27,9 +27,9 @@ describe("TIRR", () => {
             })
 
             test("given a phrase return array of encoded characters it", () => {
-                expect(encode(`Abc`)).toEqual([26,1,1])
-                expect(encode(`zyx`)).toEqual([25,25,25])
-                expect(encode(`This work?`)).toEqual([19,14,1,10,' ',4,18,3,19,'?'])
+                expect(encode(`Abc`)).toEqual([26, 1, 1])
+                expect(encode(`zyx`)).toEqual([25, 25, 25])
+                expect(encode(`This work?`)).toEqual([19, 14, 1, 10, ' ', 4, 18, 3, 19, '?'])
             })
         })
     })

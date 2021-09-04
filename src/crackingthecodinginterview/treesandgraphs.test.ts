@@ -4,7 +4,7 @@ const node = TreesAndGraphs.binaryNode
 
 describe('Cracking The Coding Interview', () => {
     describe('Trees and Graphs', () => {
-        
+
         const randomNode: TreesAndGraphs.INode<number> = {
             value: 4,
             nodes: []
@@ -102,7 +102,7 @@ describe('Cracking The Coding Interview', () => {
 
         describe('Rabbit hole into Breadth-First-Traversal again :(', () => {
             test('bfs should return values in correct order', () => {
-                expect(TreesAndGraphs.bft(graph)).toEqual([1,2,3,4,5,6,7])
+                expect(TreesAndGraphs.bft(graph)).toEqual([1, 2, 3, 4, 5, 6, 7])
             })
         })
 
@@ -118,17 +118,17 @@ describe('Cracking The Coding Interview', () => {
 
         describe('Rabbit hole into Depth-First-Traversal again :(', () => {
             test('given graph should return results in correct order', () => {
-                expect(TreesAndGraphs.dft(graph)).toEqual([1,2,4,5,3,6,7])
+                expect(TreesAndGraphs.dft(graph)).toEqual([1, 2, 4, 5, 3, 6, 7])
             })
         })
 
         describe('Get all paths in graph', () => {
             test('given graph should return list of paths which reach leaves or a visited node', () => {
                 expect(TreesAndGraphs.getPaths(graph)).toEqual([
-                    [1,2,4],
-                    [1,2,5],
-                    [1,3,6],
-                    [1,3,7]
+                    [1, 2, 4],
+                    [1, 2, 5],
+                    [1, 3, 6],
+                    [1, 3, 7]
                 ])
             })
         })
@@ -136,7 +136,7 @@ describe('Cracking The Coding Interview', () => {
         describe('4.3 Convert sorted array to binary search tree', () => {
             test('given sorted array convert it to BST', () => {
                 // Arrange
-                const input = [1,2,3,4,5,6,7,8,9]
+                const input = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
                 const expected = {
                     value: 5,
@@ -220,8 +220,8 @@ describe('Cracking The Coding Interview', () => {
 
                 const expected = [
                     [1],
-                    [2,5],
-                    [10,6,7],
+                    [2, 5],
+                    [10, 6, 7],
                     [3]
                 ]
 
@@ -373,7 +373,7 @@ describe('Cracking The Coding Interview', () => {
             test('given node with no right children and no larger parent return null', () => {
                 expect(TreesAndGraphs.findInorderSuccessor(root.right!.right!)).toBe(null)
             })
-            
+
             test('given node with no right children and greater parent return parent', () => {
                 expect(TreesAndGraphs.findInorderSuccessor(root.left!.left!)).toBe(root.left!)
             })
@@ -410,12 +410,12 @@ describe('Cracking The Coding Interview', () => {
             test('given two nodes thare in the same tree return first common ancestor', () => {
                 // Arrange
                 const createNode = (value: number, parent: TreesAndGraphs.IBinaryNodeParent<number> | null = null): TreesAndGraphs.IBinaryNodeParent<number> =>
-                    ({
-                        parent,
-                        value,
-                        left: null,
-                        right: null
-                    })
+                ({
+                    parent,
+                    value,
+                    left: null,
+                    right: null
+                })
 
                 const tree = createNode(1)
                 const left = createNode(2, tree)
@@ -558,9 +558,9 @@ describe('Cracking The Coding Interview', () => {
             const nodes = TreesAndGraphs.convertBinaryTreeToTree(tree)!
 
             const expected = [
-                [1,2,3],
-                [1,3,2],
-                [1,3,1,1]
+                [1, 2, 3],
+                [1, 3, 2],
+                [1, 3, 1, 1]
             ]
 
             // Act

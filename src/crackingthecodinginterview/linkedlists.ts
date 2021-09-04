@@ -13,7 +13,7 @@ export const removeDuplicates = <T>(head: INode<T>): INode<T> => {
 
     const seenValues = new Set<T>()
     seenValues.add(head.value)
-    
+
     let previous = head
     let node = head.next
     while (node !== null) {
@@ -51,7 +51,7 @@ export const removeDuplicates2 = <T>(head: INode<T>): INode<T> => {
                 runner = runner.next
             }
         }
-        
+
         current = current.next
     }
 
@@ -117,7 +117,7 @@ const isKthLastElement = <T>(head: INode<T>, k: number): boolean => {
     let node = head
     let count = 0
 
-    while(count < k - 1) {
+    while (count < k - 1) {
         count += 1
 
         if (node.next === null) {
@@ -164,7 +164,7 @@ export const removeNode = <T>(head: INode<T>): INode<T> => {
 
         if (node.next.next === null) {
             node.next = null
-            break;
+            break
         }
 
         node = node.next
@@ -254,7 +254,7 @@ export const convertNumberToLinkedList = (x: number): INode<number> => {
 
     while (x > 0) {
         const digit = x % 10
-        
+
         const newNode = {
             value: digit,
             next: null
@@ -328,7 +328,7 @@ export const isPalindrome = (head: INode<number>): boolean => {
     if (head === null) {
         return false
     }
-    
+
     return isPalindrome2(getValues(head))
 }
 

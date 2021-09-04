@@ -31,7 +31,7 @@ export const getMaxWidth = <T>(root: INode<T>): number => {
     widths[0] = 1
     queue.push({ node: root, level: 0 })
 
-    while(queue.length > 0) {
+    while (queue.length > 0) {
         const { node, level } = queue.pop()!
         widths[level] = (widths[level] || 0) + 1
 

@@ -22,7 +22,7 @@ export const getPathsRecursive = <T>(root: INode<T>): T[][] => {
     if (root.left) {
         nodesToSearch.push(root.left)
     }
-    
+
     if (root.right) {
         nodesToSearch.push(root.right)
     }
@@ -81,7 +81,7 @@ export function depthFirstPaths<T>(root: INode<T>): T[][] {
             const pathToLeaf = getPath(node, nodeParents)
             paths.push(pathToLeaf)
         }
-        
+
         if (node.left) {
             nodeParents.set(node.left, node)
             stack.push(node.left)

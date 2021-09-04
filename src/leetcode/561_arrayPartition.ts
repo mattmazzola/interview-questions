@@ -5,7 +5,7 @@ export const arrayPartition = (xs: number[]) => {
     const sorted = xs.sort((a, b) => a - b)
     const paired = pair(sorted)
 
-    return paired.reduce((a,b) => {
+    return paired.reduce((a, b) => {
         return a + Math.min(b.a, b.b)
     }, 0)
 }
@@ -13,10 +13,10 @@ export const arrayPartition = (xs: number[]) => {
 const pair = (xs: number[]) => {
     const ys: { a: number, b: number }[] = []
 
-    for(let i = 0; i < xs.length; i += 2) {
+    for (let i = 0; i < xs.length; i += 2) {
         ys.push({
             a: xs[i],
-            b: xs[i+1]
+            b: xs[i + 1]
         })
     }
 

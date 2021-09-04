@@ -17,19 +17,19 @@
  * 12’s have been returned by next(), and then return false. 
  */
 
-export function *createRunLengthEncodingStream(valueRepetitionArray: (string | number)[]) {
-    for(const x of valueRepetitionArray) {
+export function* createRunLengthEncodingStream(valueRepetitionArray: (string | number)[]) {
+    for (const x of valueRepetitionArray) {
         yield x
     }
 }
 
-export function * expandRunLengthEncoding(rleIterable: Generator<string | number>) {
-    let index = 0;
-    let currentValue: string | undefined = undefined;
-    let numRepetition: number | undefined = undefined;
+export function* expandRunLengthEncoding(rleIterable: Generator<string | number>) {
+    let index = 0
+    let currentValue: string | undefined = undefined
+    let numRepetition: number | undefined = undefined
 
     // TODO: Change to manual loop to be able to detect ending on odd count and throw
-    for(const value of rleIterable) {
+    for (const value of rleIterable) {
         if (index % 2 == 0) {
             currentValue = value as string
         }
@@ -39,10 +39,10 @@ export function * expandRunLengthEncoding(rleIterable: Generator<string | number
                 throw new Error(`numRepetition cannot be less than 0. Value was ${numRepetition}`)
             }
         }
-        
+
         if (typeof currentValue == 'string' && typeof numRepetition == 'number') {
-            for(let i = 0; i < numRepetition; i++) {
-                yield currentValue;
+            for (let i = 0; i < numRepetition; i++) {
+                yield currentValue
             }
 
             // Reset values
@@ -50,7 +50,7 @@ export function * expandRunLengthEncoding(rleIterable: Generator<string | number
             numRepetition = undefined
         }
 
-        index += 1;
+        index += 1
     }
 
     // If iterator is done AND index is odd then parent stream didn't end between pairs but within pair

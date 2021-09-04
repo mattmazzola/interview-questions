@@ -1,4 +1,4 @@
-import {connectFour, Players} from './connectFour'
+import { connectFour, Players } from './connectFour'
 
 describe("Code Wars", () => {
     describe("Connect Four", () => {

@@ -13,10 +13,10 @@ const defaultShipRequirements: IShipRequirement[] = [
     [1, 4],
     [2, 3],
     [3, 2],
-    [4,1],
+    [4, 1],
 ]
 
-export function testField (field: IBattleField, ships: IShipRequirement[] = defaultShipRequirements): boolean {
+export function testField(field: IBattleField, ships: IShipRequirement[] = defaultShipRequirements): boolean {
     // Check total
     const expectedHits = ships.reduce((total, [number, size]) => {
         total += number * size
@@ -50,13 +50,13 @@ export function testField (field: IBattleField, ships: IShipRequirement[] = defa
     return true
 }
 
-export function getShips (field: IBattleField, amount: number, size: number): IFieldResult {
+export function getShips(field: IBattleField, amount: number, size: number): IFieldResult {
     let newField = copyField(field)
     let shipsFound = 0
     let currentSize = 0
 
     // Find ship within rows
-    for(let i = 0; i < field.length; i++) {
+    for (let i = 0; i < field.length; i++) {
         for (let j = 0; j < field[0].length; j++) {
             // console.log(`field[${i}][${j}]: ${field[i][j]}`)
             if (field[i][j]) {
@@ -70,7 +70,7 @@ export function getShips (field: IBattleField, amount: number, size: number): IF
 
                     // Take ship out of new field
                     for (let k = 0; k < size; k++) {
-                        newField[i][j-k] = 0
+                        newField[i][j - k] = 0
                     }
                 }
 
@@ -90,7 +90,7 @@ export function getShips (field: IBattleField, amount: number, size: number): IF
                 field: newField
             }
         }
-    }    
+    }
 
     // Find ship within rows
     for (let i = 0; i < field[0].length; i++) {
@@ -108,7 +108,7 @@ export function getShips (field: IBattleField, amount: number, size: number): IF
 
                     // Take ship out of new field
                     for (let k = 0; k < size; k++) {
-                        newField[j-k][i] = 0
+                        newField[j - k][i] = 0
                     }
                 }
                 // console.log(shipsFound, currentSize)
@@ -134,14 +134,14 @@ export function getShips (field: IBattleField, amount: number, size: number): IF
     }
 }
 
-export function copyField (field: IBattleField): IBattleField {
+export function copyField(field: IBattleField): IBattleField {
     const newField: IBattleField = Array.from(Array(field.length), (_, i) =>
-        Array.from(Array(field[0].length), (_,j) => field[i][j]))
+        Array.from(Array(field[0].length), (_, j) => field[i][j]))
 
     return newField
 }
 
-export function totalHits (field: IBattleField): number {
+export function totalHits(field: IBattleField): number {
     return field.reduce((total, row) => {
         const rt = row.reduce((rowTotal, cell) => {
             if (cell) {

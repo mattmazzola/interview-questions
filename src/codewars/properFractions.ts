@@ -1,7 +1,7 @@
 /** https://www.codewars.com/kata/number-of-proper-fractions-with-denominator-d */
 /** How many proper fractions can you make with given number as denominator? */
 
-export function properFractions (d: number): string[] {
+export function properFractions(d: number): string[] {
     if (d <= 1) {
         return []
     }
@@ -10,12 +10,12 @@ export function properFractions (d: number): string[] {
 
     // console.log("denom: ", d)
     return numerators
-        .map(n => ({ num: n, dem: d, string: `${n}/${d}`}))
+        .map(n => ({ num: n, dem: d, string: `${n}/${d}` }))
         .filter(x => gcd(x.num, x.dem) === 1)
         .map(x => x.string)
 }
 
-export function gcd (n: number, d: number): number {
+export function gcd(n: number, d: number): number {
     const possibleCommonDenominators = Array.from(new Array(n), (_, i) => i + 1)
     // console.log(`numbers: `, possibleCommonDenominators)
     let gcd = 1
