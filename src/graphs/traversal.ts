@@ -1,8 +1,8 @@
-import { Graph } from './models'
+import { Graph, Node } from './models'
 
 const traversGraph = (addNodeIds: (traversalIds: string[], newIds: string[]) => void) => {
-    return <T>(graph: Graph<T>): T[] => {
-        const values: T[] = []
+    return <T>(graph: Graph<T>): Node<T>[] => {
+        const nodes: Node<T>[] = []
         const visited: { [x: string]: boolean } = {}
         const queue = [graph.rootNodeId]
 
@@ -13,7 +13,7 @@ const traversGraph = (addNodeIds: (traversalIds: string[], newIds: string[]) => 
             // if node hasn't been visited
             if (!visited[node.id]) {
                 // add value
-                values.push(node.value)
+                nodes.push(node)
                 // mark node as visited
                 visited[node.id] = true
 
@@ -22,7 +22,7 @@ const traversGraph = (addNodeIds: (traversalIds: string[], newIds: string[]) => 
             }
         }
 
-        return values
+        return nodes
     }
 }
 
@@ -37,21 +37,21 @@ export const depthFirstTraversal = traversGraph(depthFirstAdd)
 export const depthFirstTraversalRecursive = <T>(
     graph: Graph<T>,
     nodeId: string,
-    visited: { [x: string]: boolean } = {}
-): T[] => {
-    if (visited[nodeId]) {
+    visited = new Set<string>()
+): Node[] => {
+    if (visited.has(nodeId)) {
         return []
     }
 
-    visited[nodeId] = true
+    visited.add(nodeId)
 
     const node = graph.nodes.find(n => n.id === nodeId)!
-    const otherValues = (node.routes ?? [])
-        .filter(nodeId => !visited[nodeId])
+    const nonVisitedNodes = (node.routes ?? [])
+        .filter(nodeId => !visited.has(nodeId))
         .flatMap(nodeId => depthFirstTraversalRecursive(graph, nodeId, visited))
 
     return [
-        node.value,
-        ...otherValues
+        node,
+        ...nonVisitedNodes
     ]
 }

@@ -1,4 +1,4 @@
-import { breadthFirstSearch, depthFirstSearch, assignParents, getPathFromStart } from './search'
+import { breadthFirstSearch, depthFirstSearch, getPathFromStart } from './search'
 import { Graph } from './models'
 
 describe('graph search', () => {
@@ -57,7 +57,7 @@ describe('graph search', () => {
     describe('find the path to value in graph', () => {
         test('given graph return the nodes to the value in the graph', () => {
             const target = '5'
-            const path = breadthFirstSearch(graph, n => n.id === target)
+            const path = breadthFirstSearch(graph, n => n.id === target).map(n => n.id)
             const expectedPath = ['1', '2', '5']
 
             expect(path).toEqual(expectedPath)
@@ -65,7 +65,7 @@ describe('graph search', () => {
 
         test('given graph return the nodes to the value in the graph', () => {
             const target = '5'
-            const path = depthFirstSearch(graph, n => n.id === target)
+            const path = depthFirstSearch(graph, n => n.id === target).map(n => n.id)
             const expectedPath = ['1', '2', '5']
 
             expect(path).toEqual(expectedPath)

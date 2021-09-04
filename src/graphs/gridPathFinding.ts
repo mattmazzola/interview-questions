@@ -104,7 +104,7 @@ export function getGraph(grid: Grid, starChar = 'S', pathBlockChar = '#'): Graph
 export function findPath(gridString: string): string[] {
     const grid = getGridFromString(gridString)
     const graph = getGraph(grid)
-    const path = breadthFirstSearch(graph, n => n.value === 'E')
+    const path = breadthFirstSearch(graph, n => n.value === 'E').map(n => n.id)
 
     return path
 }

@@ -58,9 +58,10 @@ describe('graph traversal', () => {
 
             // Act
             const actual = breadthFirstTraversal(input)
+            const values = actual.map(n => n.value)
 
             // Assert
-            expect(actual).toEqual(expected)
+            expect(values).toEqual(expected)
         })
 
         test('DFS graph', () => {
@@ -69,9 +70,10 @@ describe('graph traversal', () => {
 
             // Act
             const actual = depthFirstTraversal(input)
+            const values = actual.map(n => n.value)
 
             // Assert
-            expect(actual).toEqual(expected)
+            expect(values).toEqual(expected)
         })
     })
 
@@ -82,9 +84,10 @@ describe('graph traversal', () => {
 
             // Act
             const actual = depthFirstTraversalRecursive(input, input.rootNodeId)
+            const values = actual.map(n => n.value)
 
             // Assert
-            expect(actual).toEqual(expected)
+            expect(values).toEqual(expected)
         })
     })
 })
