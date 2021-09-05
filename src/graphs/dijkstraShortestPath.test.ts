@@ -1,8 +1,8 @@
 import { Graph } from './models'
-import { dijkstraShortedPathTopologicalSort, dijkstraShortedPathLazy, WeightedEdge, DistanceMap } from "./dijkstraShortestPath"
+import { dijkstraTopologicalSort, findShortedPath, dijkstraLazy, WeightedEdge, DistanceMap } from "./dijkstraShortestPath"
 
 describe('dijkstrasShortedPath', () => {
-    const graph: Graph<unknown, WeightedEdge> = {
+    const graph1: Graph<unknown, WeightedEdge> = {
         rootNodeId: 'a',
         nodes: [
             {
@@ -107,7 +107,7 @@ describe('dijkstrasShortedPath', () => {
         ]
     }
 
-    const expectedDistanceMap: DistanceMap = {
+    const expectedDistanceMap1: DistanceMap = {
         'a': 0,
         'b': 3,
         'c': 6,
@@ -117,6 +117,8 @@ describe('dijkstrasShortedPath', () => {
         'g': 9,
         'h': 11,
     }
+
+    const expectedPath1 = 'abdgh'.split('')
 
     const graph2: Graph<unknown, WeightedEdge> = {
         rootNodeId: '0',
@@ -157,17 +159,31 @@ describe('dijkstrasShortedPath', () => {
         '4': 7,
     }
 
-    test('given graph return the shorted path from A to H (topsort)', () => {
-        const nodeDistanceMap = dijkstraShortedPathTopologicalSort(graph, 'a')
-        expect(nodeDistanceMap).toEqual(expectedDistanceMap)
-        const nodeDistanceMap2 = dijkstraShortedPathTopologicalSort(graph2, '0')
-        expect(nodeDistanceMap2).toEqual(expectedDistanceMap2)
-    })
+    const expectedPath2 = '02134'.split('')
 
-    test('given graph return the shortest path from A to H (lazy)', () => {
-        const nodeDistanceMap = dijkstraShortedPathLazy(graph, 'a')
-        expect(nodeDistanceMap).toEqual(expectedDistanceMap)
-        const nodeDistanceMap2 = dijkstraShortedPathLazy(graph2, '0')
-        expect(nodeDistanceMap2).toEqual(expectedDistanceMap2)
+    const testData: [Graph<unknown, WeightedEdge>, string, string, DistanceMap, string[]][] = [
+        [graph1, 'a', 'h', expectedDistanceMap1, expectedPath1],
+        [graph2, '0', '4', expectedDistanceMap2, expectedPath2]
+    ]
+    
+    testData.forEach(([graph, startNodeId, endNodeId, expectedDistance, expectedPath]) => {
+        test('given graph return the shortest Distance from start to end (topsort)', () => {
+            const [nodeDistanceMap] =  dijkstraTopologicalSort(graph, startNodeId)
+
+            expect(nodeDistanceMap).toEqual(expectedDistance)
+        })
+    
+        test('given graph return the shortest Distance from start to end (lazy)', () => {
+            const [nodeDistanceMap] = dijkstraLazy(graph, startNodeId)
+
+            expect(nodeDistanceMap).toEqual(expectedDistance)
+        })
+
+        test('given graph return the shortest Path from start to end', () => {
+            const [nodeDistanceMap, previousNodeMap] = dijkstraLazy(graph, startNodeId)
+            const path = findShortedPath(nodeDistanceMap, previousNodeMap, endNodeId)
+
+            expect(path).toEqual(expectedPath)
+        })
     })
 })
