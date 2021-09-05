@@ -1,4 +1,4 @@
-import { Graph } from './models'
+import { Edge, Graph } from './models'
 import debug from 'debug'
 
 const logger = debug('graphs:topologicalsort')
@@ -6,7 +6,7 @@ const logger = debug('graphs:topologicalsort')
 // https://youtu.be/09_LlHjoEiY?t=3877
 // https://en.wikipedia.org/wiki/Topological_sorting
 
-export function topologicalSort(graph: Graph): string[] {
+export function topologicalSort<T>(graph: Graph<T, Edge>): string[] {
     logger('Topological Sort Begin')
     const permanentlyVisited = new Set<string>();
     const topologicalSort: string[] = []
@@ -22,8 +22,8 @@ export function topologicalSort(graph: Graph): string[] {
     return topologicalSort
 }
 
-function dft(
-    graph: Graph,
+function dft<T>(
+    graph: Graph<T, Edge>,
     nodeId: string,
     order: string[] = [],
     permanentVisited = new Set<string>(),
@@ -50,8 +50,8 @@ function dft(
     visited.add(nodeId)
 
     routes
-        .filter(nodeId => !visited.has(nodeId))
-        .forEach(nodeId => dft(graph, nodeId, order, permanentVisited, visited))
+        .filter(edge => !visited.has(edge.to))
+        .forEach(edge => dft(graph, edge.to, order, permanentVisited, visited))
 
     visited.delete(nodeId)
     permanentVisited.add(nodeId)

@@ -9,32 +9,32 @@ describe('Get Connected Components', () => {
                 {
                     id: '1',
                     value: 1,
-                    routes: ['2'],
+                    routes: [{ to: '2' }],
                 },
                 {
                     id: '2',
                     value: 2,
-                    routes: ['3'],
+                    routes: [{ to: '3' }],
                 },
                 {
                     id: '3',
                     value: 3,
-                    routes: ['1'],
+                    routes: [{ to: '1' }],
                 },
                 {
                     id: '4',
                     value: 4,
-                    routes: ['5'],
+                    routes: [{ to: '5' }],
                 },
                 {
                     id: '5',
                     value: 5,
-                    routes: ['6'],
+                    routes: [{ to: '6' }],
                 },
                 {
                     id: '6',
                     value: 6,
-                    routes: ['4'],
+                    routes: [{ to: '4' }],
                 },
             ]
         }

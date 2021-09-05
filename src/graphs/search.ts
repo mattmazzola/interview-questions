@@ -1,7 +1,7 @@
-import { Graph, Node } from './models'
+import { Edge, Graph, Node } from './models'
 
-const searchGraph = <T>(addNodeIds: (traversalIds: string[], newIds: string[]) => void) => {
-    return (graph: Graph<T>, isTarget: (n: Node<T>) => boolean): Node<T>[] => {
+const getPathToTarget = <T>(addNodeIds: (traversalIds: string[], newIds: string[]) => void) => {
+    return (graph: Graph<T, Edge>, isTarget: (n: Node<T, Edge>) => boolean): string[] => {
         const visited = new Set<string>();
         const queue = [graph.rootNodeId]
         const nodeParents: { [key: string]: string } = {}
@@ -14,19 +14,18 @@ const searchGraph = <T>(addNodeIds: (traversalIds: string[], newIds: string[]) =
             if (!visited.has(node.id)) {
                 if (isTarget(node)) {
                     const nodeIdsPath = getPathFromStart(nodeParents, graph.rootNodeId, node.id)
-                    const nodesPath = nodeIdsPath.map(nId => graph.nodes.find(n => n.id === nId)!)
-                    return nodesPath
+                    return nodeIdsPath
                 }
 
                 // mark node as visited
                 visited.add(node.id)
 
-                const nonVisitedNodeIds = (node.routes ?? []).filter(r => !visited.has(r))
-                for (const nonVisitedNodeId of nonVisitedNodeIds) {
-                    nodeParents[nonVisitedNodeId] = node.id
+                const edgesToNonVisitedNodes = (node.routes ?? []).filter(e => !visited.has(e.to))
+                for (const nonVisitedEdge of edgesToNonVisitedNodes) {
+                    nodeParents[nonVisitedEdge.to] = node.id
                 }
 
-                addNodeIds(queue, nonVisitedNodeIds)
+                addNodeIds(queue, edgesToNonVisitedNodes.map(e => e.to))
             }
         }
 
@@ -36,11 +35,11 @@ const searchGraph = <T>(addNodeIds: (traversalIds: string[], newIds: string[]) =
 
 const breadFirstAdd = (queue: string[], newIds: string[]) => queue.push(...newIds)
 
-export const breadthFirstSearch = searchGraph(breadFirstAdd)
+export const breadthFirstSearch = getPathToTarget(breadFirstAdd)
 
 const depthFirstAdd = (stack: string[], newIds: string[]) => stack.unshift(...newIds)
 
-export const depthFirstSearch = searchGraph(depthFirstAdd)
+export const depthFirstSearch = getPathToTarget(depthFirstAdd)
 
 /**
  * Given mapping of nodeIds to their parent node Ids reconstruct path from root to start

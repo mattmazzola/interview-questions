@@ -42,8 +42,8 @@ export function depthFirstTraversal(
             visited.add(nodeId)
             fn(node)
 
-            const nonVisitedNodeIds = (node.routes ?? []).filter(r => !visited.has(r))
-            depthFirstAdd(queue, nonVisitedNodeIds)
+            const nonVisitedEdges = (node.routes ?? []).filter(e => !visited.has(e.to))
+            depthFirstAdd(queue, nonVisitedEdges.map(e => e.to))
         }
     }
 }

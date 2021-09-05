@@ -1,9 +1,9 @@
-import { Graph, Node } from './models'
+import { Edge, Graph, Node } from './models'
 
 const traversGraph = (addNodeIds: (traversalIds: string[], newIds: string[]) => void) => {
-    return <T>(graph: Graph<T>): Node<T>[] => {
-        const nodes: Node<T>[] = []
-        const visited: { [x: string]: boolean } = {}
+    return <T>(graph: Graph<T, Edge>): string[] => {
+        const path: string[] = []
+        const visited = new Set<string>();
         const queue = [graph.rootNodeId]
 
         while (queue.length > 0) {
@@ -11,18 +11,18 @@ const traversGraph = (addNodeIds: (traversalIds: string[], newIds: string[]) => 
             const node = graph.nodes.find(n => n.id === nodeId)!
 
             // if node hasn't been visited
-            if (!visited[node.id]) {
+            if (!visited.has(node.id)) {
                 // add value
-                nodes.push(node)
+                path.push(node.id)
                 // mark node as visited
-                visited[node.id] = true
+                visited.add(node.id);
 
-                const nonVisitedNodeIds = (node.routes ?? []).filter(r => !visited[r])
-                addNodeIds(queue, nonVisitedNodeIds)
+                const nonVisitedEdges = (node.routes ?? []).filter(e => !visited.has(e.to))
+                addNodeIds(queue, nonVisitedEdges.map(e => e.to))
             }
         }
 
-        return nodes
+        return path
     }
 }
 
@@ -46,12 +46,12 @@ export const depthFirstTraversalRecursive = <T>(
     visited.add(nodeId)
 
     const node = graph.nodes.find(n => n.id === nodeId)!
-    const nonVisitedNodes = (node.routes ?? [])
-        .filter(nodeId => !visited.has(nodeId))
-        .flatMap(nodeId => depthFirstTraversalRecursive(graph, nodeId, visited))
+    const nonVisitedEdges = (node.routes ?? [])
+        .filter(edge => !visited.has(edge.to))
+        .flatMap(edge => depthFirstTraversalRecursive(graph, edge.to, visited))
 
     return [
         node,
-        ...nonVisitedNodes
+        ...nonVisitedEdges
     ]
 }

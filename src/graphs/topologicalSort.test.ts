@@ -9,57 +9,57 @@ describe('topologicalSort', () => {
                 {
                     id: 'c',
                     value: 1,
-                    routes: ['a', 'b']
+                    routes: [{ to: 'a' }, { to: 'b' }]
                 },
                 {
                     id: 'a',
                     value: 2,
-                    routes: ['d']
+                    routes: [{ to: 'd' }]
                 },
                 {
                     id: 'b',
                     value: 2,
-                    routes: ['d']
+                    routes: [{ to: 'd' }]
                 },
                 {
                     id: 'd',
                     value: 2,
-                    routes: ['h', 'g']
+                    routes: [{ to: 'h' }, { to: 'g' }]
                 },
                 {
                     id: 'e',
                     value: 2,
-                    routes: ['a', 'd', 'f']
+                    routes: [{ to: 'a' }, { to: 'd' }, { to: 'f' }]
                 },
                 {
                     id: 'h',
                     value: 2,
-                    routes: ['i', 'j']
+                    routes: [{ to: 'i' }, { to: 'j' }]
                 },
                 {
                     id: 'g',
                     value: 2,
-                    routes: ['i']
+                    routes: [{ to: 'i' }]
                 },
                 {
                     id: 'i',
                     value: 2,
-                    routes: ['l']
+                    routes: [{ to: 'l' }]
                 },
                 {
                     id: 'k',
                     value: 2,
-                    routes: ['j']
+                    routes: [{ to: 'j' }]
                 },
                 {
                     id: 'f',
                     value: 2,
-                    routes: ['k', 'j']
+                    routes: [{ to: 'k' }, { to: 'j' }]
                 },
                 {
                     id: 'j',
                     value: 2,
-                    routes: ['m', 'l']
+                    routes: [{ to: 'm' }, { to: 'l' }]
                 },
                 {
                     id: 'l',
@@ -87,17 +87,17 @@ describe('topologicalSort', () => {
                 {
                     id: 'a',
                     value: 1,
-                    routes: ['b', 'c']
+                    routes: [{ to: 'b' }, { to: 'c' }]
                 },
                 {
                     id: 'b',
                     value: 1,
-                    routes: ['c', 'a'],
+                    routes: [{ to: 'c' }, { to: 'a' }],
                 },
                 {
                     id: 'c',
                     value: 1,
-                    routes: ['a']
+                    routes: [{ to: 'a' }]
                 }
             ]
         }

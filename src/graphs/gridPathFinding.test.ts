@@ -26,8 +26,8 @@ S# E
     describe('getStartEndLocations', () => {
         test('given grid, return location of start and end', () => {
             const expected = {
-                start: [0,0],
-                end: [0,3]
+                start: [0, 0],
+                end: [0, 3]
             }
 
             const grid = getGridFromString(gridString)
@@ -45,7 +45,7 @@ S# E
                     {
                         id: `0-0`,
                         value: 'S',
-                        routes: ['1-0'],
+                        routes: [{ to: '1-0' }],
                     },
                     {
                         id: `0-1`,
@@ -55,17 +55,17 @@ S# E
                     {
                         id: `0-2`,
                         value: ' ',
-                        routes: ['1-2', '0-3'],
+                        routes: [{ to: '1-2' }, { to: '0-3' }],
                     },
                     {
                         id: `0-3`,
                         value: 'E',
-                        routes: ['0-2'],
+                        routes: [{ to: '0-2' }],
                     },
                     {
                         id: `1-0`,
                         value: ' ',
-                        routes: ['2-0', '0-0'],
+                        routes: [{ to: '2-0' }, { to: '0-0' }],
                     },
                     {
                         id: `1-1`,
@@ -75,7 +75,7 @@ S# E
                     {
                         id: `1-2`,
                         value: ' ',
-                        routes: ['2-2', '0-2'],
+                        routes: [{ to: '2-2' }, { to: '0-2' }],
                     },
                     {
                         id: `1-3`,
@@ -85,27 +85,27 @@ S# E
                     {
                         id: `2-0`,
                         value: ' ',
-                        routes: ['3-0', '1-0', '2-1'],
+                        routes: [{ to: '3-0' }, { to: '1-0' }, { to: '2-1' }],
                     },
                     {
                         id: `2-1`,
                         value: ' ',
-                        routes: ['2-2', '2-0'],
+                        routes: [{ to: '2-2' }, { to: '2-0' }],
                     },
                     {
                         id: `2-2`,
                         value: ' ',
-                        routes: ['1-2', '2-3', '2-1'],
+                        routes: [{ to: '1-2' }, { to: '2-3' }, { to: '2-1' }],
                     },
                     {
                         id: `2-3`,
                         value: ' ',
-                        routes: ['3-3', '2-2'],
+                        routes: [{ to: '3-3' }, { to: '2-2' }],
                     },
                     {
                         id: `3-0`,
                         value: ' ',
-                        routes: ['2-0'],
+                        routes: [{ to: '2-0' }],
                     },
                     {
                         id: `3-1`,
@@ -120,7 +120,7 @@ S# E
                     {
                         id: `3-3`,
                         value: ' ',
-                        routes: ['2-3'],
+                        routes: [{ to: '2-3' }],
                     },
                 ]
             }

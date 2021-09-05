@@ -1,4 +1,4 @@
-import { Graph, Node, Grid } from './models'
+import { Graph, Node, Grid, Edge } from './models'
 import { breadthFirstSearch } from './search'
 
 export function getGridFromString(gridString: string): Grid {
@@ -49,8 +49,8 @@ export function getStartEndLocations(grid: Grid, startChar = 'S', endChar = 'E')
     return { start, end }
 }
 
-export function getGraph(grid: Grid, starChar = 'S', pathBlockChar = '#'): Graph {
-    const graph: Graph = {
+export function getGraph(grid: Grid, starChar = 'S', pathBlockChar = '#'): Graph<string, Edge> {
+    const graph: Graph<string, Edge> = {
         rootNodeId: ``,
         nodes: []
     }
@@ -65,7 +65,7 @@ export function getGraph(grid: Grid, starChar = 'S', pathBlockChar = '#'): Graph
     for (const [i, row] of grid.entries()) {
         for (const [j, char] of row.entries()) {
 
-            const routes: string[] = []
+            const routes: Edge[] = []
 
             if (char === starChar) {
                 graph.rootNodeId = `${i}-${j}`
@@ -81,14 +81,14 @@ export function getGraph(grid: Grid, starChar = 'S', pathBlockChar = '#'): Graph
                         const newChar = grid[newI][newJ]
                         const isPositionAvailable = newChar !== pathBlockChar
                         if (isPositionAvailable) {
-                            routes.push(`${newI}-${newJ}`)
+                            const nodeId = `${newI}-${newJ}`
+                            routes.push({ to: nodeId })
                         }
                     }
                 }
             }
 
-
-            const node: Node = {
+            const node: Node<string, Edge> = {
                 id: `${i}-${j}`,
                 value: char,
                 routes
@@ -104,7 +104,7 @@ export function getGraph(grid: Grid, starChar = 'S', pathBlockChar = '#'): Graph
 export function findPath(gridString: string): string[] {
     const grid = getGridFromString(gridString)
     const graph = getGraph(grid)
-    const path = breadthFirstSearch(graph, n => n.value === 'E').map(n => n.id)
+    const path = breadthFirstSearch(graph, n => n.value === 'E')
 
     return path
 }

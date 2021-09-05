@@ -8,32 +8,32 @@ describe('graph traversal', () => {
             {
                 id: '1',
                 value: 1,
-                routes: ['4', '3'],
+                routes: [{ to: '4' }, { to: '3' }],
             },
             {
                 id: '3',
                 value: 3,
-                routes: ['12', '7'],
+                routes: [{ to: '12' }, { to: '7' }],
             },
             {
                 id: '4',
                 value: 4,
-                routes: ['15', '21', '33'],
+                routes: [{ to: '15' }, { to: '21' }, { to: '33' }],
             },
             {
                 id: '7',
                 value: 7,
-                routes: ['12'],
+                routes: [{ to: '12' }],
             },
             {
                 id: '12',
                 value: 12,
-                routes: ['33'],
+                routes: [{ to: '33' }],
             },
             {
                 id: '12',
                 value: 12,
-                routes: ['33'],
+                routes: [{ to: '33' }],
             },
             {
                 id: '15',
@@ -54,26 +54,24 @@ describe('graph traversal', () => {
 
         test('BFS graph', () => {
             // Arrange
-            const expected = [1, 4, 3, 15, 21, 33, 12, 7]
+            const expected = ['1', '4', '3', '15', '21', '33', '12', '7']
 
             // Act
             const actual = breadthFirstTraversal(input)
-            const values = actual.map(n => n.value)
 
             // Assert
-            expect(values).toEqual(expected)
+            expect(actual).toEqual(expected)
         })
 
         test('DFS graph', () => {
             // Arrange
-            const expected = [1, 4, 15, 21, 33, 3, 12, 7]
+            const expected = ['1', '4', '15', '21', '33', '3', '12', '7']
 
             // Act
             const actual = depthFirstTraversal(input)
-            const values = actual.map(n => n.value)
 
             // Assert
-            expect(values).toEqual(expected)
+            expect(actual).toEqual(expected)
         })
     })
 

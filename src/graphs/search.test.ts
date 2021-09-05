@@ -9,22 +9,22 @@ describe('graph search', () => {
             {
                 id: '1',
                 value: 1,
-                routes: ['2', '3', '4']
+                routes: [{ to: '2' }, { to: '3' }, { to: '4' }]
             },
             {
                 id: '2',
                 value: 2,
-                routes: ['5', '6']
+                routes: [{ to: '5' }, { to: '6' }]
             },
             {
                 id: '3',
                 value: 3,
-                routes: ['7', '8']
+                routes: [{ to: '7' }, { to: '8' }]
             },
             {
                 id: '4',
                 value: 4,
-                routes: ['9', '10']
+                routes: [{ to: '9'  }, { to: '10'}]
             },
             {
                 id: '5',
@@ -57,7 +57,7 @@ describe('graph search', () => {
     describe('find the path to value in graph', () => {
         test('given graph return the nodes to the value in the graph', () => {
             const target = '5'
-            const path = breadthFirstSearch(graph, n => n.id === target).map(n => n.id)
+            const path = breadthFirstSearch(graph, n => n.id === target)
             const expectedPath = ['1', '2', '5']
 
             expect(path).toEqual(expectedPath)
@@ -65,7 +65,7 @@ describe('graph search', () => {
 
         test('given graph return the nodes to the value in the graph', () => {
             const target = '5'
-            const path = depthFirstSearch(graph, n => n.id === target).map(n => n.id)
+            const path = depthFirstSearch(graph, n => n.id === target)
             const expectedPath = ['1', '2', '5']
 
             expect(path).toEqual(expectedPath)
