@@ -1,5 +1,5 @@
 import { Graph } from './models'
-import { dijkstraTopologicalSort, findShortedPath, dijkstraLazy, WeightedEdge, DistanceMap } from "./dijkstraShortestPath"
+import { dijkstraTopologicalSort, findShortestPath, dijkstraLazy, WeightedEdge, DistanceMap, getNegatedGraph, findLongestPath } from "./dijkstraShortestPath"
 
 describe('dijkstrasShortedPath', () => {
     const graph1: Graph<unknown, WeightedEdge> = {
@@ -181,9 +181,78 @@ describe('dijkstrasShortedPath', () => {
 
         test('given graph return the shortest Path from start to end', () => {
             const [nodeDistanceMap, previousNodeMap] = dijkstraLazy(graph, startNodeId)
-            const path = findShortedPath(nodeDistanceMap, previousNodeMap, endNodeId)
+            const path = findShortestPath(nodeDistanceMap, previousNodeMap, endNodeId)
 
             expect(path).toEqual(expectedPath)
+        })
+    })
+
+    describe('getNegatedGraph', () => {
+        test('given graph return graph with negated edges', () => {
+            const graph: Graph<unknown, WeightedEdge> = {
+                rootNodeId: 'a',
+                nodes: [
+                    {
+                        id: 'a',
+                        value: 1,
+                        routes: [{ to: 'b', distance: 1 }, { to: 'd', distance: 40 }]
+                    },
+                    {
+                        id: 'b',
+                        value: 1,
+                        routes: [{ to: 'c', distance: 3 }]
+                    },
+                    {
+                        id: 'c',
+                        value: 1,
+                        routes: [{ to: 'd', distance: 5 }]
+                    },
+                    {
+                        id: 'd',
+                        value: 1,
+                        routes: []
+                    }
+                ]
+            }
+
+            const expectedGraph: Graph<unknown, WeightedEdge> = {
+                rootNodeId: graph.rootNodeId,
+                nodes: [
+                    {
+                        id: 'a',
+                        value: 1,
+                        routes: [{ to: 'b', distance: -1 }, { to: 'd', distance: -40 }]
+                    },
+                    {
+                        id: 'b',
+                        value: 1,
+                        routes: [{ to: 'c', distance: -3 }]
+                    },
+                    {
+                        id: 'c',
+                        value: 1,
+                        routes: [{ to: 'd', distance: -5 }]
+                    },
+                    {
+                        id: 'd',
+                        value: 1,
+                        routes: []
+                    }
+                ]
+            }
+
+            const negatedGraph = getNegatedGraph(graph)
+
+            expect(negatedGraph).toEqual(expectedGraph)
+        })
+    })
+
+    describe('findLongestPath', () => {
+        test('given graph return the longest path through the graph', () => {
+            const longestPath = findLongestPath(graph1, 'a', 'h')
+            const expectedPath = 'abeh'.split('')
+
+            expect(longestPath).toEqual(expectedPath)
         })
     })
 })

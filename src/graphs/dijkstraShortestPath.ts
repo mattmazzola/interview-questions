@@ -101,7 +101,7 @@ export function dijkstraLazy(graph: Graph<unknown, WeightedEdge>, startNodeId: s
     return [vertexDistanceMap, previousNodeIdMap]
 }
 
-export function findShortedPath(
+export function findShortestPath(
     distanceMap: DistanceMap,
     previousNodeMap: PreviousMap,
     endNodeId: string
@@ -128,4 +128,31 @@ export function findShortedPath(
     logger(`Find shorted path end`)
 
     return path
+}
+
+
+function deepClone<T>(o: T): T {
+    return JSON.parse(JSON.stringify(o))
+}
+
+export function getNegatedGraph(graph: Graph<unknown, WeightedEdge>): Graph<unknown, WeightedEdge> {
+    const negatedGraph = deepClone(graph)
+
+    negatedGraph.nodes.forEach(node => {
+        node.routes?.forEach(edge => {
+            edge.distance = -edge.distance
+        })
+    })
+
+    return negatedGraph
+}
+
+// https://youtu.be/09_LlHjoEiY?t=4582
+
+export function findLongestPath(graph: Graph<unknown, WeightedEdge>, startNodeId: string, endNodeId: string) {
+    const negatedGraph = getNegatedGraph(graph)
+    const [distanceMap, previousMap] = dijkstraLazy(negatedGraph, startNodeId)
+    const longestPath = findShortestPath(distanceMap, previousMap, endNodeId)
+
+    return longestPath
 }
