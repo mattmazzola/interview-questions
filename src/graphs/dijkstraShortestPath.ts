@@ -13,6 +13,9 @@ export type DistanceMap = { [key: string]: number }
 
 // Problem from: https://youtu.be/09_LlHjoEiY?t=4415
 
+/**
+ * Given graph return the distance from starting node to every other node in the graph
+ */
 export function dijkstraTopologicalSort(graph: Graph<unknown, WeightedEdge>, startNodeId: string): [DistanceMap, PreviousMap] {
     const sortedNodeIds = topologicalSort(graph)
     logger(`Dijkstra Topological Begin`)
