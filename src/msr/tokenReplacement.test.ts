@@ -1,7 +1,7 @@
 import { expandStringFn, expandStringFn2 } from './tokenReplacement'
 
 describe('Token Expansion', () => {
-    describe('expandString', () => {
+    describe('expandStringFn', () => {
         test('given no substitutions there should be no transformation', () => {
             // Arrange
             const input = '${greeting}'
@@ -71,7 +71,9 @@ describe('Token Expansion', () => {
             // Assert
             expect(actual).toEqual(expected)
         })
+    })
 
+    describe('expandStringFn2', () => {
         test('"Hello Miss Alvarez" example', () => {
             // Arrange
             const input = '${greeting}'
