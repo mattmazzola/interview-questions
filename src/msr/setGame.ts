@@ -10,9 +10,11 @@
 
 export function findSets(board: Board): Set[] {
     const cardCoordinates = flattenBoard(board)
+    console.log({ cardCoordinates })
     const triplets = getTriplets(cardCoordinates)
-    const sets = triplets.filter(triplet => isSet(triplet.map(t => t.card)))
+    console.log({ triplets })
 
+    const sets = triplets.filter(triplet => isSet(triplet.map(t => t.card)))
     return sets
 }
 
@@ -53,6 +55,24 @@ export function flattenBoard(board: Board): CardCoordinate[] {
 
 export function getTriplets(cardCoordinates: CardCoordinate[]): Triplet[] {
     const triplets: Triplet[] = []
+
+    const maxCard1Index = cardCoordinates.length - 3
+    const maxCard2Index = cardCoordinates.length - 2
+    const maxCard3Index = cardCoordinates.length - 1
+
+    for (let card1Index = 0; card1Index < maxCard1Index; card1Index += 1) {
+        for (let card2Index = card1Index + 1; card2Index < maxCard2Index; card2Index += 1) {
+            for (let card3Index = card2Index + 1; card3Index < maxCard3Index; card3Index += 1) {
+                const triplet: Triplet = [
+                    cardCoordinates[card1Index],
+                    cardCoordinates[card2Index],
+                    cardCoordinates[card3Index],
+                ]
+
+                triplets.push(triplet)
+            }
+        }
+    }
 
     return triplets
 }

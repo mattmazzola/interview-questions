@@ -11,7 +11,7 @@ describe('Set Game', () => {
             const sets = findSets(board)
 
             // Assert
-            expect(sets.length).toBe(3)
+            expect(sets.length).toBe(1)
         })
     })
 })
