@@ -14,7 +14,7 @@
     "build": "tsc",
     "pretest": "tsc",
     "test": "jest",
-    "test:debug": "jest --runInBand",
+    "test:debug": "jest setGame --runInBand",
     "debug": "node --inspect-brk --inspect ./node_modules/jest/bin/jest -i"
   },
   "keywords": [
