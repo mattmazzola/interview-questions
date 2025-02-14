@@ -1,12 +1,12 @@
 /**
  * Given N arrays return M arrays where each array is concatenations of slices of the two
- * 
+ *
  * Input:
  * [A,B,C]
  * [D,E,F]
  * [G,H,I]
  * ..,
- * 
+ *
  * Output:
  * [A,D,E,F]
  * [A,B,D,E,F]
