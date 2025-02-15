@@ -1,5 +1,5 @@
 /**
- * Minimum steps to one, Given number N and 3 possible operations, divide by 2, divide by 3, or subtract 1, give minimum possible 
+ * Minimum steps to one, Given number N and 3 possible operations, divide by 2, divide by 3, or subtract 1, give minimum possible
  */
 export const minimumStepsToOne = (n: number, cache: number[] = Array(n).fill(null)): number => {
     if (n === 1) {
