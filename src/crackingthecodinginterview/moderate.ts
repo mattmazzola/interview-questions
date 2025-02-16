@@ -1,7 +1,7 @@
 /**
  * 17.1 Swap number in place without temporary variable
  */
-// Don't understand question, Ifyou have two numbers just return the one you want?
+// Don't understand question, If you have two numbers just return the one you want?
 // Assume we're given two numbers, go through one number binary bits and XOR? Could rotate through each bit with mask?
 
 

@@ -1,6 +1,6 @@
 import { Edge, Graph, Node } from './models'
 
-const traversGraph = (addNodeIds: (traversalIds: string[], newIds: string[]) => void) => {
+const traverseGraph = (addNodeIds: (traversalIds: string[], newIds: string[]) => void) => {
     return <T>(graph: Graph<T, Edge>): string[] => {
         const path: string[] = []
         const visited = new Set<string>();
@@ -28,11 +28,11 @@ const traversGraph = (addNodeIds: (traversalIds: string[], newIds: string[]) => 
 
 const breadFirstAdd = (queue: string[], newIds: string[]) => queue.push(...newIds)
 
-export const breadthFirstTraversal = traversGraph(breadFirstAdd)
+export const breadthFirstTraversal = traverseGraph(breadFirstAdd)
 
 const depthFirstAdd = (stack: string[], newIds: string[]) => stack.unshift(...newIds)
 
-export const depthFirstTraversal = traversGraph(depthFirstAdd)
+export const depthFirstTraversal = traverseGraph(depthFirstAdd)
 
 export const depthFirstTraversalRecursive = <T>(
     graph: Graph<T>,
