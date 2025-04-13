@@ -41,17 +41,15 @@ export function findPathsRecursive(
             return
         }
 
-        // Add current position to path
-        path.push(`(${i},${j})`)
+        // If can move right, move right
+        if (j + 1 < cols) {
+            backtrack(i, j + 1, [...path, `(${i},${j})`])
+        }
 
-        // Move right
-        backtrack(i, j + 1, path)
-
-        // Move down
-        backtrack(i + 1, j, path)
-
-        // Backtrack: remove the last position from path to try another direction
-        path.pop()
+        // If can move down, move down
+        if (i + 1 < rows) {
+            backtrack(i + 1, j, [...path, `(${i},${j})`])
+        }
     }
 
     // Start the backtracking from the 'start' position
@@ -100,17 +98,17 @@ export function findPaths(
         // Base case: if we've reached the end position
         if (i === eRi && j === eCi) {
             paths.push([...path, `(${i},${j})`])
+            continue
         }
-        else {
-            // If can move right, move right
-            if (j + 1 < cols) {
-                stack.push({ i, j: j + 1, path: [...path, `(${i},${j})`] })
-            }
 
-            // If can move down, move down
-            if (i + 1 < rows) {
-                stack.push({ i: i + 1, j, path: [...path, `(${i},${j})`] })
-            }
+        // If can move right, move right
+        if (j + 1 < cols) {
+            stack.push({ i, j: j + 1, path: [...path, `(${i},${j})`] })
+        }
+
+        // If can move down, move down
+        if (i + 1 < rows) {
+            stack.push({ i: i + 1, j, path: [...path, `(${i},${j})`] })
         }
     }
 

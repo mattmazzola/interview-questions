@@ -1,5 +1,8 @@
 /**
- * Given matrix representing farm land where each cell is either a 1 or  0, 1 indicating good land 0 indicating bad, find the largest square of good land
+ * Given matrix representing farm land where each cell is either a 1 or 0
+ * 1 indicating good land
+ * 0 indicating bad land
+ * find the largest square of good land
  */
 
 
@@ -56,7 +59,7 @@ export function findLargestFarmLandSquare(
         }
 
         if (canExpand) {
-            return expandSquare(topLeft, size + 1)
+            expandSquare(topLeft, size + 1)
         } else {
             // Update largest to current size
             largestSquare = Math.max(largestSquare, size)

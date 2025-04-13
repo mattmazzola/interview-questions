@@ -6,7 +6,7 @@
 
 
 /**
- * 17.2 Has someone one game of tic tac toe
+ * 17.2 Has someone won a game of tic tac toe
  */
 export const hasWonTicTacToe = (board: number[][]): boolean => {
     // Test all rows
@@ -18,18 +18,16 @@ export const hasWonTicTacToe = (board: number[][]): boolean => {
 
     // Test diagonals
     const topLeft = board[0][0]
-    const diagonal1 = () => columnPlaceholder.every((_, i) => board[i][i] === topLeft)
+    const topLeftToBottomRight = () => columnPlaceholder.every((_, i) => board[i][i] === topLeft)
 
     const maxIndex = columnPlaceholder.length - 1
     const topRight = board[0][maxIndex]
-    const diagonal2 = () => columnPlaceholder.every((_, i) => board[i][maxIndex - i] === topRight)
+    const bottomLeftToTopRight = () => columnPlaceholder.every((_, i) => board[i][maxIndex - i] === topRight)
 
-    const x = completeRow()
+    return completeRow()
         || completeColumn()
-
-    return x
-        || diagonal1()
-        || diagonal2()
+        || topLeftToBottomRight()
+        || bottomLeftToTopRight()
 }
 
 /**
