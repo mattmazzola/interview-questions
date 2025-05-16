@@ -8,8 +8,12 @@
  */
 
 export function minCostClimbingStairs(cost: number[]): number {
+    // Handle edge cases
+    if (cost.length === 0) return 0
+    if (cost.length === 1) return cost[0]
+
     // Initialize dynamic programming array, minimum cost per stair
-    const dp = Array.from<number>({ length: cost.length }).fill(0)
+    const dp = Array(cost.length).fill(0)
 
     // Base cases
     dp[0] = cost[0]

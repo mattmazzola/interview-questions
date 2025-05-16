@@ -10,14 +10,14 @@ describe('Minimum Cost Climbing Stairs', () => {
     })
 
     test('Given stairs with two steps, return the minimum cost of the two steps', () => {
-        expect(minCostClimbingStairs([10, 15])).toEqual(15)
+        expect(minCostClimbingStairs([10, 15])).toEqual(10)
     })
 
     test('Given stairs with three steps, return the minimum cost to reach the top', () => {
-        expect(minCostClimbingStairs([10, 0, 20])).toEqual(20)
+        expect(minCostClimbingStairs([10, 0, 20])).toEqual(0)
     })
 
     test('Given stairs with four steps, return the minimum cost to reach the top', () => {
-        expect(minCostClimbingStairs([1, 2, 1, -1, 4])).toEqual(5)
+        expect(minCostClimbingStairs([1, 2, 1, -1, 4])).toEqual(1)
     })
 })
